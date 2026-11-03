@@ -1,6 +1,12 @@
 # TechNext sales proposal template: BIR CAS on Odoo
 
-An interactive proposal in the style of an Odoo online quotation: a cover page, then the proposal with a sticky side panel (live total, Accept & sign, PDF, sections, your contact), live pricing with optional items and support plans, and an Odoo-style signature dialog.
+An interactive proposal in the style of an Odoo online quotation, in three parts the reader switches between (part bar at the top, sections grouped in the side panel, which also carries the live total, Accept & sign, PDF and your contact):
+
+1. **Solution showcase**: letter to the CEO, an animated tour of the eight services as looping Odoo screens, today vs Odoo (drag compare and a re-keying calculator), the sites-to-database-to-BIR-outputs network, the BIR requirements map, who does what, the delivery plan, the team, why TechNext and the FAQ.
+2. **Commercial proposal**: investment summary and chart, Odoo-style quotation lines, scope S1 to S7, optional items, support plans and the payment schedule. Every figure recalculates as options and plans change.
+3. **Terms and conditions**: service levels for the chosen plan, key terms, clauses T1 to T13, the BIR disclaimer and the sign-off (Odoo-style signature dialog; print shows signature lines for both parties).
+
+Link straight to a part with `#part-1`, `#part-2` or `#part-3`, or to any section id.
 
 Live demo (sample data only): https://technextmarketing.github.io/technext-proposal-bir-cas/
 
@@ -13,8 +19,8 @@ Everything in this version is **sample data**: the client (Sample Trading Corp.)
    - `Sample Trading Corp.`, `Juan Dela Cruz`, `President &amp; CEO`, `Ms. Ana Reyes`
    - proposal number `S00147`, dates (`3 November 2026`, `3 December 2026`, `16 November`, `4 January 2027`)
    - the client logo in `.client-mark` (replace the SVG with an `<img>`)
-3. Prices: edit the `data-qty`, `data-unit` and `data-disc` attributes on each `[data-line]` row in section 10, and the visible numbers in the same rows. Optional items use `data-unit` on each `[data-opt]`. Support plan prices and response times are in `PLANS` at the top of `assets/proposal.js`. Totals, VAT, the payment schedule and the side panel recalculate from these.
-4. Update the cover's Odoo panel subtotals (four section rows) and the letter in section 1.
+3. Prices: edit the `data-qty`, `data-unit` and `data-disc` attributes on each `[data-line]` row in Part 2 (section 2.2), and the visible numbers in the same rows. Optional items use `data-unit` on each `[data-opt]`. Support plan prices and response times are in `PLANS` at the top of `assets/proposal.js`. Totals, VAT, the payment schedule and the side panel recalculate from these.
+4. Update the cover's Odoo panel subtotals (four section rows), the letter (1.1) and the showcase scenes (1.2), which carry sample client details.
 5. Update the expiry date in `assets/proposal.js` (`expiry()`) and the plan start date in the Gantt block if the dates move.
 6. Remove every "Sample data" / "Sample figures" tag once the content is real.
 7. Single file for email or Drive: `python tools/build_single.py "Proposal - <Client>.html"`. PDF: open the page in Chrome and use the PDF button (A4, desktop layout, signature lines for both parties).

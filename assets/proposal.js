@@ -83,6 +83,9 @@
     setOut('recurring', '+ PHP ' + money(plan.price, 0) + ' / month + VAT, support from Feb 2027');
     setOut('plan-name', plan.name);
     setOut('plan-price', 'PHP ' + money(plan.price, 0));
+    setOut('plan-monthly-vat', 'PHP ' + money(Math.round(plan.price * (1 + VAT)), 0));
+    setMoney('year1', Math.round(grand + plan.price * (1 + VAT) * 11), v => 'PHP ' + money(v, 0));
+    renderMix(opts, untaxed);
     updateMailSigned();
   }
 
@@ -201,8 +204,7 @@
     $$('.o-status span').forEach(s => { const i = +s.dataset.st; s.className = i < 2 ? 'done' : 'on'; });
     updateMailSigned();
     dlgSign.close();
-    const target = $('#sign');
-    target && target.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+    showPart(3, { target: 'sign' });
   });
 
   function updateMailSigned() {
@@ -228,7 +230,7 @@
   /* ---------------- print ---------------- */
   let reclosed = [];
   function preparePrint() {
-    $$('.rv, .gantt, [data-hero-pack] .ic').forEach(el => el.classList.add('in'));
+    $$('.rv, .gantt, .mix, .ptl, [data-hero-pack] .ic').forEach(el => el.classList.add('in'));
     reclosed = $$('details:not([open])'); reclosed.forEach(d => { d.open = true; });
   }
   addEventListener('beforeprint', preparePrint);
@@ -289,7 +291,7 @@
   }
 
   /* ---------------- flow tabs ---------------- */
-  const tabs = $$('.flow-row [role=tab]');
+  const tabs = $$('.core-box [role=tab]');
   function selectTab(t, focus) {
     tabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; const p = document.getElementById(x.getAttribute('aria-controls')); if (p) p.hidden = !on; });
     if (focus) t.focus();
@@ -330,7 +332,7 @@
   }
 
   /* ---------------- reveal on scroll ---------------- */
-  const revealables = $$('.rv, .gantt');
+  const revealables = $$('.rv, .gantt, .mix, .ptl');
   if (!RM && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
     revealables.forEach(el => io.observe(el));
@@ -339,7 +341,7 @@
   /* pause loops off-screen */
   if ('IntersectionObserver' in window) {
     const lo = new IntersectionObserver(es => es.forEach(en => en.target.classList.toggle('paused', !en.isIntersecting)));
-    $$('.cover-panel, .flow').forEach(el => lo.observe(el));
+    $$('.cover-panel').forEach(el => lo.observe(el));
   }
 
   /* ---------------- scrollspy + progress ---------------- */
@@ -358,12 +360,252 @@
     requestAnimationFrame(() => {
       ticking = false;
       if (!prog || !doc) return;
-      const r = doc.getBoundingClientRect();
+      const r = ($('.part:not([hidden])') || doc).getBoundingClientRect();
       const k = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
       prog.style.transform = 'scaleX(' + k + ')';
     });
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* ================= v2: parts, showcase, architecture, chart, tilt ================= */
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* ---------- investment mix (ranked bars, one hue) ---------- */
+  function groups(opts) {
+    const out = []; let g = null;
+    $$('[data-lines] tr').forEach(tr => {
+      if (tr.classList.contains('qs')) { g = { lab: tr.textContent.trim(), amt: 0, items: [] }; out.push(g); return; }
+      if (!tr.hasAttribute('data-line') || !g) return;
+      const q = +tr.dataset.qty, u = +tr.dataset.unit, d = +(tr.dataset.disc || 0);
+      g.amt += q * u * (1 - d / 100);
+      g.items.push(tr.cells[0].firstChild.textContent.trim());
+    });
+    if (opts.length) out.push({ lab: 'Optional items', amt: opts.reduce((s, o) => s + o.amt, 0), items: opts.map(o => o.name), opt: true });
+    return out.map(x => Object.assign(x, { k: x.lab.toLowerCase().replace(/[^a-z]+/g, '-') }));
+  }
+  function renderMix(opts, untaxed) {
+    const list = $('[data-mix-list]'); if (!list) return;
+    if (!list.querySelector('li[data-k]')) list.innerHTML = '';
+    const gs = groups(opts).sort((a, b) => b.amt - a.amt);
+    const keep = new Set(gs.map(x => x.k));
+    $$('li[data-k]', list).forEach(li => { if (!keep.has(li.dataset.k)) li.remove(); });
+    gs.forEach((x, i) => {
+      let li = list.querySelector('li[data-k="' + x.k + '"]');
+      if (!li) {
+        li = document.createElement('li'); li.dataset.k = x.k;
+        li.innerHTML = '<span class="lab"></span><span class="val"></span><button class="bar2" type="button"><i></i></button>';
+      }
+      const pct = untaxed ? x.amt / untaxed * 100 : 0;
+      li.className = x.opt ? 'opt' : '';
+      li.style.setProperty('--i', i);
+      $('.lab', li).textContent = x.lab;
+      $('.val', li).innerHTML = money(x.amt, 0) + '<small>' + Math.round(pct) + '%</small>';
+      const bar = $('.bar2', li);
+      bar.style.setProperty('--w', pct.toFixed(1));
+      bar.dataset.tipt = x.lab + ': PHP ' + money(x.amt, 0);
+      bar.dataset.tipd = x.items.join(', ');
+      bar.setAttribute('aria-label', x.lab + ', PHP ' + money(x.amt, 0) + ', ' + Math.round(pct) + ' percent of the untaxed amount');
+      list.appendChild(li);
+    });
+  }
+  const mix = $('[data-mix]'), tip = $('[data-tip]');
+  if (mix && tip) {
+    const showTip = b => {
+      tip.innerHTML = '<b>' + esc(b.dataset.tipt) + '</b>' + esc(b.dataset.tipd);
+      const m = mix.getBoundingClientRect(), r = b.getBoundingClientRect();
+      tip.style.left = Math.max(8, Math.min(m.width - 290, r.left - m.left)) + 'px';
+      tip.style.top = (r.top - m.top - tip.offsetHeight - 8) + 'px';
+      tip.classList.add('on');
+    };
+    const hideTip = () => tip.classList.remove('on');
+    mix.addEventListener('pointerover', e => { const b = e.target.closest('.bar2'); if (b) showTip(b); });
+    mix.addEventListener('pointerout', e => { if (e.target.closest('.bar2')) hideTip(); });
+    mix.addEventListener('focusin', e => { const b = e.target.closest('.bar2'); if (b) showTip(b); });
+    mix.addEventListener('focusout', hideTip);
+  }
+
+  /* ---------- parts ---------- */
+  const partEls = $$('.part[data-part]');
+  const partTabs = $$('[data-partbar] [role=tab]');
+  const ind = $('[data-partbar] .ind');
+  let curPart = 1;
+  function moveInd() {
+    const t = partTabs[curPart - 1]; if (!t || !ind) return;
+    ind.style.transform = 'translateX(' + t.offsetLeft + 'px) scaleX(' + t.offsetWidth + ')';
+  }
+  function showPart(n, o) {
+    o = o || {};
+    n = Math.max(1, Math.min(3, +n || 1));
+    const changed = n !== curPart;
+    const apply = () => {
+      curPart = n;
+      partEls.forEach(p => { p.hidden = +p.dataset.part !== n; });
+      partTabs.forEach((t, i) => { const on = i === n - 1; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+      $$('[data-toc-part]').forEach(g => g.classList.toggle('on', +g.dataset.tocPart === n));
+      moveInd();
+      if (changed && !RM && !document.startViewTransition) { const el = partEls[n - 1]; el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter'); }
+      onScroll();
+    };
+    const after = () => {
+      if (o.scroll !== false) {
+        const t = o.target ? document.getElementById(o.target) : $('#portal');
+        if (t) t.scrollIntoView({ behavior: RM || o.instant ? 'auto' : 'smooth', block: 'start' });
+      }
+      if (o.hash !== false) try { history.replaceState(null, '', '#' + (o.target || 'part-' + n)); } catch (e) { /* file:// may refuse */ }
+    };
+    if (changed && !RM && !o.instant && document.startViewTransition) document.startViewTransition(apply).updateCallbackDone.then(after, after);
+    else { apply(); after(); }
+  }
+  function partOf(id) { const el = document.getElementById(id); const p = el && el.closest('.part[data-part]'); return p ? +p.dataset.part : 0; }
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-goto]');
+    if (g) { e.preventDefault(); showPart(g.dataset.goto); return; }
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href').length < 2) return;
+    const id = a.getAttribute('href').slice(1), p = partOf(id);
+    if (p && p !== curPart) { e.preventDefault(); showPart(p, { target: id }); }
+  });
+  partTabs.forEach((t, i) => t.addEventListener('keydown', e => {
+    let n = -1;
+    if (e.key === 'ArrowRight') n = (i + 1) % 3; if (e.key === 'ArrowLeft') n = (i + 2) % 3;
+    if (e.key === 'Home') n = 0; if (e.key === 'End') n = 2;
+    if (n > -1) { e.preventDefault(); showPart(n + 1, { scroll: false }); partTabs[n].focus(); }
+  }));
+  function fromHash(instant) {
+    const h = decodeURIComponent(location.hash.slice(1));
+    const m = /^part-(\d)$/.exec(h);
+    if (m) showPart(+m[1], { instant, scroll: !instant, hash: false });
+    else if (h && partOf(h)) showPart(partOf(h), { instant, target: h, hash: false });
+    else if (instant) showPart(1, { instant: true, scroll: false, hash: false });
+  }
+  addEventListener('hashchange', () => fromHash(false));
+  addEventListener('resize', moveInd);
+
+  /* ---------- tilt (pointer-driven camera on the Odoo screens) ---------- */
+  const fine = matchMedia('(pointer: fine)').matches;
+  $$('[data-tilt]').forEach(t => {
+    const base = t.matches('.cover-panel') ? { rx: 4, ry: -8 } : { rx: 5, ry: -9 };
+    const set = (rx, ry) => { t.style.setProperty('--rx', rx + 'deg'); t.style.setProperty('--ry', ry + 'deg'); };
+    if (RM) return;
+    set(base.rx, base.ry);
+    if (!fine) return;
+    t.addEventListener('pointermove', e => {
+      const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      set((base.rx - y * 5).toFixed(2), (base.ry + x * 9).toFixed(2));
+    });
+    t.addEventListener('pointerleave', () => set(base.rx, base.ry));
+  });
+
+  /* ---------- services showcase (an auto tour of looping Odoo scenes) ---------- */
+  const show = $('[data-show]');
+  if (show) {
+    const svcs = $$('.svc', show), scenes = svcs.map(s => document.getElementById(s.getAttribute('aria-controls')));
+    const crumb = $('[data-sc-crumb]'), icon = $('[data-sc-icon]'), get = $('[data-sc-get]'), ref = $('[data-sc-ref]');
+    const tog = $('[data-show-toggle]'), replay = $('[data-show-replay]');
+    let cur = 0, started = false;
+    if (RM) {
+      show.classList.remove('auto');
+      if (tog) tog.hidden = true;
+      if (replay) replay.hidden = true;
+      const note = document.createElement('span'); note.className = 'show-note'; note.textContent = 'Finished frames shown. Pick a service to see it.';
+      tog && tog.parentElement.appendChild(note);
+    }
+    const countScene = sc => $$('[data-scount]', sc).forEach(el => {
+      const to = +el.dataset.scount, f = el.dataset.sfmt || '{n}';
+      const host = el.closest('.a'), d = host ? parseFloat(host.style.getPropertyValue('--d')) || 0 : 0;
+      el.textContent = f.replace('{n}', 0);
+      setTimeout(() => tween(0, to, 1200, v => { el.textContent = f.replace('{n}', Math.round(v).toLocaleString('en-PH')); }), d * 1000 + 250);
+    });
+    const play = sc => { if (RM) return; sc.classList.remove('play', 'enter'); void sc.offsetWidth; sc.classList.add('play', 'enter'); countScene(sc); };
+    const restartBar = s => { const b = $('.prog i', s); if (b) { b.style.animation = 'none'; void b.offsetWidth; b.style.animation = ''; } };
+    function setAuto(on) {
+      show.classList.toggle('auto', on);
+      if (tog) { tog.setAttribute('aria-pressed', String(!on)); $('span', tog).textContent = on ? 'Pause tour' : 'Play tour'; $('use', tog).setAttribute('href', on ? '#i-pause' : '#i-play'); }
+      if (on) restartBar(svcs[cur]);
+    }
+    function select(i, o) {
+      o = o || {};
+      cur = (i + svcs.length) % svcs.length;
+      svcs.forEach((s, k) => { const on = k === cur; s.setAttribute('aria-selected', on); s.tabIndex = on ? 0 : -1; });
+      scenes.forEach((sc, k) => { sc.classList.toggle('on', k === cur); if (k !== cur) sc.classList.remove('play', 'enter'); });
+      const s = svcs[cur], ic = $('.svc-ic', s);
+      crumb.textContent = s.dataset.crumb;
+      if (ic) icon.src = ic.src;
+      get.innerHTML = s.dataset.get.split('|').map(t => '<li><svg class="ic"><use href="#i-check"/></svg>' + esc(t) + '</li>').join('');
+      ref.textContent = s.dataset.ref;
+      restartBar(s);
+      const rail = s.parentElement;
+      if (rail.scrollWidth > rail.clientWidth + 4) rail.scrollTo({ left: s.offsetLeft - 8, behavior: RM ? 'auto' : 'smooth' });
+      play(scenes[cur]);
+      if (o.user) setAuto(false);
+      if (o.focus) s.focus();
+    }
+    svcs.forEach((s, i) => {
+      s.addEventListener('click', () => select(i, { user: true }));
+      s.addEventListener('keydown', e => {
+        let n = -1;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = i + 1;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = i - 1;
+        if (e.key === 'Home') n = 0; if (e.key === 'End') n = svcs.length - 1;
+        if (n > -1) { e.preventDefault(); select(n, { user: true, focus: true }); }
+      });
+    });
+    show.addEventListener('animationend', e => {
+      if (e.animationName === 'progress' && show.classList.contains('auto')) select(cur + 1);
+    });
+    show.addEventListener('pointerenter', () => show.classList.add('hold'));
+    show.addEventListener('pointerleave', () => show.classList.remove('hold'));
+    tog && tog.addEventListener('click', () => setAuto(!show.classList.contains('auto')));
+    replay && replay.addEventListener('click', () => { play(scenes[cur]); restartBar(svcs[cur]); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => es.forEach(en => {
+        show.classList.toggle('paused', !en.isIntersecting);
+        if (en.isIntersecting && !started) { started = true; select(0); }
+      }), { threshold: .3 }).observe(show);
+    }
+  }
+
+  /* ---------- architecture: three sites -> one database -> BIR outputs ---------- */
+  const arch = $('[data-arch]');
+  function drawArch() {
+    if (!arch || !arch.offsetWidth) return;
+    const svg = $('[data-arch-svg]', arch), box = arch.getBoundingClientRect(), core = $('[data-core]', arch).getBoundingClientRect();
+    const rel = r => ({ l: r.left - box.left, r: r.right - box.left, t: r.top - box.top, b: r.bottom - box.top, cx: r.left - box.left + r.width / 2, cy: r.top - box.top + r.height / 2 });
+    const C = rel(core), side = getComputedStyle(arch).gridTemplateColumns.trim().split(/\s+/).length > 1;
+    const clampY = y => Math.max(C.t + 36, Math.min(C.b - 24, y));
+    let paths = '', dots = '', n = 0;
+    const add = (d, el, delay) => {
+      const id = 'ap' + n++;
+      paths += '<path id="' + id + '" d="' + d + '"/>';
+      if (!RM) dots += '<circle r="4.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="' + delay + 's" path="' + d + '"/></circle>';
+      el.dataset.path = id;
+    };
+    $$('[data-from]', arch).forEach((el, i) => {
+      const a = rel(el.getBoundingClientRect());
+      let d;
+      if (side) { const y2 = clampY(a.cy), mx = (a.r + C.l) / 2; d = 'M' + a.r + ',' + a.cy + ' C' + mx + ',' + a.cy + ' ' + mx + ',' + y2 + ' ' + C.l + ',' + y2; }
+      else { const my = (a.b + C.t) / 2; d = 'M' + a.cx + ',' + a.b + ' C' + a.cx + ',' + my + ' ' + C.cx + ',' + my + ' ' + C.cx + ',' + C.t; }
+      add(d, el, (i * .55).toFixed(2));
+    });
+    $$('[data-to]', arch).forEach((el, i) => {
+      const a = rel(el.getBoundingClientRect());
+      let d;
+      if (side) { const y1 = clampY(a.cy), mx = (C.r + a.l) / 2; d = 'M' + C.r + ',' + y1 + ' C' + mx + ',' + y1 + ' ' + mx + ',' + a.cy + ' ' + a.l + ',' + a.cy; }
+      else { const my = (C.b + a.t) / 2; d = 'M' + C.cx + ',' + C.b + ' C' + C.cx + ',' + my + ' ' + a.cx + ',' + my + ' ' + a.cx + ',' + a.t; }
+      add(d, el, (1.2 + i * .4).toFixed(2));
+    });
+    svg.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height);
+    svg.innerHTML = paths + dots;
+  }
+  if (arch) {
+    if ('ResizeObserver' in window) new ResizeObserver(drawArch).observe(arch); else addEventListener('resize', drawArch);
+    arch.addEventListener('pointerover', e => { const n = e.target.closest('[data-path]'); if (n) { n.classList.add('hot'); const p = document.getElementById(n.dataset.path); p && p.classList.add('hot'); } });
+    arch.addEventListener('pointerout', e => { const n = e.target.closest('[data-path]'); if (n) { n.classList.remove('hot'); const p = document.getElementById(n.dataset.path); p && p.classList.remove('hot'); } });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(en => {
+      const svg = $('[data-arch-svg]', arch);
+      if (svg && svg.pauseAnimations) { if (en.isIntersecting) svg.unpauseAnimations(); else svg.pauseAnimations(); }
+    })).observe(arch);
+  }
 
   /* ---------------- cover replay (plays once) ---------------- */
   const cover = $('.cover');
@@ -383,5 +625,8 @@
   }
 
   recalc();
+  fromHash(true);
+  moveInd();
   requestAnimationFrame(heroIntro);
+  setTimeout(() => cover.classList.add('is-ready'), 1200);
 })();

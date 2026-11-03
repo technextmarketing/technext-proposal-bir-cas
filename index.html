@@ -42,6 +42,9 @@
     <symbol id="i-alert" viewBox="0 0 24 24"><path pathLength="1" d="M12 3.5l9.5 16.5h-19L12 3.5z"/><path pathLength="1" d="M12 10v4.5M12 17.2v.01"/></symbol>
     <symbol id="i-building" viewBox="0 0 24 24"><path pathLength="1" d="M4 21V5.5L12 3v18M12 8.5h8V21M3 21h18"/><path pathLength="1" d="M8 8v.01M8 12v.01M8 16v.01M16 12.5v.01M16 16.5v.01"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect pathLength="1" x="3" y="5" width="18" height="14" rx="2.5"/><path pathLength="1" d="M3.5 7l8.5 6 8.5-6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path pathLength="1" d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path pathLength="1" d="M7 5l12 7-12 7V5z"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path pathLength="1" d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4h4"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle pathLength="1" cx="9" cy="8" r="3.3"/><path pathLength="1" d="M3 20c.4-3.3 2.9-5.6 6-5.6s5.6 2.3 6 5.6M16 4.8a3.2 3.2 0 010 6.3M21 20c-.3-2.4-1.6-4.3-3.6-5.2"/></symbol>
   </defs>
 </svg>
@@ -78,13 +81,18 @@
           <div><dt>Target go-live</dt><dd>Mon 4 January 2027</dd></div>
         </dl>
         <div class="cover-cta stage" style="--i:4">
-          <a class="btn btn-primary btn-lg" href="#letter">Review the proposal <svg class="ic arr"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-primary btn-lg" href="#part-1" data-goto="1">Open the proposal <svg class="ic arr"><use href="#i-arrow"/></svg></a>
           <button class="btn btn-ghost btn-lg" type="button" data-open-sign><svg class="ic"><use href="#i-pen"/></svg> Accept &amp; sign</button>
         </div>
-        <p class="notice stage" style="--i:5"><svg class="ic"><use href="#i-info"/></svg><span>We set up Odoo and prepare your CAS samples with you. You file at your Revenue District Office (RDO), and the registration decision is the BIR's.</span></p>
+        <ol class="cover-parts stage" style="--i:5" aria-label="The three parts of this proposal">
+          <li><a href="#part-1" data-goto="1"><b>Part 1: Solution showcase</b><small>Eight services at work, plan, team, FAQ</small></a></li>
+          <li><a href="#part-2" data-goto="2"><b>Part 2: Commercial proposal</b><small>Investment, options, support, payment</small></a></li>
+          <li><a href="#part-3" data-goto="3"><b>Part 3: Terms and conditions</b><small>Service levels, terms, sign-off</small></a></li>
+        </ol>
+        <p class="notice stage" style="--i:6"><svg class="ic"><use href="#i-info"/></svg><span>We set up Odoo and prepare your CAS samples with you. You file at your Revenue District Office (RDO), and the registration decision is the BIR's.</span></p>
       </div>
 
-      <div class="cover-panel stage" style="--i:3" data-hero>
+      <div class="cover-panel stage tilt" style="--i:3" data-hero data-tilt>
         <div class="owin">
           <span class="live-edge" aria-hidden="true"></span>
           <div class="owin-bar">
@@ -165,22 +173,40 @@
     </div>
     <nav class="side-card" style="padding:10px" aria-label="Sections">
       <div class="toc-prog" aria-hidden="true"><i data-prog></i></div>
-      <ol class="toc">
-        <li><a href="#letter"><span class="n">1</span>Letter to the CEO</a></li>
-        <li><a href="#today"><span class="n">2</span>Where you are today</a></li>
-        <li><a href="#solution"><span class="n">3</span>What we recommend</a></li>
-        <li><a href="#scope"><span class="n">4</span>Scope of work</a></li>
-        <li><a href="#cas"><span class="n">5</span>BIR requirements map</a></li>
-        <li><a href="#roles"><span class="n">6</span>Who does what</a></li>
-        <li><a href="#plan"><span class="n">7</span>Plan to go-live</a></li>
-        <li><a href="#team"><span class="n">8</span>Your project team</a></li>
-        <li><a href="#sla"><span class="n">9</span>Service levels</a></li>
-        <li><a href="#pricing"><span class="n">10</span>Investment</a></li>
-        <li><a href="#why"><span class="n">11</span>Why TechNext</a></li>
-        <li><a href="#terms"><span class="n">12</span>Terms</a></li>
-        <li><a href="#faq"><span class="n">13</span>Questions</a></li>
-        <li><a href="#sign"><span class="n">14</span>Accept &amp; sign</a></li>
-      </ol>
+      <div class="toc-part on" data-toc-part="1">
+        <button class="toc-ph" type="button" data-goto="1"><span class="n">1</span>Solution showcase</button>
+        <ol class="toc">
+          <li><a href="#letter"><span class="n">1.1</span>Letter to the CEO</a></li>
+          <li><a href="#services"><span class="n">1.2</span>Services showcase</a></li>
+          <li><a href="#today"><span class="n">1.3</span>Where you are today</a></li>
+          <li><a href="#solution"><span class="n">1.4</span>How it connects</a></li>
+          <li><a href="#cas"><span class="n">1.5</span>BIR requirements map</a></li>
+          <li><a href="#roles"><span class="n">1.6</span>Who does what</a></li>
+          <li><a href="#plan"><span class="n">1.7</span>Delivery plan</a></li>
+          <li><a href="#team"><span class="n">1.8</span>Your project team</a></li>
+          <li><a href="#why"><span class="n">1.9</span>Why TechNext</a></li>
+          <li><a href="#faq"><span class="n">1.10</span>Questions</a></li>
+        </ol>
+      </div>
+      <div class="toc-part" data-toc-part="2">
+        <button class="toc-ph" type="button" data-goto="2"><span class="n">2</span>Commercial proposal</button>
+        <ol class="toc">
+          <li><a href="#summary"><span class="n">2.1</span>Investment summary</a></li>
+          <li><a href="#pricing"><span class="n">2.2</span>Quotation lines</a></li>
+          <li><a href="#scope"><span class="n">2.3</span>Scope and deliverables</a></li>
+          <li><a href="#options"><span class="n">2.4</span>Optional items</a></li>
+          <li><a href="#plans"><span class="n">2.5</span>Support plans</a></li>
+          <li><a href="#payment"><span class="n">2.6</span>Payment schedule</a></li>
+        </ol>
+      </div>
+      <div class="toc-part" data-toc-part="3">
+        <button class="toc-ph" type="button" data-goto="3"><span class="n">3</span>Terms and conditions</button>
+        <ol class="toc">
+          <li><a href="#sla"><span class="n">3.1</span>Service levels</a></li>
+          <li><a href="#terms"><span class="n">3.2</span>Terms</a></li>
+          <li><a href="#sign"><span class="n">3.3</span>Accept and sign</a></li>
+        </ol>
+      </div>
     </nav>
     <div class="side-card side-adv">
       <img src="assets/img/team/jeric-bulayungan.webp" alt="" width="48" height="48" loading="lazy">
@@ -189,7 +215,18 @@
   </aside>
 
   <main class="doc" id="main">
-
+    <div class="partbar" role="tablist" aria-label="Proposal parts" data-partbar>
+      <button type="button" role="tab" id="tab-1" aria-controls="part-1" aria-selected="true" data-goto="1"><span class="pn">1</span><span><b>Solution showcase</b><small>What we deliver and how</small></span></button>
+      <button type="button" role="tab" id="tab-2" aria-controls="part-2" aria-selected="false" tabindex="-1" data-goto="2"><span class="pn">2</span><span><b>Commercial proposal</b><small>Investment and payment</small></span></button>
+      <button type="button" role="tab" id="tab-3" aria-controls="part-3" aria-selected="false" tabindex="-1" data-goto="3"><span class="pn">3</span><span><b>Terms and conditions</b><small>Service levels and sign-off</small></span></button>
+      <span class="ind" aria-hidden="true"></span>
+    </div>
+    <section class="part" id="part-1" data-part="1" role="tabpanel" aria-labelledby="tab-1" tabindex="-1">
+    <header class="part-head rv" id="p1-head">
+      <h2>What TechNext will deliver for your three sites, and how it works.</h2>
+      <p>Eight services from one team, shown at work in Odoo, then the plan, the people and the questions CEOs ask. Prices are in Part 2; service levels, terms and sign-off are in Part 3.</p>
+      <ul class="part-index"><li><a href="#services"><span>1.2</span>Services showcase</a></li><li><a href="#today"><span>1.3</span>Where you are today</a></li><li><a href="#solution"><span>1.4</span>How it connects</a></li><li><a href="#plan"><span>1.7</span>Delivery plan</a></li><li><a href="#faq"><span>1.10</span>Questions</a></li></ul>
+    </header>
     <!-- 1 LETTER -->
     <section class="sec" id="letter" aria-labelledby="h-letter">
       <div class="sec-head rv">
@@ -219,6 +256,193 @@
       </dl>
     </section>
 
+    <!-- 1.2 SERVICES SHOWCASE -->
+    <section class="sec" id="services" aria-labelledby="h-svc">
+      <div class="sec-head rv">
+        <h2 id="h-svc">Eight services, one team. Watch each one at work in Odoo.</h2>
+        <p class="sec-lead">Each service plays as it will run for Sample Trading Corp. Pick one to stop the tour and see what you receive.</p>
+      </div>
+      <div class="show auto rv" data-show>
+        <div>
+          <div class="svc-list" role="tablist" aria-label="Services" aria-orientation="vertical">
+            <button class="svc" role="tab" id="sv-1" aria-controls="sc-1" aria-selected="true" data-crumb="Project / Sample Trading Corp. / Discovery" data-icon="project" data-get="Business Requirements Document|Registration path|Cut-over calendar" data-ref="Scope S1 · quotation line 1"><span class="n">01</span><span><b><img class="svc-ic" src="assets/img/odoo/project.svg" alt="" width="20" height="20">Discovery and registration path</b><span class="more"><span>Three workshops, CAS or CBA confirmed with your accountant, branch and booklet inventory.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-2" aria-controls="sc-2" aria-selected="false" tabindex="-1" data-crumb="Accounting / Configuration / Chart of accounts" data-icon="accountant" data-get="Configured Odoo database|Configuration guide|Roles and access matrix" data-ref="Scope S2 · quotation line 2"><span class="n">02</span><span><b><img class="svc-ic" src="assets/img/odoo/accountant.svg" alt="" width="20" height="20">Accounting and Philippine localisation</b><span class="more"><span>Chart of accounts from your trial balance, VAT and withholding, secured journals and lock dates.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-3" aria-controls="sc-3" aria-selected="false" tabindex="-1" data-crumb="Sales / Orders / S00412" data-icon="sale" data-get="Sales-to-invoice flow|Purchase-to-pay flow|Three warehouses" data-ref="Scope S3 · quotation line 3"><span class="n">03</span><span><b><img class="svc-ic" src="assets/img/odoo/sale.svg" alt="" width="20" height="20">Sales, purchase and inventory</b><span class="more"><span>Orders, deliveries and stock at Quezon City, Cebu and Davao, valued as they move.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-4" aria-controls="sc-4" aria-selected="false" tabindex="-1" data-crumb="Invoicing / Customers / INV/HO/000412" data-icon="account" data-get="Three invoice layouts|A series per branch|REPRINT on copies" data-ref="Scope S3 · quotation line 4"><span class="n">04</span><span><b><img class="svc-ic" src="assets/img/odoo/account.svg" alt="" width="20" height="20">Branch invoices and layout</b><span class="more"><span>System invoices on a series per branch, EOPT fields, your AC control number, "REPRINT" on copies.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-5" aria-controls="sc-5" aria-selected="false" tabindex="-1" data-crumb="Settings / Import / Final load" data-icon="spreadsheet_dashboard" data-get="Import templates|Two trial loads|Signed reconciliation report" data-ref="Scope S4 · quotation line 5"><span class="n">05</span><span><b><img class="svc-ic" src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="20" height="20">Data migration</b><span class="more"><span>Customers, vendors, products, stock and opening balances as of 31 December 2026, reconciled.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-6" aria-controls="sc-6" aria-selected="false" tabindex="-1" data-crumb="Documents / CAS application" data-icon="documents" data-get="System description|Sworn statement draft|Samples and audit trail printout" data-ref="Scope S5 · quotation line 6"><span class="n">06</span><span><b><img class="svc-ic" src="assets/img/odoo/documents.svg" alt="" width="20" height="20">CAS application pack</b><span class="more"><span>The Annex A documents printed from your own Odoo, for you to sign, notarise and file.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-7" aria-controls="sc-7" aria-selected="false" tabindex="-1" data-crumb="eLearning / Sample Trading Corp. / Billing" data-icon="website_slides" data-get="Four recorded sessions|Quick guides per role|UAT results log" data-ref="Scope S6 · quotation line 7"><span class="n">07</span><span><b><img class="svc-ic" src="assets/img/odoo/website_slides.svg" alt="" width="20" height="20">Training and user testing</b><span class="more"><span>Four role-based sessions, recorded, then user acceptance testing with your team.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-8" aria-controls="sc-8" aria-selected="false" tabindex="-1" data-crumb="Helpdesk / Sample Trading Corp. / #0108" data-icon="helpdesk" data-get="Go-live checklist|30 days of hypercare|Support plan in writing" data-ref="Scope S7 · quotation line 8"><span class="n">08</span><span><b><img class="svc-ic" src="assets/img/odoo/helpdesk.svg" alt="" width="20" height="20">Go-live, hypercare and support</b><span class="more"><span>Cut-over at year-end, daily check-ins in week one, then response times in writing.</span></span></span><span class="prog"><i></i></span></button>
+          </div>
+          <div class="show-ctrl"><button type="button" data-show-toggle aria-pressed="false"><svg class="ic"><use href="#i-pause"/></svg><span>Pause tour</span></button><button type="button" data-show-replay><svg class="ic"><use href="#i-replay"/></svg>Replay</button></div>
+        </div>
+        <div>
+          <div class="stage tilt" data-tilt>
+            <div class="screen">
+              <div class="owin-bar">
+                <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="crumb"><img src="assets/img/odoo/project.svg" alt="" width="18" height="18" data-sc-icon><span data-sc-crumb>Project / Sample Trading Corp. / Discovery</span></span>
+                <span class="tag">Sample data</span>
+              </div>
+              <div class="screen-body">
+
+                <div class="scene on" role="tabpanel" id="sc-1" aria-labelledby="sv-1">
+                  <div class="sc-h"><b>Discovery and registration path</b><small>Week 1 · 16 to 20 Nov</small></div>
+                  <div class="kb">
+                    <div class="kb-col"><p class="kb-h">To do <span>0</span></p></div>
+                    <div class="kb-col"><p class="kb-h">In progress <span>1</span></p></div>
+                    <div class="kb-col"><p class="kb-h">Done <span>4</span></p></div>
+                    <div class="kb-card c3" style="--r:0;--d:.2s"><div>Finance workshop<small>Ms. Reyes, 2 hours</small></div></div>
+                    <div class="kb-card c3" style="--r:1;--d:.75s"><div>Billing workshop<small>All three sites</small></div></div>
+                    <div class="kb-card c3" style="--r:2;--d:1.3s"><div>Warehouse workshop<small>QC, Cebu, Davao</small></div></div>
+                    <div class="kb-card c3" style="--r:3;--d:1.85s"><div>Branch TIN codes<small>00000 to 00002</small></div></div>
+                    <div class="kb-card c2" style="--r:4;--d:2.4s"><div>BRD sign-off<small>Due Fri 20 Nov</small></div></div>
+                  </div>
+                  <div class="sc-foot"><span class="chipx ok a" style="--k:pop;--d:3.4s"><svg class="ic"><use href="#i-check"/></svg>Path: CAS, confirmed by your accountant</span><span class="chipx blue a" style="--k:pop;--d:3.7s">BRD sign-off Fri 20 Nov</span></div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-2" aria-labelledby="sv-2">
+                  <div class="sc-h"><b>Chart of accounts and Philippine taxes</b><small>Mapped from your trial balance</small></div>
+                  <div class="two-sc">
+                    <div><p class="mini-h4">Chart of accounts</p>
+                      <div class="rows">
+                        <div class="rowx a" style="--k:slide;--d:.2s"><code>110100</code><span>Cash in bank, head office</span><em>Asset</em></div>
+                        <div class="rowx a" style="--k:slide;--d:.4s"><code>120100</code><span>Accounts receivable</span><em>Receivable</em></div>
+                        <div class="rowx a" style="--k:slide;--d:.6s"><code>140100</code><span>Inventory, Quezon City</span><em>Asset</em></div>
+                        <div class="rowx a" style="--k:slide;--d:.8s"><code>210500</code><span>Output VAT 12%</span><em>Liability</em></div>
+                        <div class="rowx a" style="--k:slide;--d:1s"><code>210600</code><span>Withholding tax payable</span><em>Liability</em></div>
+                        <div class="rowx a" style="--k:slide;--d:1.2s"><code>400100</code><span>Sales, goods</span><em>Income</em></div>
+                      </div>
+                    </div>
+                    <div><p class="mini-h4">Taxes</p>
+                      <div class="tax">
+                        <span class="a" style="--k:pop;--d:1.5s">VAT 12% <em>Sales</em></span>
+                        <span class="a" style="--k:pop;--d:1.7s">VAT 12% <em>Purchases</em></span>
+                        <span class="a" style="--k:pop;--d:1.9s">EWT 1% · WC158 <em>Goods</em></span>
+                        <span class="a" style="--k:pop;--d:2.1s">EWT 2% · WC160 <em>Services</em></span>
+                      </div>
+                      <p class="mini-h4" style="margin-top:12px">Controls</p>
+                      <div class="rows">
+                        <div class="rowx a" style="--d:2.4s;grid-template-columns:1fr auto"><span>Audit trail</span><span class="tog" style="--d:2.7s"><i></i></span></div>
+                        <div class="rowx a" style="--d:2.8s;grid-template-columns:1fr auto"><span>Secured journals (hash)</span><span class="tog" style="--d:3.1s"><i></i></span></div>
+                        <div class="rowx a" style="--d:3.2s;grid-template-columns:1fr auto"><span>Lock date</span><b>31 Jan 2027</b></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-3" aria-labelledby="sv-3">
+                  <div class="sc-h"><b>From order to stock, at three sites</b><small>One sample order</small></div>
+                  <div class="ops-flow">
+                    <div class="rowx a" style="--d:.2s"><b>S00412 confirmed</b><small>Northpoint Hardware · 18,480.00</small></div>
+                    <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+                    <div class="rowx a" style="--d:.8s"><b>QC/OUT/00231 done</b><small>Delivered from Quezon City</small></div>
+                    <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+                    <div class="rowx a" style="--d:1.4s"><b>INV/HO/000412 posted</b><small>Due in 30 days</small></div>
+                  </div>
+                  <p class="mini-h4">Stock on hand, item SKU-2210</p>
+                  <div class="wh">
+                    <div><span>Quezon City</span><span class="meter"><i style="width:82%;--d:1.8s"></i></span><b>1,215</b></div>
+                    <div><span>Cebu</span><span class="meter"><i style="width:41%;--d:2s"></i></span><b>610</b></div>
+                    <div><span>Davao</span><span class="meter"><i style="width:31%;--d:2.2s"></i></span><b>455</b></div>
+                    <div><span>In transit</span><span class="meter"><i style="width:8%;--d:2.4s"></i></span><b>120</b></div>
+                  </div>
+                  <div class="sc-foot"><span class="chipx blue a" style="--k:pop;--d:2.9s">Stock value posted to Accounting</span><span class="chipx a" style="--k:pop;--d:3.2s"><svg class="ic"><use href="#i-check"/></svg>Credit limit checked</span></div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-4" aria-labelledby="sv-4">
+                  <div class="paper">
+                    <div class="copy" style="--d:2.6s" aria-hidden="true"><b>REPRINT</b></div>
+                    <div class="inv">
+                      <div class="inv-top a" style="--d:.1s"><div><b>Sample Trading Corp.</b><small>TIN 000-000-000-00000 · Head office 00000<br>Quezon City</small></div><div class="inv-no"><small>Sales invoice</small><strong>INV/HO/<span class="digits"><span style="--d:.5s">000412</span></span></strong></div></div>
+                      <table>
+                        <tr class="a" style="--k:slide;--d:.8s"><td>Northpoint Hardware · TIN 000-000-101-000</td><td class="r">01/10/2026</td></tr>
+                        <tr class="a" style="--k:slide;--d:1s"><td>Steel bar 10 mm × 200</td><td class="r">12,000.00</td></tr>
+                        <tr class="a" style="--k:slide;--d:1.2s"><td>Cement 40 kg × 90</td><td class="r">4,500.00</td></tr>
+                      </table>
+                      <div class="tot a" style="--d:1.5s"><span>Net 16,500.00 · VAT 1,980.00</span><span>Total 18,480.00</span></div>
+                      <div class="ac a" style="--k:pop;--d:2s">Your AC control number prints here once the RDO issues it</div>
+                    </div>
+                  </div>
+                  <div class="sc-foot"><span class="chipx ok a" style="--k:pop;--d:3.2s"><svg class="ic"><use href="#i-check"/></svg>One series per branch, six running digits</span><span class="chipx a" style="--k:pop;--d:3.5s">"REPRINT" on every copy</span></div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-5" aria-labelledby="sv-5">
+                  <div class="sc-h"><b>Final load, 2 to 3 January 2027</b><small>After two trial loads</small></div>
+                  <div class="term" aria-label="Import log">
+                    <div class="ln" style="--d:.2s"><span><span class="p">$</span> import customers.xlsx</span><span class="ok">1,800 done</span></div>
+                    <div class="ln" style="--d:.7s"><span><span class="p">$</span> import vendors.xlsx</span><span class="ok">420 done</span></div>
+                    <div class="ln" style="--d:1.2s"><span><span class="p">$</span> import products.xlsx</span><span class="ok">3,200 done</span></div>
+                    <div class="ln" style="--d:1.7s"><span><span class="p">$</span> import stock_on_hand.xlsx</span><span class="ok">3 warehouses</span></div>
+                    <div class="ln" style="--d:2.2s"><span><span class="p">$</span> import opening_tb_2026-12-31.xlsx</span><span class="ok">Dr = Cr</span></div>
+                    <div class="ln" style="--d:2.7s"><span><span class="p">$</span> import open_ar_ap.xlsx</span><span class="ok">642 items</span></div>
+                    <div class="ln" style="--d:3.2s"><span><span class="p">$</span> reconcile --against closing_2026</span><span class="ok">0 differences</span></div>
+                    <div class="ln" style="--d:3.7s"><span class="m">Reconciliation report sent to Finance for sign-off</span><span class="cursor"></span></div>
+                  </div>
+                  <div class="wh"><div><span>Records loaded</span><span class="meter"><i style="width:100%;--d:.2s;animation-duration:3.8s"></i></span><b data-scount="6062" data-sfmt="{n}">6,062</b></div></div>
+                  <div class="sc-foot"><span class="chipx blue a" style="--k:pop;--d:4s">Import templates and data checklist</span></div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-6" aria-labelledby="sv-6">
+                  <div class="sc-h"><b>Your CAS application pack</b><small>Annex A, from your own Odoo</small></div>
+                  <div class="pack">
+                    <div class="docs">
+                      <div class="docx a" style="--k:fly;--d:.3s"><img src="assets/img/odoo/documents.svg" alt="" width="20" height="20"><span>System description and process flow</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:.65s"><img src="assets/img/odoo/sign.svg" alt="" width="20" height="20"><span>Sworn statement, draft for your lawyer</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1s"><img src="assets/img/odoo/account.svg" alt="" width="20" height="20"><span>Sample invoices and supporting documents</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1.35s"><img src="assets/img/odoo/accountant.svg" alt="" width="20" height="20"><span>Sample books: GJ, GL, CRJ, CDJ, SJ, PJ</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1.7s"><img src="assets/img/odoo/knowledge.svg" alt="" width="20" height="20"><span>Audit trail printout and Annex B checklist</span><svg class="ic"><use href="#i-check"/></svg></div>
+                    </div>
+                    <div class="folder">
+                      <p class="f-h">CAS application pack</p>
+                      <p>For you to sign, notarise and file at your RDO. We stay on call for its questions.</p>
+                      <div class="stackp" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i></div>
+                      <span class="chipx ok a" style="--k:pop;--d:2.6s"><svg class="ic"><use href="#i-check"/></svg>Handover Fri 11 Dec</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-7" aria-labelledby="sv-7">
+                  <div class="sc-h"><b>Training and user testing</b><small>Week 5 · 14 to 18 Dec</small></div>
+                  <div class="video a" style="--k:pop"><b>Billing at the branches</b><small>Session 2 of 4 · recorded · 48 minutes</small><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+                    <div class="chap"><span style="--j:0">Finance<u><i></i></u></span><span style="--j:1">Billing<u><i></i></u></span><span style="--j:2">Warehouse<u><i></i></u></span><span style="--j:3">Management<u><i></i></u></span></div>
+                  </div>
+                  <div class="uat a" style="--d:1s"><strong data-scount="42" data-sfmt="{n} / 42">42 / 42</strong><div><b>UAT scripts passed</b><small>Signed off by your project owner, Fri 18 Dec</small></div></div>
+                  <div class="sc-foot"><span class="chipx blue a" style="--k:pop;--d:3.3s">Quick guide per role</span><span class="chipx a" style="--k:pop;--d:3.6s">Recordings kept for new staff</span></div>
+                </div>
+
+                <div class="scene" role="tabpanel" id="sc-8" aria-labelledby="sv-8">
+                  <div class="sc-h"><b>After go-live: one ticket, end to end</b><small>Example on the Priority plan</small></div>
+                  <div class="two-sc">
+                    <div><p class="mini-h4">Ticket #0108 · P2</p>
+                      <div class="tl">
+                        <div class="done a" style="--d:.2s"><b>2307 PDF missing the branch code</b><small>Logged by the Cebu branch, 9:12 am</small></div>
+                        <div class="done a" style="--d:.9s"><b>First response</b><small>9:58 am, inside the 4-hour target</small></div>
+                        <div class="done a" style="--d:1.6s"><b>Fixed and tested</b><small>Branch code added to the report header</small></div>
+                        <div class="a" style="--d:2.3s"><b>Closed by your team</b><small>Same day</small></div>
+                      </div>
+                    </div>
+                    <div><p class="mini-h4">This month</p>
+                      <div class="tiles">
+                        <div class="tile a" style="--k:pop;--d:.5s"><small>System</small><b class="ok">Live</b></div>
+                        <div class="tile a" style="--k:pop;--d:.7s"><small>Open P1 tickets</small><b>0</b></div>
+                        <div class="tile a" style="--k:pop;--d:.9s"><small>Plan hours used</small><b data-scount="11" data-sfmt="{n} of 20">11 of 20</b></div>
+                        <div class="tile a" style="--k:pop;--d:1.1s"><small>Median first response</small><b data-scount="38" data-sfmt="{n} min">38 min</b></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="stage-cap" aria-live="polite">
+            <div><h3>What you receive</h3><ul data-sc-get><li><svg class="ic"><use href="#i-check"/></svg>Business Requirements Document</li><li><svg class="ic"><use href="#i-check"/></svg>Registration path</li><li><svg class="ic"><use href="#i-check"/></svg>Cut-over calendar</li></ul></div>
+            <div class="ref"><a href="#scope" data-sc-ref>Scope S1 · quotation line 1</a><span class="muted">Sample screens</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- 2 TODAY -->
     <section class="sec" id="today" aria-labelledby="h-today">
       <div class="sec-head rv">
@@ -228,7 +452,7 @@
       <div class="cmp rv" style="--i:1" data-cmp>
         <div class="cmp-pane cmp-pane--before" role="group" aria-label="Today: spreadsheet sales book, sample data">
           <span class="cmp-cap cmp-cap--l"><svg class="ic" style="width:15px;height:15px;color:var(--amber)"><use href="#i-alert"/></svg>Today: spreadsheet book</span>
-          <div class="xl">
+          <div class="xl"><p class="swipe">Swipe the table sideways for every column.</p>
             <div class="xl-file"><b>Sales Book - Oct 2026 (HO) FINAL v3.xlsx</b> · typed in from booklets 2 and 3</div>
             <table>
               <colgroup><col style="width:30px"><col style="width:12%"><col style="width:12%"><col><col style="width:19%"><col style="width:13%"><col style="width:11%"></colgroup>
@@ -306,28 +530,50 @@
     <!-- 3 SOLUTION -->
     <section class="sec" id="solution" aria-labelledby="h-sol">
       <div class="sec-head rv">
-        <h2 id="h-sol">One Odoo database, from the sales order to the BIR report.</h2>
-        <p class="sec-lead">Five Odoo apps on Odoo's Philippine localisation. Each step writes the record the next one needs, so nothing is typed twice. Pick a step to see what it does for you.</p>
+        <h2 id="h-sol">Three sites, one Odoo database, every BIR output from the same entries.</h2>
+        <p class="sec-lead">Your three sites post into one Odoo 20 database on the Philippine localisation, and the BIR outputs come from the same entries, so nothing is typed twice. Pick an app to see what it does for you.</p>
       </div>
-      <div class="flow rv" style="--i:1">
-        <div class="flow-row" role="tablist" aria-label="Odoo flow">
-          <span class="flow-line" aria-hidden="true"><i></i></span>
-          <button class="fnode" role="tab" id="t-sales" aria-controls="p-sales" aria-selected="true"><span class="disc"><img src="assets/img/odoo/sale.svg" alt="" width="30" height="30"></span><span><b>Sales</b><small>Quotes and orders per branch</small></span></button>
-          <button class="fnode" role="tab" id="t-stock" aria-controls="p-stock" aria-selected="false" tabindex="-1"><span class="disc"><img src="assets/img/odoo/stock.svg" alt="" width="30" height="30"></span><span><b>Inventory</b><small>Three warehouses</small></span></button>
-          <button class="fnode" role="tab" id="t-inv" aria-controls="p-inv" aria-selected="false" tabindex="-1"><span class="disc"><img src="assets/img/odoo/account.svg" alt="" width="30" height="30"></span><span><b>Invoicing</b><small>System invoices, AC number</small></span></button>
-          <button class="fnode" role="tab" id="t-acc" aria-controls="p-acc" aria-selected="false" tabindex="-1"><span class="disc"><img src="assets/img/odoo/accountant.svg" alt="" width="30" height="30"></span><span><b>Accounting</b><small>Journals and Book of Accounts</small></span></button>
-          <button class="fnode" role="tab" id="t-bir" aria-controls="p-bir" aria-selected="false" tabindex="-1"><span class="disc"><img src="assets/img/odoo/documents.svg" alt="" width="30" height="30"></span><span><b>BIR reports</b><small>2307, SLSP, SAWT, QAP</small></span></button>
+      <div class="arch rv" style="--i:1" data-arch>
+        <svg class="arch-lines" aria-hidden="true" data-arch-svg></svg>
+        <div class="arch-col sites">
+          <p class="arch-h">Your three sites</p>
+          <div class="anode" data-from><svg class="ic"><use href="#i-building"/></svg><span><b>Head office, Quezon City</b><small>Branch 00000 · 14 users</small></span></div>
+          <div class="anode" data-from><svg class="ic"><use href="#i-building"/></svg><span><b>Cebu branch</b><small>Branch 00001 · 5 users</small></span></div>
+          <div class="anode" data-from><svg class="ic"><use href="#i-building"/></svg><span><b>Davao branch</b><small>Branch 00002 · 5 users</small></span></div>
         </div>
-        <div class="flow-feed" aria-label="Also feeding the books">
-          <span class="feed"><img src="assets/img/odoo/purchase.svg" alt="" width="18" height="18">Purchase: vendor bills with withholding</span>
-          <span class="feed"><img src="assets/img/odoo/accountant.svg" alt="" width="18" height="18">Bank reconciliation</span>
-          <span class="feed"><img src="assets/img/odoo/web_studio.svg" alt="" width="18" height="18">Studio: your invoice layout</span>
+        <div class="arch-col core">
+          <p class="arch-h">One Odoo 20 database</p>
+          <div class="core-box" data-core>
+            <div class="ct">Sample Trading Corp.<span class="tag">Sample data</span></div>
+            <div role="tablist" aria-label="Odoo apps" aria-orientation="vertical">
+              <button class="app" role="tab" id="t-sales" aria-controls="p-sales" aria-selected="true"><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24">Sales<small>Orders</small></button>
+              <button class="app" role="tab" id="t-pur" aria-controls="p-pur" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/purchase.svg" alt="" width="24" height="24">Purchase<small>Vendor bills</small></button>
+              <button class="app" role="tab" id="t-stock" aria-controls="p-stock" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/stock.svg" alt="" width="24" height="24">Inventory<small>3 warehouses</small></button>
+              <button class="app" role="tab" id="t-inv" aria-controls="p-inv" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/account.svg" alt="" width="24" height="24">Invoicing<small>Branch series</small></button>
+              <button class="app" role="tab" id="t-acc" aria-controls="p-acc" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24">Accounting<small>Books</small></button>
+              <button class="app" role="tab" id="t-bir" aria-controls="p-bir" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/documents.svg" alt="" width="24" height="24">BIR reports<small>PH localisation</small></button>
+            </div>
+          </div>
         </div>
-
+        <div class="arch-col outs">
+          <p class="arch-h">What it produces</p>
+          <div class="anode" data-to><svg class="ic"><use href="#i-book"/></svg><span><b>Book of Accounts</b><small>GJ, GL, CRJ, CDJ, SJ, PJ</small></span></div>
+          <div class="anode" data-to><svg class="ic"><use href="#i-doc"/></svg><span><b>BIR Form 2307</b><small>From vendor bills</small></span></div>
+          <div class="anode" data-to><svg class="ic"><use href="#i-doc"/></svg><span><b>SLSP, SAWT, QAP</b><small>In the BIR's file formats</small></span></div>
+          <div class="anode" data-to><svg class="ic"><use href="#i-doc"/></svg><span><b>2550Q summary</b><small>Output and input VAT</small></span></div>
+          <div class="anode" data-to><svg class="ic"><use href="#i-down"/></svg><span><b>Yearly book exports</b><small>For your ORUS registration</small></span></div>
+        </div>
+      </div>
+      <div class="arch-panels">
         <div class="flow-panel" role="tabpanel" id="p-sales" aria-labelledby="t-sales">
           <div><h3>Sales: one price list, three sites.</h3><p>Quotations, price lists and credit limits per branch. A confirmed order reserves stock and tells billing what to invoice, so the invoice never starts from a blank booklet.</p>
             <ul><li><svg class="ic"><use href="#i-check"/></svg>Price lists and payment terms per customer group</li><li><svg class="ic"><use href="#i-check"/></svg>Credit limits checked before an order is confirmed</li><li><svg class="ic"><use href="#i-check"/></svg>Sales by branch, salesperson and product, live</li></ul></div>
           <div class="mini"><div class="mini-h">Sales orders today <span class="tag">Sample data</span></div><table><tr><td>S00412</td><td>Northpoint Hardware</td><td class="r">18,480.00</td><td><span class="pill pill--ok">Confirmed</span></td></tr><tr><td>S00413</td><td>Bayside Builders</td><td class="r">6,720.00</td><td><span class="pill pill--ok">Confirmed</span></td></tr><tr><td>S00414</td><td>Mabini Depot</td><td class="r">12,320.00</td><td><span class="pill">Quotation</span></td></tr></table></div>
+        </div>
+        <div class="flow-panel" role="tabpanel" id="p-pur" aria-labelledby="t-pur" hidden>
+          <div><h3>Purchase: withholding at the vendor bill.</h3><p>Requests for quotation, purchase orders and vendor bills per branch. The withholding is computed on the bill with its ATC code, so the 2307 and the QAP come from the same entry.</p>
+            <ul><li><svg class="ic"><use href="#i-check"/></svg>Purchase approvals by amount</li><li><svg class="ic"><use href="#i-check"/></svg>Expanded withholding with ATC codes</li><li><svg class="ic"><use href="#i-check"/></svg>Three-way match: order, receipt, bill</li></ul></div>
+          <div class="mini"><div class="mini-h">Vendor bills <span class="tag">Sample data</span></div><table><tr><td>BILL/2027/0031</td><td>Metro Steel Supply</td><td class="r">EWT 1% · WC158</td></tr><tr><td>BILL/2027/0032</td><td>Bayline Logistics</td><td class="r">EWT 2% · WC160</td></tr><tr><td>BILL/2027/0033</td><td>Office lease, Cebu</td><td class="r">EWT 5% · WC120</td></tr></table></div>
         </div>
         <div class="flow-panel" role="tabpanel" id="p-stock" aria-labelledby="t-stock" hidden>
           <div><h3>Inventory: stock valued as it moves.</h3><p>Receipts, deliveries and transfers between Quezon City, Cebu and Davao. Each move posts its value, so the books carry inventory without a month-end upload.</p>
@@ -350,78 +596,7 @@
           <div class="mini"><div class="mini-h">Q4 2026 reports <span class="tag">Sample data</span></div><table><tr><td>SLSP, sales</td><td>.DAT</td><td><span class="pill pill--ok">Ready</span></td></tr><tr><td>SAWT</td><td>.DAT</td><td><span class="pill pill--ok">Ready</span></td></tr><tr><td>QAP</td><td>.DAT</td><td><span class="pill">Draft</span></td></tr><tr><td>2550Q summary</td><td>PDF</td><td><span class="pill">Draft</span></td></tr></table></div>
         </div>
       </div>
-      <div class="apps rv"><span><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24">Accounting</span><span><img src="assets/img/odoo/account.svg" alt="" width="24" height="24">Invoicing</span><span><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24">Sales</span><span><img src="assets/img/odoo/purchase.svg" alt="" width="24" height="24">Purchase</span><span><img src="assets/img/odoo/stock.svg" alt="" width="24" height="24">Inventory</span><span class="muted" style="font-weight:500">on the Philippine localisation</span></div>
       <div class="host rv"><svg class="ic draw"><use href="#i-layers"/></svg><p><b>Recommended hosting: Odoo Online on the Custom plan</b>, which includes Studio for your invoice layout. Cloud set-ups register too: you and the provider sign a joint sworn statement that the system cannot suppress sales. We confirm the hosting with you at kick-off, because it decides what goes in your application.</p></div>
-    </section>
-
-    <!-- 4 SCOPE -->
-    <section class="sec" id="scope" aria-labelledby="h-scope">
-      <div class="sec-head rv">
-        <h2 id="h-scope">Scope of work, clause by clause.</h2>
-        <p class="sec-lead">Seven workstreams, each with what we do, what you receive and how it is accepted. Anything outside these clauses is estimated in writing before any work starts.</p>
-      </div>
-      <div class="clauses">
-        <details class="clause rv" open>
-          <summary><span class="ref-n">4.1</span><h3>Discovery and registration path<small>Workshops, CAS or CBA, branch and invoice inventory</small></h3><span class="when">Week 1</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>Three workshops: finance, billing and sales, warehouse</li><li>Confirm with your accountant whether you register a CAS or a CBA</li><li>List branches, TIN branch codes, invoice types and current booklets</li><li>Plan the cut-off for booklet invoices at each site</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Business Requirements Document (BRD)</li><li>Registration path for head office and branches</li><li>Cut-over calendar</li></ul></div>
-            <div><h4>Accepted when</h4><p>Your project owner signs the BRD. Sign-off is due within three working days of handover.</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.2</span><h3>Accounting and Philippine localisation<small>Chart of accounts, taxes, journals, controls</small></h3><span class="when">Weeks 2 to 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>Company and two branches with TIN branch codes</li><li>Chart of accounts mapped from your current trial balance</li><li>VAT 12%, expanded withholding and ATC codes, fiscal positions</li><li>Journals per branch, audit trail, secured journals, lock dates</li><li>User roles for 24 users, password rules and two-factor sign-in</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Configured Odoo test database</li><li>Configuration guide</li><li>Roles and access matrix</li></ul></div>
-            <div><h4>Accepted when</h4><p>The test scripts for this clause pass in user acceptance testing (clause 4.6).</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.3</span><h3>Sales, purchase, inventory and invoices<small>Three warehouses, branch series, invoice layout</small></h3><span class="when">Weeks 2 to 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>Price lists, payment terms and credit limits</li><li>Warehouses in Quezon City, Cebu and Davao, with transfers</li><li>Vendor bills with withholding, ready for 2307</li><li>Invoice series per branch; layout with EOPT fields, AC control number and "REPRINT" on copies</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Three invoice layouts approved by you and your accountant</li><li>Sales-to-invoice and purchase-to-payment flows</li></ul></div>
-            <div><h4>Accepted when</h4><p>Your finance manager approves the invoice layouts in writing and the flows pass UAT.</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.4</span><h3>Data migration<small>Opening balances as of 31 December 2026</small></h3><span class="when">Weeks 3 to 7</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>About 1,800 customers, 420 vendors and 3,200 products</li><li>Opening trial balance, open receivables and payables</li><li>Stock on hand per warehouse</li><li>Two trial loads, then the final load on 2 to 3 January</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Import templates and a data checklist</li><li>Reconciliation report: Odoo against your closing balances</li></ul></div>
-            <div><h4>Accepted when</h4><p>Your finance manager signs the reconciliation report for the final load.</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.5</span><h3>CAS application pack, prepared with you<small>The Annex A checklist, from your own Odoo</small></h3><span class="when">Week 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>System description and process flow</li><li>Draft sworn statement, or joint sworn statement for a cloud set-up, for your lawyer and notary</li><li>Sample invoices and supplementary documents</li><li>Sample books (GJ, GL, CRJ, CDJ, SJ, PJ) and reports</li><li>Audit trail printout and the Annex B requirements checklist, reviewed with you</li></ul></div>
-            <div><h4>You receive</h4><ul><li>The full pack, printed and as PDF, for you to sign, notarise and file</li><li>A briefing on what the RDO may ask</li></ul></div>
-            <div><h4>Your part</h4><p>You sign, notarise and file at your RDO, in person or by email. We stay on call for the RDO's questions. The registration decision and its timing are the RDO's.</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.6</span><h3>Training and user acceptance testing<small>Four role-based sessions, recorded</small></h3><span class="when">Week 5</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>Finance and accounting, including BIR reports</li><li>Billing and sales at each branch</li><li>Purchasing and warehouse</li><li>Management reports for you and your branch heads</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Recordings of every session</li><li>Quick guides per role</li><li>UAT scripts and results log</li></ul></div>
-            <div><h4>Accepted when</h4><p>Your project owner signs the UAT results. Open items are listed with an owner and a date.</p></div>
-          </div>
-        </details>
-        <details class="clause rv">
-          <summary><span class="ref-n">4.7</span><h3>Go-live and 30 days of hypercare<small>Cut-over at year-end, daily check-ins in week one</small></h3><span class="when">From 4 Jan</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
-          <div class="clause-body">
-            <div><h4>What we do</h4><ul><li>Cut-over plan and booklet cut-off at each site</li><li>On site at head office on go-live day; branches by video call</li><li>Daily check-ins in week one, then twice a week</li><li>First month-end close in Odoo, done with your team</li></ul></div>
-            <div><h4>You receive</h4><ul><li>Go-live checklist</li><li>Hypercare log of every issue and fix</li><li>Handover to your support plan</li></ul></div>
-            <div><h4>Accepted when</h4><p>The January close is done in Odoo and the hypercare log has no open critical items.</p></div>
-          </div>
-        </details>
-      </div>
-      <div class="oos rv">
-        <div><h3><svg class="ic" style="width:18px;height:18px"><use href="#i-info"/></svg>Not included</h3><ul><li>The Odoo subscription, billed to you directly by Odoo</li><li>Filing or registering anything with the BIR, BIR fees and notarisation</li><li>E-invoicing: Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately</li><li>Payroll, custom modules and hardware such as printers</li><li>Transactions before 2027 beyond opening balances (optional below)</li></ul></div>
-        <div><h3><svg class="ic" style="width:18px;height:18px"><use href="#i-doc"/></svg>Assumptions</h3><ul><li>24 users at three sites; one company, two branches</li><li>Data volumes as listed in clause 4.4</li><li>You name one project owner with authority to sign off</li><li>Sign-offs within three working days, data in our templates by the agreed dates</li><li>Remote delivery from Taguig City, with one on-site day at head office</li></ul></div>
-      </div>
     </section>
 
     <!-- 5 CAS MAP -->
@@ -502,7 +677,7 @@
     <!-- 7 PLAN -->
     <section class="sec" id="plan" aria-labelledby="h-plan">
       <div class="sec-head rv">
-        <h2 id="h-plan">Seven weeks to go-live, planned around your year-end.</h2>
+        <h2 id="h-plan">Delivery plan: seven weeks to go-live, around your year-end.</h2>
         <p class="sec-lead">Kick-off on Monday 16 November, the CAS pack in your hands on 11 December, and the first system invoices on Monday 4 January 2027. Select a bar or a milestone for details.</p>
       </div>
       <div class="g-ctrl rv">
@@ -513,14 +688,14 @@
       <div class="gantt rv" data-gantt>
         <div class="gantt-in">
           <div class="g-head"><div>Workstream</div><div>16 Nov<small>W1</small></div><div>23 Nov<small>W2</small></div><div>30 Nov<small>W3</small></div><div>7 Dec<small>W4</small></div><div>14 Dec<small>W5</small></div><div>21 Dec<small>W6</small></div><div>28 Dec<small>W7</small></div><div>4 Jan<small>W8</small></div><div>11 Jan<small>W9</small></div><div>18 Jan<small>W10</small></div><div>25 Jan<small>W11</small></div><div>1 Feb<small>W12</small></div></div>
-          <div class="g-row"><div class="g-l">4.1 Discovery</div><div class="g-track"><button class="bar" style="left:0%;width:5.9%;--i:0" data-g="Discovery and design|16 to 20 Nov 2026|Three workshops, BRD and registration path. Ends with BRD sign-off.">BRD</button><button class="ms" style="left:5.9%" aria-label="Milestone: BRD sign-off" data-g="BRD sign-off|Fri 20 Nov 2026|Your project owner signs the Business Requirements Document."></button><button class="ms ms--pay" style="left:0%" aria-label="Payment: 50 percent on signing" data-g="Payment 1: 50%|On signing|Down payment invoice issued when the proposal is signed."></button></div></div>
-          <div class="g-row"><div class="g-l">4.2 to 4.3 Configuration</div><div class="g-track"><button class="bar" style="left:8.33%;width:22.6%;--i:1" data-g="Odoo configuration|23 Nov to 11 Dec 2026|Accounting and Philippine localisation, sales, purchase, inventory, branch series and invoice layouts.">Accounting, sales, stock</button></div></div>
-          <div class="g-row"><div class="g-l">4.4 Data migration</div><div class="g-track"><button class="bar bar--soft" style="left:16.67%;width:22.6%;--i:2" data-g="Trial data loads|30 Nov to 18 Dec 2026|Two trial loads of masters and balances, reconciled against your books.">Trial loads</button><button class="ms" style="left:57.1%" aria-label="Milestone: final data load" data-g="Final data load|2 to 3 Jan 2027|Closing balances as of 31 Dec 2026, reconciled and signed off."></button></div></div>
-          <div class="g-row"><div class="g-l">4.5 CAS application pack</div><div class="g-track"><button class="bar" style="left:25%;width:5.9%;--i:3" data-g="CAS application pack|7 to 11 Dec 2026|Samples printed from your Odoo test database; pack handed over on 11 Dec.">Pack</button><button class="ms" style="left:30.95%" aria-label="Milestone: pack handover" data-g="CAS pack handover|Fri 11 Dec 2026|You receive the full application pack, ready to sign and file."></button><button class="ms ms--pay" style="left:31.9%" aria-label="Payment: 30 percent on pack handover" data-g="Payment 2: 30%|On pack handover, 11 Dec 2026|Invoiced when the CAS application pack is handed over."></button></div></div>
+          <div class="g-row"><div class="g-l">S1 Discovery</div><div class="g-track"><button class="bar" style="left:0%;width:5.9%;--i:0" data-g="Discovery and design|16 to 20 Nov 2026|Three workshops, BRD and registration path. Ends with BRD sign-off.">BRD</button><button class="ms" style="left:5.9%" aria-label="Milestone: BRD sign-off" data-g="BRD sign-off|Fri 20 Nov 2026|Your project owner signs the Business Requirements Document."></button><button class="ms ms--pay" style="left:0%" aria-label="Payment: 50 percent on signing" data-g="Payment 1: 50%|On signing|Down payment invoice issued when the proposal is signed."></button></div></div>
+          <div class="g-row"><div class="g-l">S2 to S3 Configuration</div><div class="g-track"><button class="bar" style="left:8.33%;width:22.6%;--i:1" data-g="Odoo configuration|23 Nov to 11 Dec 2026|Accounting and Philippine localisation, sales, purchase, inventory, branch series and invoice layouts.">Accounting, sales, stock</button></div></div>
+          <div class="g-row"><div class="g-l">S4 Data migration</div><div class="g-track"><button class="bar bar--soft" style="left:16.67%;width:22.6%;--i:2" data-g="Trial data loads|30 Nov to 18 Dec 2026|Two trial loads of masters and balances, reconciled against your books.">Trial loads</button><button class="ms" style="left:57.1%" aria-label="Milestone: final data load" data-g="Final data load|2 to 3 Jan 2027|Closing balances as of 31 Dec 2026, reconciled and signed off."></button></div></div>
+          <div class="g-row"><div class="g-l">S5 CAS application pack</div><div class="g-track"><button class="bar" style="left:25%;width:5.9%;--i:3" data-g="CAS application pack|7 to 11 Dec 2026|Samples printed from your Odoo test database; pack handed over on 11 Dec.">Pack</button><button class="ms" style="left:30.95%" aria-label="Milestone: pack handover" data-g="CAS pack handover|Fri 11 Dec 2026|You receive the full application pack, ready to sign and file."></button><button class="ms ms--pay" style="left:31.9%" aria-label="Payment: 30 percent on pack handover" data-g="Payment 2: 30%|On pack handover, 11 Dec 2026|Invoiced when the CAS application pack is handed over."></button></div></div>
           <div class="g-row"><div class="g-l">You file at your RDO<small>RDO's timing</small></div><div class="g-track"><button class="bar bar--dash" style="left:33.33%;width:25%;--i:4" data-g="You file at your RDO|From Mon 14 Dec 2026|You file in person or by email. The RDO issues the Acknowledgement Certificate; its timing and decision are the RDO's.">You file · RDO's timing</button></div></div>
-          <div class="g-row"><div class="g-l">4.6 Training and UAT</div><div class="g-track"><button class="bar" style="left:33.33%;width:5.9%;--i:5" data-g="Training and UAT|14 to 18 Dec 2026|Four role-based sessions, recorded, and user acceptance testing.">UAT</button><button class="ms" style="left:39.3%" aria-label="Milestone: UAT sign-off" data-g="UAT sign-off|Fri 18 Dec 2026|Your project owner signs the test results."></button></div></div>
+          <div class="g-row"><div class="g-l">S6 Training and UAT</div><div class="g-track"><button class="bar" style="left:33.33%;width:5.9%;--i:5" data-g="Training and UAT|14 to 18 Dec 2026|Four role-based sessions, recorded, and user acceptance testing.">UAT</button><button class="ms" style="left:39.3%" aria-label="Milestone: UAT sign-off" data-g="UAT sign-off|Fri 18 Dec 2026|Your project owner signs the test results."></button></div></div>
           <div class="g-row"><div class="g-l">Parallel run<small>Holidays shaded</small></div><div class="g-track"><span class="g-hol" style="left:45.2%;width:2.4%"></span><span class="g-hol" style="left:52.4%;width:3.6%"></span><button class="bar bar--soft" style="left:41.67%;width:14.3%;--i:6" data-g="Parallel run|21 Dec 2026 to 2 Jan 2027|Booklets stay in use while users practise in the test database. Shaded: 24 to 25 Dec and 30 Dec to 1 Jan holidays.">Practice in Odoo</button></div></div>
-          <div class="g-row"><div class="g-l">4.7 Go-live and hypercare</div><div class="g-track"><button class="bar bar--ok" data-g="Hypercare|4 Jan to 3 Feb 2027|Daily check-ins in week one, the January close in Odoo, then handover to your support plan." style="left:58.33%;width:36.9%;--i:7;padding-left:30px">Hypercare, January close</button><button class="ms" style="left:58.33%" aria-label="Milestone: go-live" data-g="Go-live|Mon 4 Jan 2027|First system invoices at all three sites, once your AC is in hand."></button><button class="ms ms--pay" style="left:60.2%" aria-label="Payment: 20 percent on go-live" data-g="Payment 3: 20%|On go-live, 4 Jan 2027|Final implementation invoice."></button></div></div>
+          <div class="g-row"><div class="g-l">S7 Go-live and hypercare</div><div class="g-track"><button class="bar bar--ok" data-g="Hypercare|4 Jan to 3 Feb 2027|Daily check-ins in week one, the January close in Odoo, then handover to your support plan." style="left:58.33%;width:36.9%;--i:7;padding-left:30px">Hypercare, January close</button><button class="ms" style="left:58.33%" aria-label="Milestone: go-live" data-g="Go-live|Mon 4 Jan 2027|First system invoices at all three sites, once your AC is in hand."></button><button class="ms ms--pay" style="left:60.2%" aria-label="Payment: 20 percent on go-live" data-g="Payment 3: 20%|On go-live, 4 Jan 2027|Final implementation invoice."></button></div></div>
         </div>
       </div>
       <div class="g-info" aria-live="polite" data-g-info><svg class="ic"><use href="#i-cal"/></svg><div><b data-gi-t>Go-live waits for your certificate.</b> <span data-gi-d>If your Acknowledgement Certificate has not arrived by 4 January, go-live moves to the first Monday after it does, and your booklets stay in use until then.</span></div><span class="tag" data-gi-w>Plan rule</span></div>
@@ -541,113 +716,6 @@
         <div class="person rv" style="--i:4"><img src="assets/img/team/jeric-bulayungan.webp" alt="Jeric Bulayungan" width="64" height="64" loading="lazy"><div><b>Jeric Bulayungan</b><span class="role">Business Development</span><p>Helping Philippine businesses choose their software since 2016.</p><span class="on-p">Your contact for this proposal</span></div></div>
         <div class="person rv" style="--i:5"><img src="assets/img/team/pia-cachola.webp" alt="Pia Cachola" width="64" height="64" loading="lazy"><div><b>Pia Cachola</b><span class="role">General Manager</span><p>Runs TechNext day to day and signs this proposal for TechNext.</p><span class="on-p">Executive sponsor and escalation</span></div></div>
       </div>
-    </section>
-
-    <!-- 9 SLA -->
-    <section class="sec" id="sla" aria-labelledby="h-sla">
-      <div class="sec-head rv">
-        <h2 id="h-sla">Service levels after go-live, in writing.</h2>
-        <p class="sec-lead">Hypercare covers the first 30 days. Then pick the support plan that fits; the response times below and the price in section 10 follow your choice.</p>
-      </div>
-      <fieldset class="plans rv" data-plans>
-        <legend class="sr-only">Support plan</legend>
-        <label class="plan"><input type="radio" name="plan" value="essential"><span class="pc"><span class="pc-top"><h3>Essential</h3><span class="radio"></span></span><span class="price">PHP 18,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>8 support hours a month</li><li><svg class="ic"><use href="#i-check"/></svg>Tickets and email</li><li><svg class="ic"><use href="#i-check"/></svg>Monthly support report</li></ul></span></label>
-        <label class="plan"><input type="radio" name="plan" value="priority" checked><span class="pc"><span class="rec tag">Recommended</span><span class="pc-top"><h3>Priority</h3><span class="radio"></span></span><span class="price">PHP 32,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>20 support hours a month</li><li><svg class="ic"><use href="#i-check"/></svg>Video calls with your consultant</li><li><svg class="ic"><use href="#i-check"/></svg>BIR lists checked with you before each quarterly filing</li></ul></span></label>
-        <label class="plan"><input type="radio" name="plan" value="dedicated"><span class="pc"><span class="pc-top"><h3>Dedicated</h3><span class="radio"></span></span><span class="price">PHP 58,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>40 hours and a named consultant</li><li><svg class="ic"><use href="#i-check"/></svg>Month-end close support, Saturday cover</li><li><svg class="ic"><use href="#i-check"/></svg>Yearly ORUS book exports included</li></ul></span></label>
-      </fieldset>
-      <div class="tbl-wrap rv">
-        <table class="tbl sla">
-          <thead><tr><th style="width:10%">Priority</th><th style="width:36%">What it means</th><th>First response</th><th>Workaround or fix</th><th>Updates</th></tr></thead>
-          <tbody>
-            <tr><td><span class="p p1">P1</span></td><td><b>Critical.</b> Invoices cannot be issued at any site. Odoo hosting incidents are raised with Odoo at once.</td><td class="t"><span class="chg" data-sla="p1r">2 business hours</span></td><td><span class="chg" data-sla="p1f">Within 8 business hours</span></td><td>Every 2 hours</td></tr>
-            <tr><td><span class="p p2">P2</span></td><td><b>High.</b> A BIR report or a key process fails for one branch.</td><td class="t"><span class="chg" data-sla="p2r">4 business hours</span></td><td><span class="chg" data-sla="p2f">Within 2 business days</span></td><td>Daily</td></tr>
-            <tr><td><span class="p p3">P3</span></td><td><b>Normal.</b> A question about a user, layout or report, with a workaround.</td><td class="t"><span class="chg" data-sla="p3r">1 business day</span></td><td><span class="chg" data-sla="p3f">Within 5 business days</span></td><td>On change</td></tr>
-            <tr><td><span class="p p4">P4</span></td><td><b>Request.</b> A change or a new report, drawn from plan hours.</td><td class="t"><span class="chg" data-sla="p4r">2 business days</span></td><td>Scheduled with you</td><td>Weekly</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note rv"><b>Support hours:</b> Monday to Friday, 8:30 am to 6:00 pm Philippine time, except regular holidays<span data-sla="cover"></span>. Unused hours roll over for one month; extra hours are PHP 2,200 each. Response times start when a ticket is logged.</p>
-      <div class="esc rv">
-        <div><span class="lv">Level 1</span><b>Your support consultant</b><small>Jett Balanza</small></div>
-        <div><span class="lv">Level 2</span><b>Project Manager</b><small>RJ Sarreal</small></div>
-        <div><span class="lv">Level 3</span><b>General Manager</b><small>Pia Cachola</small></div>
-      </div>
-    </section>
-
-    <!-- 10 PRICING -->
-    <section class="sec sec-pricing" id="pricing" aria-labelledby="h-price">
-      <div class="sec-head rv">
-        <h2 id="h-price">Your investment, line by line.</h2>
-        <p class="sec-lead">Fixed prices for the scope in section 4, in Philippine pesos. Add optional items below and the totals, the payment schedule and the summary on the left update as you go.</p>
-      </div>
-      <div class="quote rv">
-        <div class="quote-h"><h3><img src="assets/img/odoo/sale.svg" alt="" width="22" height="22">Quotation S00147</h3><span class="tag">Sample figures</span></div>
-        <div class="qt-wrap">
-          <table class="qt" data-qt>
-            <thead><tr><th>Description</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Disc.</th><th class="r">Amount</th></tr></thead>
-            <tbody data-lines>
-              <tr class="qs"><td colspan="5">Implementation and set-up</td></tr>
-              <tr data-line data-qty="1" data-unit="38000"><td>Discovery and registration path<small>Workshops, BRD, CAS or CBA path (clause 4.1)</small></td><td class="r">1</td><td class="r">38,000.00</td><td class="r"></td><td class="r amt">38,000.00</td></tr>
-              <tr data-line data-qty="1" data-unit="96000"><td>Accounting and Philippine localisation<small>Chart of accounts, VAT and withholding, journals, controls (4.2)</small></td><td class="r">1</td><td class="r">96,000.00</td><td class="r"></td><td class="r amt">96,000.00</td></tr>
-              <tr data-line data-qty="1" data-unit="72000"><td>Sales, purchase and inventory<small>Price lists, three warehouses, vendor bills with withholding (4.3)</small></td><td class="r">1</td><td class="r">72,000.00</td><td class="r"></td><td class="r amt">72,000.00</td></tr>
-              <tr data-line data-qty="3" data-unit="9000"><td>Branch invoice series and invoice layout<small>Per site: series, EOPT layout, AC number, REPRINT (4.3)</small></td><td class="r">3</td><td class="r">9,000.00</td><td class="r"></td><td class="r amt">27,000.00</td></tr>
-              <tr class="qs"><td colspan="5">Data migration</td></tr>
-              <tr data-line data-qty="1" data-unit="54000"><td>Opening balances and master data<small>Two trial loads and the final load, reconciled (4.4)</small></td><td class="r">1</td><td class="r">54,000.00</td><td class="r"></td><td class="r amt">54,000.00</td></tr>
-              <tr class="qs"><td colspan="5">CAS application pack</td></tr>
-              <tr data-line data-qty="1" data-unit="48000"><td>CAS application pack, prepared with you<small>System description, sworn statement draft, samples, audit trail (4.5)</small></td><td class="r">1</td><td class="r">48,000.00</td><td class="r"></td><td class="r amt">48,000.00</td></tr>
-              <tr class="qs"><td colspan="5">Training, go-live and hypercare</td></tr>
-              <tr data-line data-qty="4" data-unit="6500"><td>Role-based training sessions<small>Recorded, with quick guides and UAT (4.6)</small></td><td class="r">4</td><td class="r">6,500.00</td><td class="r"></td><td class="r amt">26,000.00</td></tr>
-              <tr data-line data-qty="1" data-unit="36000" data-disc="25"><td>Go-live and 30 days of hypercare<small>Included at 25% off with the implementation (4.7)</small></td><td class="r">1</td><td class="r">36,000.00</td><td class="r disc">25%</td><td class="r amt">27,000.00</td></tr>
-            </tbody>
-            <tbody data-opt-lines></tbody>
-          </table>
-        </div>
-        <div class="totals">
-          <p class="words">Prices are in Philippine pesos and exclude VAT, which is added at 12%. The Odoo subscription is not in these totals; Odoo bills it to you directly. Monthly support starts when hypercare ends.</p>
-          <dl aria-live="polite">
-            <div><dt>Untaxed amount</dt><dd class="num" data-out="untaxed-php">PHP 388,000.00</dd></div>
-            <div><dt>VAT 12%</dt><dd class="num" data-out="vat">PHP 46,560.00</dd></div>
-            <div class="grand"><dt>Total</dt><dd class="num" data-out="grand-2">PHP 434,560.00</dd></div>
-            <div class="recur"><dt>Support plan, monthly</dt><dd class="num" data-out="recur-line">PHP 32,000.00 + VAT</dd></div>
-          </dl>
-        </div>
-      </div>
-
-      <div class="opts rv" data-opts>
-        <div class="quote-h"><h3>Optional items</h3><span class="muted small">Add any of these to the quotation</span></div>
-        <div class="opt" data-opt="branch" data-unit="22000" data-name="Additional branch set-up" data-desc="Series, journal, warehouse and invoice layout">
-          <img src="assets/img/odoo/stock.svg" alt="" width="28" height="28"><div><b>Additional branch set-up</b><small>Series, journal, warehouse and invoice layout for one more site</small></div>
-          <div class="op num">PHP 22,000 <small>each</small></div>
-          <div class="act"><span class="qty" hidden><button type="button" data-q="-1" aria-label="One branch fewer">−</button><output>1</output><button type="button" data-q="1" aria-label="One more branch">+</button></span><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
-        </div>
-        <div class="opt" data-opt="payroll" data-unit="65000" data-name="Philippine payroll set-up" data-desc="1601-C, 2316 and 1604-C from Odoo Payroll">
-          <img src="assets/img/odoo/hr_payroll.svg" alt="" width="28" height="28"><div><b>Philippine payroll set-up</b><small>Odoo Payroll with 1601-C, 2316 and 1604-C, for up to 120 employees</small></div>
-          <div class="op num">PHP 65,000</div>
-          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
-        </div>
-        <div class="opt" data-opt="history" data-unit="45000" data-name="2026 transaction history" data-desc="Twelve months of 2026 invoices and bills, for comparison reports">
-          <img src="assets/img/odoo/accountant.svg" alt="" width="28" height="28"><div><b>2026 transaction history</b><small>Twelve months of 2026 invoices and bills, for year-on-year reports</small></div>
-          <div class="op num">PHP 45,000</div>
-          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
-        </div>
-        <div class="opt" data-opt="dash" data-unit="24000" data-name="Management dashboard" data-desc="Branch P&amp;L, sales and receivables ageing">
-          <img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="28" height="28"><div><b>Management dashboard</b><small>Branch profit and loss, sales and receivables ageing on one screen</small></div>
-          <div class="op num">PHP 24,000</div>
-          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
-        </div>
-        <div class="opt" data-opt="audit" data-unit="28000" data-name="BIR audit records pack" data-desc="Ledgers and lists prepared for an examiner">
-          <img src="assets/img/odoo/documents.svg" alt="" width="28" height="28"><div><b>BIR audit records pack</b><small>Ledgers, lists and exports prepared from Odoo when a Letter of Authority arrives</small></div>
-          <div class="op num">PHP 28,000</div>
-          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
-        </div>
-      </div>
-
-      <div class="pay rv" data-pay>
-        <div><span class="bar-p" style="width:50%"></span><span class="pct">50% on signing</span><b class="num" data-out="pay1">PHP 217,280</b><p>Down payment, invoiced when you sign.</p></div>
-        <div><span class="bar-p" style="width:30%"></span><span class="pct">30% on CAS pack handover</span><b class="num" data-out="pay2">PHP 130,368</b><p>Target Friday 11 December 2026.</p></div>
-        <div><span class="bar-p" style="width:20%"></span><span class="pct">20% on go-live</span><b class="num" data-out="pay3">PHP 86,912</b><p>Target Monday 4 January 2027.</p></div>
-      </div>
-      <div class="odoo-fee rv"><svg class="ic draw" style="width:30px;height:30px"><use href="#i-info"/></svg><div><h3>Paid to Odoo, not to TechNext: your Odoo subscription.</h3><p>24 users on Odoo's Custom plan, billed to you by Odoo at its published price for the Philippines. It is separate from this proposal; we size the plan with you before you subscribe, and current prices are on odoo.com/pricing.</p></div></div>
     </section>
 
     <!-- 11 WHY -->
@@ -677,26 +745,6 @@
       </div>
     </section>
 
-    <!-- 12 TERMS -->
-    <section class="sec" id="terms" aria-labelledby="h-terms">
-      <div class="sec-head rv">
-        <h2 id="h-terms">Terms of this proposal.</h2>
-      </div>
-      <ol class="terms rv">
-        <li><span class="ref-n">12.1</span><div><b>Validity</b><p>This proposal is valid for 30 days, until 3 December 2026. After that, prices and dates are confirmed again.</p></div></li>
-        <li><span class="ref-n">12.2</span><div><b>Prices and taxes</b><p>Prices are fixed for the scope in section 4, in Philippine pesos, and exclude VAT, which is added at 12%. Taxes are applied on each invoice as the law requires.</p></div></li>
-        <li><span class="ref-n">12.3</span><div><b>Payment</b><p>50% on signing, 30% on handover of the CAS application pack and 20% on go-live. Invoices are due within 15 days. Support is billed monthly in advance from the end of hypercare.</p></div></li>
-        <li><span class="ref-n">12.4</span><div><b>Changes to the scope</b><p>Anything outside section 4 is estimated in writing first. No change work starts without your written approval.</p></div></li>
-        <li><span class="ref-n">12.5</span><div><b>Your responsibilities</b><p>A named project owner, data in our templates by the agreed dates, sign-offs within three working days, and your filing, notarisation and fees at the BIR.</p></div></li>
-        <li><span class="ref-n">12.6</span><div><b>Acceptance</b><p>Each deliverable is accepted when signed, or five working days after handover if no issue is raised in writing.</p></div></li>
-        <li><span class="ref-n">12.7</span><div><b>Warranty</b><p>Defects in TechNext's configuration found within 90 days of go-live are fixed at no charge.</p></div></li>
-        <li><span class="ref-n">12.8</span><div><b>Confidentiality and data privacy</b><p>We use your data only for this project, under the Data Privacy Act of 2012 (RA 10173), and sign your NDA on request.</p></div></li>
-        <li><span class="ref-n">12.9</span><div><b>Ownership</b><p>Your data and your configuration are yours. Odoo is licensed to you by Odoo S.A. under Odoo's own terms.</p></div></li>
-        <li><span class="ref-n">12.10</span><div><b>Ending the engagement</b><p>Either party may end it with 15 days' written notice. Work done to that date is billed at the line prices above.</p></div></li>
-      </ol>
-      <div class="disclaimer rv"><svg class="ic"><use href="#i-shield"/></svg><p><b>TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</b> The BIR does not accredit software brands; it registers each taxpayer's use of a system. Registration decisions and their timing are the BIR's. This proposal is general guidance, not tax advice; confirm tax matters with your accountant or RDO.</p></div>
-    </section>
-
     <!-- 13 FAQ -->
     <section class="sec" id="faq" aria-labelledby="h-faq">
       <div class="sec-head rv">
@@ -709,12 +757,291 @@
         <details><summary>What do we pay Odoo?<svg class="ic chev"><use href="#i-chev"/></svg></summary><p>Your Odoo subscription, per user, billed by Odoo directly. It is separate from this proposal. We help you choose the plan and the number of users before you subscribe.</p></details>
         <details><summary>Can we start with head office only?<svg class="ic chev"><use href="#i-chev"/></svg></summary><p>Yes. Each branch registers its own use of the system, so a phased start is possible. We recommend all three sites at year-end, because one cut-over means one set of opening balances.</p></details>
         <details><summary>Do we have to re-register when Odoo upgrades?<svg class="ic chev"><use href="#i-chev"/></svg></summary><p>A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice. We plan upgrades so you can file first.</p></details>
-        <details><summary>What if we need more after go-live?<svg class="ic chev"><use href="#i-chev"/></svg></summary><p>Requests come out of your support plan hours. Larger work, such as payroll or a new branch, is quoted in writing first, like the optional items in section 10.</p></details>
+        <details><summary>What if we need more after go-live?<svg class="ic chev"><use href="#i-chev"/></svg></summary><p>Requests come out of your support plan hours. Larger work, such as payroll or a new branch, is quoted in writing first, like the optional items in Part 2.</p></details>
       </div>
     </section>
 
+    <button class="part-next rv" type="button" data-goto="2"><span><b>Next, Part 2: Commercial proposal</b><span class="d">The investment, line by line, with options, support plans and the payment schedule.</span></span><span class="go" aria-hidden="true"><svg class="ic"><use href="#i-arrow"/></svg></span></button>
+    </section>
+    <section class="part" id="part-2" data-part="2" role="tabpanel" aria-labelledby="tab-2" tabindex="-1">
+    <header class="part-head rv" id="p2-head">
+      <h2>The commercial proposal: what you invest, and what it covers.</h2>
+      <p>Fixed prices in Philippine pesos for the scope below. Add options or change the support plan, and every figure in this part and in the summary on the left updates.</p>
+      <ul class="part-index"><li><a href="#summary"><span>2.1</span>Investment summary</a></li><li><a href="#pricing"><span>2.2</span>Quotation lines</a></li><li><a href="#scope"><span>2.3</span>Scope</a></li><li><a href="#options"><span>2.4</span>Optional items</a></li><li><a href="#plans"><span>2.5</span>Support plans</a></li><li><a href="#payment"><span>2.6</span>Payment</a></li></ul>
+    </header>
+    <!-- 2.1 SUMMARY -->
+    <section class="sec" id="summary" aria-labelledby="h-sum">
+      <div class="sec-head rv">
+        <h2 id="h-sum">Your investment at a glance.</h2>
+        <p class="sec-lead">One fixed implementation price, then a monthly support plan from February 2027. The Odoo subscription is separate and billed by Odoo.</p>
+      </div>
+      <div class="sum">
+        <div class="sum-total rv" aria-live="polite">
+          <div><small>Implementation, VAT included</small><strong data-out="grand">PHP 434,560</strong></div>
+          <div class="row3">
+            <div><small>Before VAT</small><b data-out="untaxed-php">PHP 388,000.00</b></div>
+            <div><small><span data-out="plan-name">Priority</span> support, from Feb 2027</small><b><span data-out="plan-price">PHP 32,000</span> / month</b></div>
+            <div><small>Paid in</small><b>3 milestones</b></div>
+            <div><small>First 12 months with TechNext</small><b data-out="year1">PHP 828,800</b></div>
+          </div>
+          <p>First 12 months = the implementation plus 11 months of support, both with VAT. Your Odoo subscription is not included.</p>
+        </div>
+        <div class="mix rv" style="--i:1" data-mix>
+          <h3>Where the investment goes</h3>
+          <p class="small">Share of the untaxed amount. Hover or focus a bar for its lines.</p>
+          <ul class="mix-list" data-mix-list>
+            <li style="--i:0"><span class="lab">Implementation and set-up</span><span class="val">233,000<small>60%</small></span><button class="bar2" type="button" style="--w:60" data-tipt="Implementation and set-up" data-tipd="Discovery, Accounting and PH localisation, Sales, Purchase and Inventory, branch invoices" aria-label="Implementation and set-up, PHP 233,000, 60 percent"><i></i></button></li>
+            <li style="--i:1"><span class="lab">Data migration</span><span class="val">54,000<small>14%</small></span><button class="bar2" type="button" style="--w:14" data-tipt="Data migration" data-tipd="Two trial loads and the final load, reconciled" aria-label="Data migration, PHP 54,000, 14 percent"><i></i></button></li>
+            <li style="--i:2"><span class="lab">Training, go-live and hypercare</span><span class="val">53,000<small>14%</small></span><button class="bar2" type="button" style="--w:14" data-tipt="Training, go-live and hypercare" data-tipd="Four recorded sessions, UAT, go-live and 30 days of hypercare" aria-label="Training, go-live and hypercare, PHP 53,000, 14 percent"><i></i></button></li>
+            <li style="--i:3"><span class="lab">CAS application pack</span><span class="val">48,000<small>12%</small></span><button class="bar2" type="button" style="--w:12" data-tipt="CAS application pack" data-tipd="System description, sworn statement draft, samples, audit trail printout" aria-label="CAS application pack, PHP 48,000, 12 percent"><i></i></button></li>
+          </ul>
+          <div class="tip" role="tooltip" data-tip></div>
+        </div>
+      </div>
+    </section>
+    <!-- 10 PRICING -->
+    <section class="sec" id="pricing" aria-labelledby="h-price">
+      <div class="sec-head rv">
+        <h2 id="h-price">Quotation lines, as they appear in Odoo.</h2>
+        <p class="sec-lead">Fixed prices in Philippine pesos for scope S1 to S7. Each line names the scope it pays for; items you add in 2.4 appear at the end.</p>
+      </div>
+      <div class="quote rv">
+        <div class="quote-h"><h3><img src="assets/img/odoo/sale.svg" alt="" width="22" height="22">Quotation S00147</h3><span class="tag">Sample figures</span></div>
+        <div class="qt-wrap">
+          <table class="qt" data-qt>
+            <thead><tr><th>Description</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Disc.</th><th class="r">Amount</th></tr></thead>
+            <tbody data-lines>
+              <tr class="qs"><td colspan="5">Implementation and set-up</td></tr>
+              <tr data-line data-qty="1" data-unit="38000"><td>Discovery and registration path<small>Workshops, BRD, CAS or CBA path (scope S1)</small></td><td class="r">1</td><td class="r">38,000.00</td><td class="r"></td><td class="r amt">38,000.00</td></tr>
+              <tr data-line data-qty="1" data-unit="96000"><td>Accounting and Philippine localisation<small>Chart of accounts, VAT and withholding, journals, controls (S2)</small></td><td class="r">1</td><td class="r">96,000.00</td><td class="r"></td><td class="r amt">96,000.00</td></tr>
+              <tr data-line data-qty="1" data-unit="72000"><td>Sales, purchase and inventory<small>Price lists, three warehouses, vendor bills with withholding (S3)</small></td><td class="r">1</td><td class="r">72,000.00</td><td class="r"></td><td class="r amt">72,000.00</td></tr>
+              <tr data-line data-qty="3" data-unit="9000"><td>Branch invoice series and invoice layout<small>Per site: series, EOPT layout, AC number, REPRINT (S3)</small></td><td class="r">3</td><td class="r">9,000.00</td><td class="r"></td><td class="r amt">27,000.00</td></tr>
+              <tr class="qs"><td colspan="5">Data migration</td></tr>
+              <tr data-line data-qty="1" data-unit="54000"><td>Opening balances and master data<small>Two trial loads and the final load, reconciled (S4)</small></td><td class="r">1</td><td class="r">54,000.00</td><td class="r"></td><td class="r amt">54,000.00</td></tr>
+              <tr class="qs"><td colspan="5">CAS application pack</td></tr>
+              <tr data-line data-qty="1" data-unit="48000"><td>CAS application pack, prepared with you<small>System description, sworn statement draft, samples, audit trail (S5)</small></td><td class="r">1</td><td class="r">48,000.00</td><td class="r"></td><td class="r amt">48,000.00</td></tr>
+              <tr class="qs"><td colspan="5">Training, go-live and hypercare</td></tr>
+              <tr data-line data-qty="4" data-unit="6500"><td>Role-based training sessions<small>Recorded, with quick guides and UAT (S6)</small></td><td class="r">4</td><td class="r">6,500.00</td><td class="r"></td><td class="r amt">26,000.00</td></tr>
+              <tr data-line data-qty="1" data-unit="36000" data-disc="25"><td>Go-live and 30 days of hypercare<small>Included at 25% off with the implementation (S7)</small></td><td class="r">1</td><td class="r">36,000.00</td><td class="r disc">25%</td><td class="r amt">27,000.00</td></tr>
+            </tbody>
+            <tbody data-opt-lines></tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <p class="words">Prices are in Philippine pesos and exclude VAT, which is added at 12%. The Odoo subscription is not in these totals; Odoo bills it to you directly. Monthly support starts when hypercare ends.</p>
+          <dl aria-live="polite">
+            <div><dt>Untaxed amount</dt><dd class="num" data-out="untaxed-php">PHP 388,000.00</dd></div>
+            <div><dt>VAT 12%</dt><dd class="num" data-out="vat">PHP 46,560.00</dd></div>
+            <div class="grand"><dt>Total</dt><dd class="num" data-out="grand-2">PHP 434,560.00</dd></div>
+            <div class="recur"><dt>Support plan, monthly</dt><dd class="num" data-out="recur-line">PHP 32,000.00 + VAT</dd></div>
+          </dl>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 4 SCOPE -->
+    <section class="sec" id="scope" aria-labelledby="h-scope">
+      <div class="sec-head rv">
+        <h2 id="h-scope">Scope and deliverables, clause by clause.</h2>
+        <p class="sec-lead">What each quotation line pays for: seven workstreams, each with what we do, what you receive and how it is accepted. Anything outside S1 to S7 is estimated in writing before any work starts.</p>
+      </div>
+      <div class="clauses">
+        <details class="clause rv" open>
+          <summary><span class="ref-n">S1</span><h3>Discovery and registration path<small>Workshops, CAS or CBA, branch and invoice inventory</small></h3><span class="when">Week 1</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>Three workshops: finance, billing and sales, warehouse</li><li>Confirm with your accountant whether you register a CAS or a CBA</li><li>List branches, TIN branch codes, invoice types and current booklets</li><li>Plan the cut-off for booklet invoices at each site</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Business Requirements Document (BRD)</li><li>Registration path for head office and branches</li><li>Cut-over calendar</li></ul></div>
+            <div><h4>Accepted when</h4><p>Your project owner signs the BRD. Sign-off is due within three working days of handover.</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S2</span><h3>Accounting and Philippine localisation<small>Chart of accounts, taxes, journals, controls</small></h3><span class="when">Weeks 2 to 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>Company and two branches with TIN branch codes</li><li>Chart of accounts mapped from your current trial balance</li><li>VAT 12%, expanded withholding and ATC codes, fiscal positions</li><li>Journals per branch, audit trail, secured journals, lock dates</li><li>User roles for 24 users, password rules and two-factor sign-in</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Configured Odoo test database</li><li>Configuration guide</li><li>Roles and access matrix</li></ul></div>
+            <div><h4>Accepted when</h4><p>The test scripts for this clause pass in user acceptance testing (S6).</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S3</span><h3>Sales, purchase, inventory and invoices<small>Three warehouses, branch series, invoice layout</small></h3><span class="when">Weeks 2 to 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>Price lists, payment terms and credit limits</li><li>Warehouses in Quezon City, Cebu and Davao, with transfers</li><li>Vendor bills with withholding, ready for 2307</li><li>Invoice series per branch; layout with EOPT fields, AC control number and "REPRINT" on copies</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Three invoice layouts approved by you and your accountant</li><li>Sales-to-invoice and purchase-to-payment flows</li></ul></div>
+            <div><h4>Accepted when</h4><p>Your finance manager approves the invoice layouts in writing and the flows pass UAT.</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S4</span><h3>Data migration<small>Opening balances as of 31 December 2026</small></h3><span class="when">Weeks 3 to 7</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>About 1,800 customers, 420 vendors and 3,200 products</li><li>Opening trial balance, open receivables and payables</li><li>Stock on hand per warehouse</li><li>Two trial loads, then the final load on 2 to 3 January</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Import templates and a data checklist</li><li>Reconciliation report: Odoo against your closing balances</li></ul></div>
+            <div><h4>Accepted when</h4><p>Your finance manager signs the reconciliation report for the final load.</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S5</span><h3>CAS application pack, prepared with you<small>The Annex A checklist, from your own Odoo</small></h3><span class="when">Week 4</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>System description and process flow</li><li>Draft sworn statement, or joint sworn statement for a cloud set-up, for your lawyer and notary</li><li>Sample invoices and supplementary documents</li><li>Sample books (GJ, GL, CRJ, CDJ, SJ, PJ) and reports</li><li>Audit trail printout and the Annex B requirements checklist, reviewed with you</li></ul></div>
+            <div><h4>You receive</h4><ul><li>The full pack, printed and as PDF, for you to sign, notarise and file</li><li>A briefing on what the RDO may ask</li></ul></div>
+            <div><h4>Your part</h4><p>You sign, notarise and file at your RDO, in person or by email. We stay on call for the RDO's questions. The registration decision and its timing are the RDO's.</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S6</span><h3>Training and user acceptance testing<small>Four role-based sessions, recorded</small></h3><span class="when">Week 5</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>Finance and accounting, including BIR reports</li><li>Billing and sales at each branch</li><li>Purchasing and warehouse</li><li>Management reports for you and your branch heads</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Recordings of every session</li><li>Quick guides per role</li><li>UAT scripts and results log</li></ul></div>
+            <div><h4>Accepted when</h4><p>Your project owner signs the UAT results. Open items are listed with an owner and a date.</p></div>
+          </div>
+        </details>
+        <details class="clause rv">
+          <summary><span class="ref-n">S7</span><h3>Go-live and 30 days of hypercare<small>Cut-over at year-end, daily check-ins in week one</small></h3><span class="when">From 4 Jan</span><svg class="ic chev"><use href="#i-chev"/></svg></summary>
+          <div class="clause-body">
+            <div><h4>What we do</h4><ul><li>Cut-over plan and booklet cut-off at each site</li><li>On site at head office on go-live day; branches by video call</li><li>Daily check-ins in week one, then twice a week</li><li>First month-end close in Odoo, done with your team</li></ul></div>
+            <div><h4>You receive</h4><ul><li>Go-live checklist</li><li>Hypercare log of every issue and fix</li><li>Handover to your support plan</li></ul></div>
+            <div><h4>Accepted when</h4><p>The January close is done in Odoo and the hypercare log has no open critical items.</p></div>
+          </div>
+        </details>
+      </div>
+      <div class="oos rv">
+        <div><h3><svg class="ic" style="width:18px;height:18px"><use href="#i-info"/></svg>Not included</h3><ul><li>The Odoo subscription, billed to you directly by Odoo</li><li>Filing or registering anything with the BIR, BIR fees and notarisation</li><li>E-invoicing: Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately</li><li>Payroll, custom modules and hardware such as printers</li><li>Transactions before 2027 beyond opening balances (optional below)</li></ul></div>
+        <div><h3><svg class="ic" style="width:18px;height:18px"><use href="#i-doc"/></svg>Assumptions</h3><ul><li>24 users at three sites; one company, two branches</li><li>Data volumes as listed in S4</li><li>You name one project owner with authority to sign off</li><li>Sign-offs within three working days, data in our templates by the agreed dates</li><li>Remote delivery from Taguig City, with one on-site day at head office</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 2.4 OPTIONS -->
+    <section class="sec" id="options" aria-labelledby="h-opt">
+      <div class="sec-head rv">
+        <h2 id="h-opt">Optional items you can add today.</h2>
+        <p class="sec-lead">Each one is a fixed price. Adding one puts it on the quotation, into the payment schedule and into the summary on the left.</p>
+      </div>
+      <div class="opts rv" data-opts>
+        <div class="quote-h"><h3>Optional items</h3><span class="tag">Sample figures</span></div>
+        <div class="opt" data-opt="branch" data-unit="22000" data-name="Additional branch set-up" data-desc="Series, journal, warehouse and invoice layout">
+          <img src="assets/img/odoo/stock.svg" alt="" width="28" height="28"><div><b>Additional branch set-up</b><small>Series, journal, warehouse and invoice layout for one more site</small></div>
+          <div class="op num">PHP 22,000 <small>each</small></div>
+          <div class="act"><span class="qty" hidden><button type="button" data-q="-1" aria-label="One branch fewer">−</button><output>1</output><button type="button" data-q="1" aria-label="One more branch">+</button></span><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
+        </div>
+        <div class="opt" data-opt="payroll" data-unit="65000" data-name="Philippine payroll set-up" data-desc="1601-C, 2316 and 1604-C from Odoo Payroll">
+          <img src="assets/img/odoo/hr_payroll.svg" alt="" width="28" height="28"><div><b>Philippine payroll set-up</b><small>Odoo Payroll with 1601-C, 2316 and 1604-C, for up to 120 employees</small></div>
+          <div class="op num">PHP 65,000</div>
+          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
+        </div>
+        <div class="opt" data-opt="history" data-unit="45000" data-name="2026 transaction history" data-desc="Twelve months of 2026 invoices and bills, for comparison reports">
+          <img src="assets/img/odoo/accountant.svg" alt="" width="28" height="28"><div><b>2026 transaction history</b><small>Twelve months of 2026 invoices and bills, for year-on-year reports</small></div>
+          <div class="op num">PHP 45,000</div>
+          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
+        </div>
+        <div class="opt" data-opt="dash" data-unit="24000" data-name="Management dashboard" data-desc="Branch P&amp;L, sales and receivables ageing">
+          <img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="28" height="28"><div><b>Management dashboard</b><small>Branch profit and loss, sales and receivables ageing on one screen</small></div>
+          <div class="op num">PHP 24,000</div>
+          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
+        </div>
+        <div class="opt" data-opt="audit" data-unit="28000" data-name="BIR audit records pack" data-desc="Ledgers and lists prepared for an examiner">
+          <img src="assets/img/odoo/documents.svg" alt="" width="28" height="28"><div><b>BIR audit records pack</b><small>Ledgers, lists and exports prepared from Odoo when a Letter of Authority arrives</small></div>
+          <div class="op num">PHP 28,000</div>
+          <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
+        </div>
+      </div>
+
+    </section>
+    <!-- 2.5 PLANS -->
+    <section class="sec" id="plans" aria-labelledby="h-plans">
+      <div class="sec-head rv">
+        <h2 id="h-plans">Support plans after hypercare.</h2>
+        <p class="sec-lead">The first 30 days after go-live are covered by hypercare. From February 2027, pick the plan that fits; the response times in Part 3 follow your choice.</p>
+      </div>
+      <fieldset class="plans rv" data-plans>
+        <legend class="sr-only">Support plan</legend>
+        <label class="plan"><input type="radio" name="plan" value="essential"><span class="pc"><span class="pc-top"><h3>Essential</h3><span class="radio"></span></span><span class="price">PHP 18,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>8 support hours a month</li><li><svg class="ic"><use href="#i-check"/></svg>Tickets and email</li><li><svg class="ic"><use href="#i-check"/></svg>Monthly support report</li></ul></span></label>
+        <label class="plan"><input type="radio" name="plan" value="priority" checked><span class="pc"><span class="rec tag">Recommended</span><span class="pc-top"><h3>Priority</h3><span class="radio"></span></span><span class="price">PHP 32,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>20 support hours a month</li><li><svg class="ic"><use href="#i-check"/></svg>Video calls with your consultant</li><li><svg class="ic"><use href="#i-check"/></svg>BIR lists checked with you before each quarterly filing</li></ul></span></label>
+        <label class="plan"><input type="radio" name="plan" value="dedicated"><span class="pc"><span class="pc-top"><h3>Dedicated</h3><span class="radio"></span></span><span class="price">PHP 58,000 <small>/ month</small></span><ul><li><svg class="ic"><use href="#i-check"/></svg>40 hours and a named consultant</li><li><svg class="ic"><use href="#i-check"/></svg>Month-end close support, Saturday cover</li><li><svg class="ic"><use href="#i-check"/></svg>Yearly ORUS book exports included</li></ul></span></label>
+      </fieldset>
+    </section>
+    <!-- 2.6 PAYMENT -->
+    <section class="sec" id="payment" aria-labelledby="h-pay">
+      <div class="sec-head rv">
+        <h2 id="h-pay">Payment schedule, tied to what you receive.</h2>
+        <p class="sec-lead">Three implementation milestones, then monthly support once hypercare ends. Amounts include VAT and follow your choices in this part.</p>
+      </div>
+      <div class="ptl rv" data-ptl>
+        <h3>From signing to support</h3>
+        <div class="ptl-track">
+          <span class="fill" aria-hidden="true"></span>
+          <div class="pstep"><small>50% on signing</small><b data-out="pay1">PHP 217,280</b><p>Down payment, invoiced when you sign.</p></div>
+          <div class="pstep"><small>30% on CAS pack handover</small><b data-out="pay2">PHP 130,368</b><p>Target Friday 11 December 2026.</p></div>
+          <div class="pstep"><small>20% on go-live</small><b data-out="pay3">PHP 86,912</b><p>Target Monday 4 January 2027.</p></div>
+          <div class="pstep rec"><small>Monthly from Feb 2027</small><b data-out="plan-monthly-vat">PHP 35,840</b><p><span data-out="plan-name">Priority</span> support, billed monthly in advance.</p></div>
+        </div>
+      </div>
+      <div class="odoo-fee rv"><svg class="ic draw" style="width:30px;height:30px"><use href="#i-info"/></svg><div><h3>Paid to Odoo, not to TechNext: your Odoo subscription.</h3><p>24 users on Odoo's Custom plan, billed to you by Odoo at its published price for the Philippines. It is separate from this proposal; we size the plan with you before you subscribe, and current prices are on odoo.com/pricing.</p></div></div>
+    </section>
+    <button class="part-next rv" type="button" data-goto="3"><span><b>Next, Part 3: Terms and conditions</b><span class="d">Service levels for your plan, the terms of this proposal and the sign-off.</span></span><span class="go" aria-hidden="true"><svg class="ic"><use href="#i-arrow"/></svg></span></button>
+    </section>
+    <section class="part" id="part-3" data-part="3" role="tabpanel" aria-labelledby="tab-3" tabindex="-1">
+    <header class="part-head rv" id="p3-head">
+      <h2>Terms and conditions, service levels and sign-off.</h2>
+      <p>The response times for the support plan you picked in Part 2, the terms of this proposal, the BIR disclaimer and the acceptance block.</p>
+      <ul class="part-index"><li><a href="#sla"><span>3.1</span>Service levels</a></li><li><a href="#terms"><span>3.2</span>Terms</a></li><li><a href="#sign"><span>3.3</span>Accept and sign</a></li></ul>
+    </header>
+    <!-- 9 SLA -->
+    <section class="sec" id="sla" aria-labelledby="h-sla">
+      <div class="sec-head rv">
+        <h2 id="h-sla">Service levels after go-live, in writing.</h2>
+        <p class="sec-lead">Response times for the <b data-out="plan-name">Priority</b> plan you picked in Part 2. Hypercare covers the first 30 days after go-live. <a href="#plans">Change the plan</a></p>
+      </div>
+      <div class="tbl-wrap rv">
+        <table class="tbl sla">
+          <thead><tr><th style="width:10%">Priority</th><th style="width:36%">What it means</th><th>First response</th><th>Workaround or fix</th><th>Updates</th></tr></thead>
+          <tbody>
+            <tr><td><span class="p p1">P1</span></td><td><b>Critical.</b> Invoices cannot be issued at any site. Odoo hosting incidents are raised with Odoo at once.</td><td class="t"><span class="chg" data-sla="p1r">2 business hours</span></td><td><span class="chg" data-sla="p1f">Within 8 business hours</span></td><td>Every 2 hours</td></tr>
+            <tr><td><span class="p p2">P2</span></td><td><b>High.</b> A BIR report or a key process fails for one branch.</td><td class="t"><span class="chg" data-sla="p2r">4 business hours</span></td><td><span class="chg" data-sla="p2f">Within 2 business days</span></td><td>Daily</td></tr>
+            <tr><td><span class="p p3">P3</span></td><td><b>Normal.</b> A question about a user, layout or report, with a workaround.</td><td class="t"><span class="chg" data-sla="p3r">1 business day</span></td><td><span class="chg" data-sla="p3f">Within 5 business days</span></td><td>On change</td></tr>
+            <tr><td><span class="p p4">P4</span></td><td><b>Request.</b> A change or a new report, drawn from plan hours.</td><td class="t"><span class="chg" data-sla="p4r">2 business days</span></td><td>Scheduled with you</td><td>Weekly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note rv"><b>Support hours:</b> Monday to Friday, 8:30 am to 6:00 pm Philippine time, except regular holidays<span data-sla="cover"></span>. Unused hours roll over for one month; extra hours are PHP 2,200 each. Response times start when a ticket is logged.</p>
+      <div class="esc rv">
+        <div><span class="lv">Level 1</span><b>Your support consultant</b><small>Jett Balanza</small></div>
+        <div><span class="lv">Level 2</span><b>Project Manager</b><small>RJ Sarreal</small></div>
+        <div><span class="lv">Level 3</span><b>General Manager</b><small>Pia Cachola</small></div>
+      </div>
+    </section>
+
+    <!-- 12 TERMS -->
+    <section class="sec" id="terms" aria-labelledby="h-terms">
+      <div class="sec-head rv">
+        <h2 id="h-terms">Terms of this proposal.</h2>
+        <p class="sec-lead">Plain-language terms that apply once you sign. <span class="tag">Sample terms</span></p>
+      </div>
+      <div class="keyterms rv">
+        <div><svg class="ic draw"><use href="#i-cal"/></svg><span><b>30 days</b><small>Proposal valid until 3 December 2026</small></span></div>
+        <div><svg class="ic draw"><use href="#i-layers"/></svg><span><b>50 / 30 / 20</b><small>By milestone, invoices due in 15 days</small></span></div>
+        <div><svg class="ic draw"><use href="#i-shield"/></svg><span><b>90 days</b><small>Warranty on our configuration after go-live</small></span></div>
+        <div><svg class="ic draw"><use href="#i-clock"/></svg><span><b>15 days</b><small>Written notice to end the engagement</small></span></div>
+      </div>
+      <ol class="terms rv">
+        <li><span class="ref-n">T1</span><div><b>Validity</b><p>This proposal is valid for 30 days, until 3 December 2026. After that, prices and dates are confirmed again.</p></div></li>
+        <li><span class="ref-n">T2</span><div><b>Prices and taxes</b><p>Prices are fixed for scope S1 to S7 in Part 2, in Philippine pesos, and exclude VAT, which is added at 12%. Taxes are applied on each invoice as the law requires.</p></div></li>
+        <li><span class="ref-n">T3</span><div><b>Payment</b><p>50% on signing, 30% on handover of the CAS application pack and 20% on go-live. Invoices are due within 15 days. Support is billed monthly in advance from the end of hypercare.</p></div></li>
+        <li><span class="ref-n">T4</span><div><b>Changes to the scope</b><p>Anything outside scope S1 to S7 is estimated in writing first. No change work starts without your written approval.</p></div></li>
+        <li><span class="ref-n">T5</span><div><b>Your responsibilities</b><p>A named project owner, data in our templates by the agreed dates, sign-offs within three working days, and your filing, notarisation and fees at the BIR.</p></div></li>
+        <li><span class="ref-n">T6</span><div><b>Acceptance</b><p>Each deliverable is accepted when signed, or five working days after handover if no issue is raised in writing.</p></div></li>
+        <li><span class="ref-n">T7</span><div><b>Warranty</b><p>Defects in TechNext's configuration found within 90 days of go-live are fixed at no charge.</p></div></li>
+        <li><span class="ref-n">T8</span><div><b>Confidentiality and data privacy</b><p>We use your data only for this project, under the Data Privacy Act of 2012 (RA 10173), and sign your NDA on request.</p></div></li>
+        <li><span class="ref-n">T9</span><div><b>Ownership</b><p>Your data and your configuration are yours. Odoo is licensed to you by Odoo S.A. under Odoo's own terms.</p></div></li>
+        <li><span class="ref-n">T10</span><div><b>Ending the engagement</b><p>Either party may end it with 15 days' written notice. Work done to that date is billed at the line prices above.</p></div></li>
+        <li><span class="ref-n">T11</span><div><b>Limitation of liability</b><p>Each party's total liability under this proposal is limited to the fees paid under it. Neither party is liable for indirect or consequential loss.</p></div></li>
+        <li><span class="ref-n">T12</span><div><b>Events outside our control</b><p>Neither party is in breach for delays caused by events beyond its reasonable control, including government or RDO processing times. Dates move by the length of the delay.</p></div></li>
+        <li><span class="ref-n">T13</span><div><b>The agreement</b><p>This proposal, once signed, and any change requests both parties approve in writing form the agreement for this engagement.</p></div></li>
+      </ol>
+      <div class="disclaimer rv"><svg class="ic"><use href="#i-shield"/></svg><p><b>TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</b> The BIR does not accredit software brands; it registers each taxpayer's use of a system. Registration decisions and their timing are the BIR's. This proposal is general guidance, not tax advice; confirm tax matters with your accountant or RDO.</p></div>
+    </section>
+
     <!-- 14 SIGN -->
-    <section class="sec sec-sign" id="sign" aria-labelledby="h-sign" data-sign-root>
+    <section class="sec" id="sign" aria-labelledby="h-sign" data-sign-root>
       <div class="close rv">
         <div class="close-in">
           <div>
@@ -762,6 +1089,7 @@
       </div>
       <p class="note">TECHNEXT PTE. LTD. (UEN 202699888G) · 261 Waterloo Street, #03-36, Waterloo Centre, Singapore 180261 · Team in Taguig City · sales@technext.asia</p>
     </section>
+    </section>
   </main>
 </div>
 
@@ -786,7 +1114,7 @@
         <div class="pad" data-pad><canvas aria-label="Signature pad: draw your signature"></canvas><div class="typed" data-typed hidden></div><span class="base"></span><span class="hint" data-hint>Sign above the line</span><button class="btn btn-ghost btn-sm clear" type="button" data-clear>Clear</button></div>
         <p class="err" data-err role="alert"></p>
       </div>
-      <p class="agree">By signing this proposal, I agree to the following terms: accepted on behalf of <b>Sample Trading Corp.</b>, for an amount of <b data-out="grand">PHP 434,560</b>, with the <b data-out="plan-name">Priority</b> support plan and payment terms of 50 / 30 / 20 by milestone, under the terms in section 12.<br><span class="muted">This page does not send your signature. After signing, download the PDF and email it to sales@technext.asia.</span></p>
+      <p class="agree">By signing this proposal, I agree to the following terms: accepted on behalf of <b>Sample Trading Corp.</b>, for an amount of <b data-out="grand">PHP 434,560</b>, with the <b data-out="plan-name">Priority</b> support plan and payment terms of 50 / 30 / 20 by milestone, under the terms in Part 3.<br><span class="muted">This page does not send your signature. After signing, download the PDF and email it to sales@technext.asia.</span></p>
     </div>
     <div class="dlg-f"><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit"><svg class="ic"><use href="#i-check"/></svg> Accept &amp; sign</button></div>
   </form>
