@@ -252,7 +252,7 @@ html{scrollbar-color:#C9D6EE transparent}
 
 /* calculator */
 .calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:0;margin-top:28px;border:1px solid var(--edge);border-radius:20px;overflow:hidden;background:#fff}
-.calc-in{padding:22px 24px;display:grid;gap:18px}
+.calc-in{padding:22px 24px;display:grid;gap:16px}
 .calc-in h3{font-size:18px;letter-spacing:-.01em}
 .calc-in label{display:grid;gap:8px;font:600 13.5px/1.3 var(--f-body);color:var(--ink)}
 .calc-in .val{float:right;font-weight:700;color:var(--blue-700);font-variant-numeric:tabular-nums}
@@ -599,6 +599,7 @@ dialog.dlg[open]{animation:dlgin .45s var(--ease)}
 .qty[hidden]{display:none}
 .req .cell span{flex:1;min-width:0}
 .swipe{display:none;font-size:12.5px;color:var(--muted);margin:0 0 8px}
+.narrow-only{display:none}
 
 .print-sign{display:none;grid-template-columns:1fr 1fr;gap:10mm;margin-top:8mm}
 .print-sign div{border-top:1px solid var(--ink);padding-top:6px;font-size:10pt;color:var(--body)}
@@ -723,6 +724,14 @@ dialog.dlg[open]{animation:dlgin .45s var(--ease)}
   .f2{grid-template-columns:1fr}
   .g-info{grid-template-columns:1fr}
   .mbar .btns .btn-ghost{display:none}
+  .narrow-only{display:inline}.wide-only{display:none}
+  .cover-copy{display:flex;flex-direction:column}
+  .cover-copy .facts{order:5}
+  .cover-copy .notice{order:6}
+  .cover-cta{margin-top:22px}
+  .crumb-path{display:none}
+  .mini{overflow-x:auto}
+  .mini td{white-space:normal}
   .swipe{display:block}
   .cmp{box-shadow:none;border:0;background:transparent;overflow:visible;display:grid;gap:12px}
   .cmp-pane{border:1px solid var(--edge);border-radius:16px;overflow:hidden;background:#fff}
@@ -732,7 +741,7 @@ dialog.dlg[open]{animation:dlgin .45s var(--ease)}
   .xl,.obook{padding:10px 12px 12px;overflow-x:auto}
   .xl table{min-width:560px}
   .obook table{min-width:600px}
-  .cmp-legend{flex-direction:column;gap:6px}
+  .cmp-legend{flex-direction:column;gap:6px;align-items:flex-start}
   .tbl.pain,.tbl.sla{min-width:0}
   .tbl.pain thead,.tbl.sla thead{display:none}
   .tbl.pain tr,.tbl.sla tr{display:block;padding:14px 16px;border-top:1px solid var(--row)}
