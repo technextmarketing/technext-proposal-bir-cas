@@ -12,10 +12,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="assets/proposal.css">
-<script>(function(d){d.classList.add(matchMedia('(prefers-reduced-motion: reduce)').matches?'rm':'js');setTimeout(function(){if(!window.__tnp)d.classList.remove('js')},2500)})(document.documentElement)</script>
+<script>(function(d){d.classList.add(matchMedia('(prefers-reduced-motion: reduce)').matches?'rm':'js');setTimeout(function(){if(!window.__tnp){d.classList.remove('js','intro-on');var i=document.querySelector('[data-intro]');if(i)i.remove();var m=document.getElementById('main');if(m)m.inert=false}},2500)})(document.documentElement)</script>
 </head>
 <body>
-<a class="skip" href="#letter">Skip to the proposal</a>
+<a class="skip" href="#main">Skip to the proposal</a>
+<div class="intro" data-intro hidden>
+  <svg class="intro-trail" aria-hidden="true"><path data-intro-trail pathLength="1"/></svg>
+  <img class="intro-plane" src="assets/img/logo-plane.png" alt="" width="160" height="136" data-intro-plane>
+  <p class="intro-line" data-intro-line aria-hidden="true"><span>Proposal</span> <span>S00147</span> <span>for</span> <span class="im"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 22l12-12 12 12" fill="none" stroke="#1F1F3D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 26l6-6 6 6" fill="none" stroke="#3167CA" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sample</span> <span>Trading</span> <span>Corp.</span></p>
+  <button class="intro-skip" type="button" data-intro-skip>Skip intro</button>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -45,6 +51,8 @@
     <symbol id="i-pause" viewBox="0 0 24 24"><path pathLength="1" d="M8 5v14M16 5v14"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path pathLength="1" d="M7 5l12 7-12 7V5z"/></symbol>
     <symbol id="i-replay" viewBox="0 0 24 24"><path pathLength="1" d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4h4"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path pathLength="1" d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path pathLength="1" d="M9 6l6 6-6 6"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle pathLength="1" cx="9" cy="8" r="3.3"/><path pathLength="1" d="M3 20c.4-3.3 2.9-5.6 6-5.6s5.6 2.3 6 5.6M16 4.8a3.2 3.2 0 010 6.3M21 20c-.3-2.4-1.6-4.3-3.6-5.2"/></symbol>
   </defs>
 </svg>
@@ -68,84 +76,61 @@
       </div>
     </div>
 
-    <div class="cover-grid">
-      <div class="cover-copy">
-        <h1 class="stage" style="--i:1">Start 2027 with your books in <span class="hl">Odoo</span>, set up for your BIR CAS registration.</h1>
-        <p class="lead stage" style="--i:2">Odoo 20 for <b>Sample Trading Corp.</b>'s head office and two branches, set up for BIR requirements, with your CAS application samples printed from your own Odoo and the same team on call after go-live. Fixed scope, fixed price.</p>
-        <dl class="facts stage" style="--i:3">
-          <div><dt>Prepared for</dt><dd>Juan Dela Cruz, President &amp; CEO</dd></div>
-          <div><dt>Proposal date</dt><dd>3 November 2026</dd></div>
-          <div><dt>Scope</dt><dd>Head office + 2 branches, 24 users</dd></div>
-          <div><dt>Valid until</dt><dd>3 December 2026</dd></div>
-          <div><dt>Odoo apps</dt><dd>5 apps on Odoo 20</dd></div>
-          <div><dt>Target go-live</dt><dd>Mon 4 January 2027</dd></div>
-        </dl>
-        <div class="cover-cta stage" style="--i:4">
+    <div class="hero2">
+      <div class="hero-copy">
+        <h1 aria-label="Start 2027 on Odoo, set up for BIR CAS."><span class="w" style="--wi:0"><span>Start</span></span> <span class="w" style="--wi:1"><span>2027</span></span> <span class="w" style="--wi:2"><span>on</span></span> <span class="w" style="--wi:3"><span><span class="hl">Odoo</span>,</span></span><br class="brk"> <span class="w" style="--wi:4"><span>set</span></span> <span class="w" style="--wi:5"><span>up</span></span> <span class="w" style="--wi:6"><span>for</span></span> <span class="w" style="--wi:7"><span>BIR</span></span> <span class="w" style="--wi:8"><span>CAS.</span></span></h1>
+        <p class="hero-sub stage" style="--i:2">Your proposal from TechNext, in three short parts.</p>
+        <div class="cover-cta stage" style="--i:3">
           <a class="btn btn-primary btn-lg" href="#part-1" data-goto="1">Open the proposal <svg class="ic arr"><use href="#i-arrow"/></svg></a>
           <button class="btn btn-ghost btn-lg" type="button" data-open-sign><svg class="ic"><use href="#i-pen"/></svg> Accept &amp; sign</button>
         </div>
-        <ol class="cover-parts stage" style="--i:5" aria-label="The three parts of this proposal">
-          <li><a href="#part-1" data-goto="1"><b>Part 1: Solution showcase</b><small>Eight services at work, plan, team, FAQ</small></a></li>
-          <li><a href="#part-2" data-goto="2"><b>Part 2: Commercial proposal</b><small>Investment, options, support, payment</small></a></li>
-          <li><a href="#part-3" data-goto="3"><b>Part 3: Terms and conditions</b><small>Service levels, terms, sign-off</small></a></li>
-        </ol>
-        <p class="notice stage" style="--i:6"><svg class="ic"><use href="#i-info"/></svg><span>We set up Odoo and prepare your CAS samples with you. You file at your Revenue District Office (RDO), and the registration decision is the BIR's.</span></p>
       </div>
 
-      <div class="cover-panel stage tilt" style="--i:3" data-hero data-tilt>
-        <div class="owin">
+      <div class="hero-stage stage tilt" style="--i:4" data-hero data-tilt>
+        <div class="hchips">
+          <span class="hchip hchip--a" style="--pz:10"><span><svg class="ic"><use href="#i-users"/></svg>Prepared for Juan Dela Cruz, CEO</span></span>
+          <span class="hchip hchip--b" style="--pz:-14"><span><svg class="ic"><use href="#i-cal"/></svg>Go-live Mon 4 Jan 2027</span></span>
+          <span class="hchip hchip--c" style="--pz:8"><span><svg class="ic"><use href="#i-clock"/></svg>Valid until 3 Dec 2026</span></span>
+        </div>
+        <div class="owin hero-win">
           <span class="live-edge" aria-hidden="true"></span>
           <div class="owin-bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="crumb"><img src="assets/img/odoo/sale.svg" alt="" width="18" height="18"><span class="crumb-path">Sales / Quotations /&nbsp;</span><b>S00147</b></span>
+            <span class="hint">Pick a line to see it at work</span>
             <span class="tag">Sample data</span>
           </div>
           <div class="owin-body">
-            <div class="o-status" aria-label="Quotation status">
-              <span class="done" data-st="0">Quotation</span>
-              <span class="on" data-st="1">Quotation sent</span>
-              <span data-st="2">Signed</span>
-            </div>
-            <div class="o-head">
-              <div><p class="o-ttl">S00147</p><p>Sample Trading Corp. · Juan Dela Cruz</p></div>
-              <img src="assets/img/odoo/sign.svg" alt="" width="30" height="30">
-            </div>
-            <div class="o-fields">
-              <div><span>Template</span><b>BIR CAS on Odoo 20</b></div>
-              <div><span>Expiration</span><b>03/12/2026</b></div>
-              <div><span>Sites</span><b>QC, Cebu, Davao</b></div>
-              <div><span>Go-live</span><b>04/01/2027</b></div>
-            </div>
-            <table class="o-lines">
-              <thead><tr><th>Section</th><th>Lines</th><th>Timing</th></tr></thead>
-              <tbody>
-                <tr><td>Implementation and set-up</td><td>4</td><td>Weeks 1 to 4</td></tr>
-                <tr><td>Data migration</td><td>1</td><td>Weeks 3 to 7</td></tr>
-                <tr><td>CAS application pack</td><td>1</td><td>Week 4</td></tr>
-                <tr><td>Training, go-live &amp; hypercare</td><td>2</td><td>From week 5</td></tr>
-              </tbody>
-            </table>
-            <div class="o-total"><span>Pricing in Part 2</span><span>Go-live <b>Mon 4 Jan 2027</b></span></div>
-            <div class="o-sign" data-hero-sign>
-              <div>
-                <div class="lbl">Signature</div>
-                <div class="unsigned-view"><span class="pill pill--amber">Awaiting your signature</span></div>
-                <div class="signed-view"><img data-sig-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Client signature" style="max-height:52px"><div class="who" data-sig-who></div></div>
+            <div class="hero-row">
+              <div class="o-head"><div><p class="o-ttl">S00147</p><p>Sample Trading Corp. · 3 sites · 24 users</p></div></div>
+              <div class="o-status o-step" role="group" aria-label="Quotation stages">
+                <button type="button" class="done" data-st="0" data-say="Prepared on 3 Nov 2026 from your discovery call.">Quotation</button>
+                <button type="button" class="on" data-st="1" data-say="You are reading it now. It stays valid until 3 Dec 2026.">Quotation sent</button>
+                <button type="button" data-st="2" data-say="Sign it here or in Part 3. Kick-off follows within five working days.">Signed</button>
               </div>
-              <button class="btn btn-primary btn-sm unsigned-view" type="button" data-open-sign><svg class="ic"><use href="#i-pen"/></svg> Sign</button>
-              <span class="stamp signed-view"><svg class="ic"><use href="#i-check"/></svg> Signed</span>
+            </div>
+            <p class="o-say" data-say-out aria-live="polite">You are reading it now. It stays valid until 3 Dec 2026.</p>
+            <div class="olines-h" aria-hidden="true"><span></span><span>Service</span><span>Scope</span><span>Timing</span><span>Status</span><span></span></div>
+            <ol class="olines" aria-label="Services in this proposal">
+              <li style="--li:0"><button class="oline" type="button" data-svc="0"><img src="assets/img/odoo/project.svg" alt="" width="24" height="24"><span class="onm">Discovery and registration path</span><span class="osc">S1</span><span class="otm">Week 1</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:1"><button class="oline" type="button" data-svc="1"><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24"><span class="onm">Accounting and Philippine localisation</span><span class="osc">S2</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:2"><button class="oline" type="button" data-svc="2"><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24"><span class="onm">Sales, purchase and inventory</span><span class="osc">S3</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:3"><button class="oline" type="button" data-svc="3"><img src="assets/img/odoo/account.svg" alt="" width="24" height="24"><span class="onm">Branch invoices and layout</span><span class="osc">S3</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:4"><button class="oline" type="button" data-svc="4"><img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="24" height="24"><span class="onm">Data migration</span><span class="osc">S4</span><span class="otm">Weeks 3 to 7</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:5"><button class="oline" type="button" data-svc="5"><img src="assets/img/odoo/documents.svg" alt="" width="24" height="24"><span class="onm">CAS application pack</span><span class="osc">S5</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:6"><button class="oline" type="button" data-svc="6"><img src="assets/img/odoo/website_slides.svg" alt="" width="24" height="24"><span class="onm">Training and user testing</span><span class="osc">S6</span><span class="otm">Week 5</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:7"><button class="oline" type="button" data-svc="7"><img src="assets/img/odoo/helpdesk.svg" alt="" width="24" height="24"><span class="onm">Go-live, hypercare and support</span><span class="osc">S7</span><span class="otm">From 4 Jan</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+            </ol>
+            <div class="hero-foot">
+              <span class="pr">Pricing in <a href="#part-2" data-goto="2">Part 2</a></span>
+              <div class="o-sign" data-hero-sign>
+                <div class="unsigned-view"><span class="pill pill--amber">Awaiting your signature</span></div>
+                <div class="signed-view"><img data-sig-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Client signature" width="120" height="40" style="max-height:40px;width:auto"><div class="who" data-sig-who></div></div>
+                <button class="btn btn-primary btn-sm unsigned-view" type="button" data-open-sign><svg class="ic"><use href="#i-pen"/></svg> Sign</button>
+                <span class="stamp signed-view"><svg class="ic"><use href="#i-check"/></svg> Signed</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="float" aria-label="CAS application pack">
-          <p class="f-ttl"><img src="assets/img/odoo/documents.svg" alt="" width="18" height="18">CAS application pack</p>
-          <ul data-hero-pack>
-            <li><svg class="ic draw"><use href="#i-check"/></svg>System description</li>
-            <li><svg class="ic draw"><use href="#i-check"/></svg>Sample invoices</li>
-            <li><svg class="ic draw"><use href="#i-check"/></svg>Sample books and reports</li>
-            <li><svg class="ic draw"><use href="#i-check"/></svg>Audit trail printout</li>
-            <li><svg class="ic draw"><use href="#i-check"/></svg>Annex B checklist</li>
-          </ul>
         </div>
       </div>
     </div>
@@ -265,23 +250,25 @@
       <div class="show auto rv" data-show>
         <div>
           <div class="svc-list" role="tablist" aria-label="Services" aria-orientation="vertical">
-            <button class="svc" role="tab" id="sv-1" aria-controls="sc-1" aria-selected="true" data-crumb="Project / Sample Trading Corp. / Discovery" data-icon="project" data-get="Business Requirements Document|Registration path|Cut-over calendar" data-ref="Scope S1 · Part 2"><span class="n">01</span><span><b><img class="svc-ic" src="assets/img/odoo/project.svg" alt="" width="20" height="20">Discovery and registration path</b><span class="more"><span>Three workshops, CAS or CBA confirmed with your accountant, branch and booklet inventory.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-2" aria-controls="sc-2" aria-selected="false" tabindex="-1" data-crumb="Accounting / Configuration / Chart of accounts" data-icon="accountant" data-get="Configured Odoo database|Configuration guide|Roles and access matrix" data-ref="Scope S2 · Part 2"><span class="n">02</span><span><b><img class="svc-ic" src="assets/img/odoo/accountant.svg" alt="" width="20" height="20">Accounting and Philippine localisation</b><span class="more"><span>Chart of accounts from your trial balance, VAT and withholding, secured journals and lock dates.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-3" aria-controls="sc-3" aria-selected="false" tabindex="-1" data-crumb="Sales / Orders / S00412" data-icon="sale" data-get="Sales-to-invoice flow|Purchase-to-pay flow|Three warehouses" data-ref="Scope S3 · Part 2"><span class="n">03</span><span><b><img class="svc-ic" src="assets/img/odoo/sale.svg" alt="" width="20" height="20">Sales, purchase and inventory</b><span class="more"><span>Orders, deliveries and stock at Quezon City, Cebu and Davao, valued as they move.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-4" aria-controls="sc-4" aria-selected="false" tabindex="-1" data-crumb="Invoicing / Customers / INV/HO/000412" data-icon="account" data-get="Three invoice layouts|A series per branch|REPRINT on copies" data-ref="Scope S3 · Part 2"><span class="n">04</span><span><b><img class="svc-ic" src="assets/img/odoo/account.svg" alt="" width="20" height="20">Branch invoices and layout</b><span class="more"><span>System invoices on a series per branch, EOPT fields, your AC control number, "REPRINT" on copies.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-5" aria-controls="sc-5" aria-selected="false" tabindex="-1" data-crumb="Settings / Import / Final load" data-icon="spreadsheet_dashboard" data-get="Import templates|Two trial loads|Signed reconciliation report" data-ref="Scope S4 · Part 2"><span class="n">05</span><span><b><img class="svc-ic" src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="20" height="20">Data migration</b><span class="more"><span>Customers, vendors, products, stock and opening balances as of 31 December 2026, reconciled.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-6" aria-controls="sc-6" aria-selected="false" tabindex="-1" data-crumb="Documents / CAS application" data-icon="documents" data-get="System description|Sworn statement draft|Samples and audit trail printout" data-ref="Scope S5 · Part 2"><span class="n">06</span><span><b><img class="svc-ic" src="assets/img/odoo/documents.svg" alt="" width="20" height="20">CAS application pack</b><span class="more"><span>The Annex A documents printed from your own Odoo, for you to sign, notarise and file.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-7" aria-controls="sc-7" aria-selected="false" tabindex="-1" data-crumb="eLearning / Sample Trading Corp. / Billing" data-icon="website_slides" data-get="Four recorded sessions|Quick guides per role|UAT results log" data-ref="Scope S6 · Part 2"><span class="n">07</span><span><b><img class="svc-ic" src="assets/img/odoo/website_slides.svg" alt="" width="20" height="20">Training and user testing</b><span class="more"><span>Four role-based sessions, recorded, then user acceptance testing with your team.</span></span></span><span class="prog"><i></i></span></button>
-            <button class="svc" role="tab" id="sv-8" aria-controls="sc-8" aria-selected="false" tabindex="-1" data-crumb="Helpdesk / Sample Trading Corp. / #0108" data-icon="helpdesk" data-get="Go-live checklist|30 days of hypercare|Support plan in writing" data-ref="Scope S7 · Part 2"><span class="n">08</span><span><b><img class="svc-ic" src="assets/img/odoo/helpdesk.svg" alt="" width="20" height="20">Go-live, hypercare and support</b><span class="more"><span>Cut-over at year-end, daily check-ins in week one, then response times in writing.</span></span></span><span class="prog"><i></i></span></button>
+            <span class="svc-rail" aria-hidden="true"><i></i></span>
+            <button class="svc" role="tab" id="sv-1" aria-labelledby="svt-1" aria-describedby="svd-1" aria-controls="sc-1" aria-selected="true" data-crumb="Project / Sample Trading Corp. / Discovery" data-icon="project" data-get="Business Requirements Document|Registration path|Cut-over calendar" data-ref="Scope S1 · Part 2"><span class="n">01</span><span><b id="svt-1"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/project.svg" alt="" width="20" height="20">Discovery and registration path</b><span class="more"><span id="svd-1">Three workshops, CAS or CBA confirmed with your accountant, branch and booklet inventory.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-2" aria-labelledby="svt-2" aria-describedby="svd-2" aria-controls="sc-2" aria-selected="false" tabindex="-1" data-crumb="Accounting / Configuration / Chart of accounts" data-icon="accountant" data-get="Configured Odoo database|Configuration guide|Roles and access matrix" data-ref="Scope S2 · Part 2"><span class="n">02</span><span><b id="svt-2"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/accountant.svg" alt="" width="20" height="20">Accounting and Philippine localisation</b><span class="more"><span id="svd-2">Chart of accounts from your trial balance, VAT and withholding, secured journals and lock dates.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-3" aria-labelledby="svt-3" aria-describedby="svd-3" aria-controls="sc-3" aria-selected="false" tabindex="-1" data-crumb="Sales / Orders / S00412" data-icon="sale" data-get="Sales-to-invoice flow|Purchase-to-pay flow|Three warehouses" data-ref="Scope S3 · Part 2"><span class="n">03</span><span><b id="svt-3"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/sale.svg" alt="" width="20" height="20">Sales, purchase and inventory</b><span class="more"><span id="svd-3">Orders, deliveries and stock at Quezon City, Cebu and Davao, valued as they move.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-4" aria-labelledby="svt-4" aria-describedby="svd-4" aria-controls="sc-4" aria-selected="false" tabindex="-1" data-crumb="Invoicing / Customers / INV/HO/000412" data-icon="account" data-get="Three invoice layouts|A series per branch|REPRINT on copies" data-ref="Scope S3 · Part 2"><span class="n">04</span><span><b id="svt-4"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/account.svg" alt="" width="20" height="20">Branch invoices and layout</b><span class="more"><span id="svd-4">System invoices on a series per branch, EOPT fields, your AC control number, "REPRINT" on copies.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-5" aria-labelledby="svt-5" aria-describedby="svd-5" aria-controls="sc-5" aria-selected="false" tabindex="-1" data-crumb="Settings / Import / Final load" data-icon="spreadsheet_dashboard" data-get="Import templates|Two trial loads|Signed reconciliation report" data-ref="Scope S4 · Part 2"><span class="n">05</span><span><b id="svt-5"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="20" height="20">Data migration</b><span class="more"><span id="svd-5">Customers, vendors, products, stock and opening balances as of 31 December 2026, reconciled.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-6" aria-labelledby="svt-6" aria-describedby="svd-6" aria-controls="sc-6" aria-selected="false" tabindex="-1" data-crumb="Documents / CAS application" data-icon="documents" data-get="System description|Sworn statement draft|Samples and audit trail printout" data-ref="Scope S5 · Part 2"><span class="n">06</span><span><b id="svt-6"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/documents.svg" alt="" width="20" height="20">CAS application pack</b><span class="more"><span id="svd-6">The Annex A documents printed from your own Odoo, for you to sign, notarise and file.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-7" aria-labelledby="svt-7" aria-describedby="svd-7" aria-controls="sc-7" aria-selected="false" tabindex="-1" data-crumb="eLearning / Sample Trading Corp. / Billing" data-icon="website_slides" data-get="Four recorded sessions|Quick guides per role|UAT results log" data-ref="Scope S6 · Part 2"><span class="n">07</span><span><b id="svt-7"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/website_slides.svg" alt="" width="20" height="20">Training and user testing</b><span class="more"><span id="svd-7">Four role-based sessions, recorded, then user acceptance testing with your team.</span></span></span><span class="prog"><i></i></span></button>
+            <button class="svc" role="tab" id="sv-8" aria-labelledby="svt-8" aria-describedby="svd-8" aria-controls="sc-8" aria-selected="false" tabindex="-1" data-crumb="Helpdesk / Sample Trading Corp. / #0108" data-icon="helpdesk" data-get="Go-live checklist|30 days of hypercare|Support plan in writing" data-ref="Scope S7 · Part 2"><span class="n">08</span><span><b id="svt-8"><img loading="lazy" decoding="async" class="svc-ic" src="assets/img/odoo/helpdesk.svg" alt="" width="20" height="20">Go-live, hypercare and support</b><span class="more"><span id="svd-8">Cut-over at year-end, daily check-ins in week one, then response times in writing.</span></span></span><span class="prog"><i></i></span></button>
           </div>
-          <div class="show-ctrl"><button type="button" data-show-toggle aria-pressed="false"><svg class="ic"><use href="#i-pause"/></svg><span>Pause tour</span></button><button type="button" data-show-replay><svg class="ic"><use href="#i-replay"/></svg>Replay</button></div>
+          <div class="show-ctrl"><button type="button" data-show-toggle><svg class="ic"><use href="#i-pause"/></svg><span>Pause tour</span></button><button type="button" data-show-replay><svg class="ic"><use href="#i-replay"/></svg>Replay</button></div>
         </div>
         <div>
           <div class="stage tilt" data-tilt>
             <div class="screen">
               <div class="owin-bar">
                 <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="crumb"><img src="assets/img/odoo/project.svg" alt="" width="18" height="18" data-sc-icon><span data-sc-crumb>Project / Sample Trading Corp. / Discovery</span></span>
+                <span class="crumb"><img loading="lazy" decoding="async" src="assets/img/odoo/project.svg" alt="" width="18" height="18" data-sc-icon><span data-sc-crumb>Project / Sample Trading Corp. / Discovery</span></span>
+                <span class="sc-nav"><button type="button" data-sc-prev aria-label="Previous service"><svg class="ic"><use href="#i-left"/></svg></button><span class="sc-count" data-sc-count>01 <i>of 08</i></span><button type="button" data-sc-next aria-label="Next service"><svg class="ic"><use href="#i-right"/></svg></button></span>
                 <span class="tag">Sample data</span>
               </div>
               <div class="screen-body">
@@ -289,7 +276,7 @@
                 <div class="scene on" role="tabpanel" id="sc-1" aria-labelledby="sv-1">
                   <div class="sc-h"><b>Discovery and registration path</b><small>Week 1 · 16 to 20 Nov</small></div>
                   <div class="kb">
-                    <div class="kb-col"><p class="kb-h">To do <span>0</span></p></div>
+                    <div class="kb-col"><p class="kb-h">To do <span>0</span></p><p class="kb-empty">Nothing waiting. Every workshop has started.</p></div>
                     <div class="kb-col"><p class="kb-h">In progress <span>1</span></p></div>
                     <div class="kb-col"><p class="kb-h">Done <span>4</span></p></div>
                     <div class="kb-card c3" style="--r:0;--d:.2s"><div>Finance workshop<small>Ms. Reyes, 2 hours</small></div></div>
@@ -302,6 +289,7 @@
                 </div>
 
                 <div class="scene" role="tabpanel" id="sc-2" aria-labelledby="sv-2">
+                  <span class="cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5l13.5 8.2-5.9 1.3-3 5.6z"/></svg></span>
                   <div class="sc-h"><b>Chart of accounts and Philippine taxes</b><small>Mapped from your trial balance</small></div>
                   <div class="two-sc">
                     <div><p class="mini-h4">Chart of accounts</p>
@@ -323,8 +311,8 @@
                       </div>
                       <p class="mini-h4" style="margin-top:12px">Controls</p>
                       <div class="rows">
-                        <div class="rowx a" style="--d:2.4s;grid-template-columns:1fr auto"><span>Audit trail</span><span class="tog" style="--d:2.7s"><i></i></span></div>
-                        <div class="rowx a" style="--d:2.8s;grid-template-columns:1fr auto"><span>Secured journals (hash)</span><span class="tog" style="--d:3.1s"><i></i></span></div>
+                        <div class="rowx a" style="--d:2.4s;grid-template-columns:1fr auto" data-cur="2.65"><span>Audit trail</span><span class="tog" style="--d:2.7s"><i></i></span></div>
+                        <div class="rowx a" style="--d:2.8s;grid-template-columns:1fr auto" data-cur="3.05"><span>Secured journals (hash)</span><span class="tog" style="--d:3.1s"><i></i></span></div>
                         <div class="rowx a" style="--d:3.2s;grid-template-columns:1fr auto"><span>Lock date</span><b>31 Jan 2027</b></div>
                       </div>
                     </div>
@@ -370,12 +358,12 @@
                 <div class="scene" role="tabpanel" id="sc-5" aria-labelledby="sv-5">
                   <div class="sc-h"><b>Final load, 2 to 3 January 2027</b><small>After two trial loads</small></div>
                   <div class="term" aria-label="Import log">
-                    <div class="ln" style="--d:.2s"><span><span class="p">$</span> import customers.xlsx</span><span class="ok">1,800 done</span></div>
-                    <div class="ln" style="--d:.7s"><span><span class="p">$</span> import vendors.xlsx</span><span class="ok">420 done</span></div>
-                    <div class="ln" style="--d:1.2s"><span><span class="p">$</span> import products.xlsx</span><span class="ok">3,200 done</span></div>
+                    <div class="ln" style="--d:.2s"><span><span class="p">$</span> import customers.xlsx</span><span class="ok" data-scount="1800" data-sfmt="{n} done">1,800 done</span></div>
+                    <div class="ln" style="--d:.7s"><span><span class="p">$</span> import vendors.xlsx</span><span class="ok" data-scount="420" data-sfmt="{n} done">420 done</span></div>
+                    <div class="ln" style="--d:1.2s"><span><span class="p">$</span> import products.xlsx</span><span class="ok" data-scount="3200" data-sfmt="{n} done">3,200 done</span></div>
                     <div class="ln" style="--d:1.7s"><span><span class="p">$</span> import stock_on_hand.xlsx</span><span class="ok">3 warehouses</span></div>
                     <div class="ln" style="--d:2.2s"><span><span class="p">$</span> import opening_tb_2026-12-31.xlsx</span><span class="ok">Dr = Cr</span></div>
-                    <div class="ln" style="--d:2.7s"><span><span class="p">$</span> import open_ar_ap.xlsx</span><span class="ok">642 items</span></div>
+                    <div class="ln" style="--d:2.7s"><span><span class="p">$</span> import open_ar_ap.xlsx</span><span class="ok" data-scount="642" data-sfmt="{n} items">642 items</span></div>
                     <div class="ln" style="--d:3.2s"><span><span class="p">$</span> reconcile --against closing_2026</span><span class="ok">0 differences</span></div>
                     <div class="ln" style="--d:3.7s"><span class="m">Reconciliation report sent to Finance for sign-off</span><span class="cursor"></span></div>
                   </div>
@@ -384,27 +372,29 @@
                 </div>
 
                 <div class="scene" role="tabpanel" id="sc-6" aria-labelledby="sv-6">
+                  <span class="cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5l13.5 8.2-5.9 1.3-3 5.6z"/></svg></span>
                   <div class="sc-h"><b>Your CAS application pack</b><small>Annex A, from your own Odoo</small></div>
                   <div class="pack">
                     <div class="docs">
-                      <div class="docx a" style="--k:fly;--d:.3s"><img src="assets/img/odoo/documents.svg" alt="" width="20" height="20"><span>System description and process flow</span><svg class="ic"><use href="#i-check"/></svg></div>
-                      <div class="docx a" style="--k:fly;--d:.65s"><img src="assets/img/odoo/sign.svg" alt="" width="20" height="20"><span>Sworn statement, draft for your lawyer</span><svg class="ic"><use href="#i-check"/></svg></div>
-                      <div class="docx a" style="--k:fly;--d:1s"><img src="assets/img/odoo/account.svg" alt="" width="20" height="20"><span>Sample invoices and supporting documents</span><svg class="ic"><use href="#i-check"/></svg></div>
-                      <div class="docx a" style="--k:fly;--d:1.35s"><img src="assets/img/odoo/accountant.svg" alt="" width="20" height="20"><span>Sample books: GJ, GL, CRJ, CDJ, SJ, PJ</span><svg class="ic"><use href="#i-check"/></svg></div>
-                      <div class="docx a" style="--k:fly;--d:1.7s"><img src="assets/img/odoo/knowledge.svg" alt="" width="20" height="20"><span>Audit trail printout and Annex B checklist</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:.3s"><img loading="lazy" decoding="async" src="assets/img/odoo/documents.svg" alt="" width="20" height="20"><span>System description and process flow</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:.65s"><img loading="lazy" decoding="async" src="assets/img/odoo/sign.svg" alt="" width="20" height="20"><span>Sworn statement, draft for your lawyer</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1s"><img loading="lazy" decoding="async" src="assets/img/odoo/account.svg" alt="" width="20" height="20"><span>Sample invoices and supporting documents</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1.35s"><img loading="lazy" decoding="async" src="assets/img/odoo/accountant.svg" alt="" width="20" height="20"><span>Sample books: GJ, GL, CRJ, CDJ, SJ, PJ</span><svg class="ic"><use href="#i-check"/></svg></div>
+                      <div class="docx a" style="--k:fly;--d:1.7s"><img loading="lazy" decoding="async" src="assets/img/odoo/knowledge.svg" alt="" width="20" height="20"><span>Audit trail printout and Annex B checklist</span><svg class="ic"><use href="#i-check"/></svg></div>
                     </div>
                     <div class="folder">
                       <p class="f-h">CAS application pack</p>
                       <p>For you to sign, notarise and file at your RDO. We stay on call for its questions.</p>
                       <div class="stackp" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i></div>
-                      <span class="chipx ok a" style="--k:pop;--d:2.6s"><svg class="ic"><use href="#i-check"/></svg>Handover Fri 11 Dec</span>
+                      <span class="chipx ok a" style="--k:pop;--d:2.6s" data-cur="2.75"><svg class="ic"><use href="#i-check"/></svg>Handover Fri 11 Dec</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="scene" role="tabpanel" id="sc-7" aria-labelledby="sv-7">
+                  <span class="cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5l13.5 8.2-5.9 1.3-3 5.6z"/></svg></span>
                   <div class="sc-h"><b>Training and user testing</b><small>Week 5 · 14 to 18 Dec</small></div>
-                  <div class="video a" style="--k:pop"><b>Billing at the branches</b><small>Session 2 of 4 · recorded · 48 minutes</small><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+                  <div class="video a" style="--k:pop"><b>Billing at the branches</b><small>Session 2 of 4 · recorded · 48 minutes</small><span class="play" aria-hidden="true" data-cur="0.4"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
                     <div class="chap"><span style="--j:0">Finance<u><i></i></u></span><span style="--j:1">Billing<u><i></i></u></span><span style="--j:2">Warehouse<u><i></i></u></span><span style="--j:3">Management<u><i></i></u></span></div>
                   </div>
                   <div class="uat a" style="--d:1s"><strong data-scount="42" data-sfmt="{n} / 42">42 / 42</strong><div><b>UAT scripts passed</b><small>Signed off by your project owner, Fri 18 Dec</small></div></div>
@@ -434,11 +424,12 @@
                 </div>
 
               </div>
+              <div class="screen-foot">
+                <span class="sb"><svg class="ic"><use href="#i-doc"/></svg><b data-sc-n>3</b> deliverables</span>
+                <ul data-sc-get aria-live="off"><li><svg class="ic"><use href="#i-check"/></svg>Business Requirements Document</li><li><svg class="ic"><use href="#i-check"/></svg>Registration path</li><li><svg class="ic"><use href="#i-check"/></svg>Cut-over calendar</li></ul>
+                <a class="sc-ref" href="#scope" data-sc-ref>Scope S1 · Part 2</a>
+              </div>
             </div>
-          </div>
-          <div class="stage-cap" aria-live="polite">
-            <div><h3>What you receive</h3><ul data-sc-get><li><svg class="ic"><use href="#i-check"/></svg>Business Requirements Document</li><li><svg class="ic"><use href="#i-check"/></svg>Registration path</li><li><svg class="ic"><use href="#i-check"/></svg>Cut-over calendar</li></ul></div>
-            <div class="ref"><a href="#scope" data-sc-ref>Scope S1 · Part 2</a><span class="muted">Sample screens</span></div>
           </div>
         </div>
       </div>
@@ -474,7 +465,7 @@
           <span class="cmp-cap cmp-cap--r"><svg class="ic" style="width:15px;height:15px"><use href="#i-check"/></svg>With Odoo: Book of Accounts</span>
           <div class="obook"><p class="swipe">Swipe the table sideways for the net and VAT columns.</p>
             <div class="owin">
-              <div class="owin-bar"><span class="crumb"><img src="assets/img/odoo/accountant.svg" alt="" width="18" height="18">Accounting / Reporting / <b>Book of Accounts: Sales Journal</b></span></div>
+              <div class="owin-bar"><span class="crumb"><img loading="lazy" decoding="async" src="assets/img/odoo/accountant.svg" alt="" width="18" height="18">Accounting / Reporting / <b>Book of Accounts: Sales Journal</b></span></div>
               <div class="owin-body">
                 <p class="small muted" style="margin-bottom:8px">Sample Trading Corp. · TIN 000-000-000-00000 · Branches 00000, 00001, 00002 · October 2026 · Odoo 20</p>
                 <table>
@@ -528,12 +519,12 @@
           <div class="core-box" data-core>
             <div class="ct">Sample Trading Corp.<span class="tag">Sample data</span></div>
             <div role="tablist" aria-label="Odoo apps" aria-orientation="vertical">
-              <button class="app" role="tab" id="t-sales" aria-controls="p-sales" aria-selected="true"><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24">Sales<small>Orders</small></button>
-              <button class="app" role="tab" id="t-pur" aria-controls="p-pur" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/purchase.svg" alt="" width="24" height="24">Purchase<small>Vendor bills</small></button>
-              <button class="app" role="tab" id="t-stock" aria-controls="p-stock" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/stock.svg" alt="" width="24" height="24">Inventory<small>3 warehouses</small></button>
-              <button class="app" role="tab" id="t-inv" aria-controls="p-inv" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/account.svg" alt="" width="24" height="24">Invoicing<small>Branch series</small></button>
-              <button class="app" role="tab" id="t-acc" aria-controls="p-acc" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24">Accounting<small>Books</small></button>
-              <button class="app" role="tab" id="t-bir" aria-controls="p-bir" aria-selected="false" tabindex="-1"><img src="assets/img/odoo/documents.svg" alt="" width="24" height="24">BIR reports<small>PH localisation</small></button>
+              <button class="app" role="tab" id="t-sales" aria-controls="p-sales" aria-selected="true"><img loading="lazy" decoding="async" src="assets/img/odoo/sale.svg" alt="" width="24" height="24">Sales<small>Orders</small></button>
+              <button class="app" role="tab" id="t-pur" aria-controls="p-pur" aria-selected="false" tabindex="-1"><img loading="lazy" decoding="async" src="assets/img/odoo/purchase.svg" alt="" width="24" height="24">Purchase<small>Vendor bills</small></button>
+              <button class="app" role="tab" id="t-stock" aria-controls="p-stock" aria-selected="false" tabindex="-1"><img loading="lazy" decoding="async" src="assets/img/odoo/stock.svg" alt="" width="24" height="24">Inventory<small>3 warehouses</small></button>
+              <button class="app" role="tab" id="t-inv" aria-controls="p-inv" aria-selected="false" tabindex="-1"><img loading="lazy" decoding="async" src="assets/img/odoo/account.svg" alt="" width="24" height="24">Invoicing<small>Branch series</small></button>
+              <button class="app" role="tab" id="t-acc" aria-controls="p-acc" aria-selected="false" tabindex="-1"><img loading="lazy" decoding="async" src="assets/img/odoo/accountant.svg" alt="" width="24" height="24">Accounting<small>Books</small></button>
+              <button class="app" role="tab" id="t-bir" aria-controls="p-bir" aria-selected="false" tabindex="-1"><img loading="lazy" decoding="async" src="assets/img/odoo/documents.svg" alt="" width="24" height="24">BIR reports<small>PH localisation</small></button>
             </div>
           </div>
         </div>
@@ -775,7 +766,7 @@
         <p class="sec-lead">Fixed prices in Philippine pesos for scope S1 to S7. Each line names the scope it pays for; items you add in 2.4 appear at the end.</p>
       </div>
       <div class="quote rv">
-        <div class="quote-h"><h3><img src="assets/img/odoo/sale.svg" alt="" width="22" height="22">Quotation S00147</h3><span class="tag">Sample figures</span></div>
+        <div class="quote-h"><h3><img loading="lazy" decoding="async" src="assets/img/odoo/sale.svg" alt="" width="22" height="22">Quotation S00147</h3><span class="tag">Sample figures</span></div>
         <div class="qt-wrap">
           <table class="qt" data-qt>
             <thead><tr><th>Description</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Disc.</th><th class="r">Amount</th></tr></thead>
@@ -888,27 +879,27 @@
       <div class="opts rv" data-opts>
         <div class="quote-h"><h3>Optional items</h3><span class="tag">Sample figures</span></div>
         <div class="opt" data-opt="branch" data-unit="22000" data-name="Additional branch set-up" data-desc="Series, journal, warehouse and invoice layout">
-          <img src="assets/img/odoo/stock.svg" alt="" width="28" height="28"><div><b>Additional branch set-up</b><small>Series, journal, warehouse and invoice layout for one more site</small></div>
+          <img loading="lazy" decoding="async" src="assets/img/odoo/stock.svg" alt="" width="28" height="28"><div><b>Additional branch set-up</b><small>Series, journal, warehouse and invoice layout for one more site</small></div>
           <div class="op num">PHP 22,000 <small>each</small></div>
           <div class="act"><span class="qty" hidden><button type="button" data-q="-1" aria-label="One branch fewer">−</button><output>1</output><button type="button" data-q="1" aria-label="One more branch">+</button></span><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
         </div>
         <div class="opt" data-opt="payroll" data-unit="65000" data-name="Philippine payroll set-up" data-desc="1601-C, 2316 and 1604-C from Odoo Payroll">
-          <img src="assets/img/odoo/hr_payroll.svg" alt="" width="28" height="28"><div><b>Philippine payroll set-up</b><small>Odoo Payroll with 1601-C, 2316 and 1604-C, for up to 120 employees</small></div>
+          <img loading="lazy" decoding="async" src="assets/img/odoo/hr_payroll.svg" alt="" width="28" height="28"><div><b>Philippine payroll set-up</b><small>Odoo Payroll with 1601-C, 2316 and 1604-C, for up to 120 employees</small></div>
           <div class="op num">PHP 65,000</div>
           <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
         </div>
         <div class="opt" data-opt="history" data-unit="45000" data-name="2026 transaction history" data-desc="Twelve months of 2026 invoices and bills, for comparison reports">
-          <img src="assets/img/odoo/accountant.svg" alt="" width="28" height="28"><div><b>2026 transaction history</b><small>Twelve months of 2026 invoices and bills, for year-on-year reports</small></div>
+          <img loading="lazy" decoding="async" src="assets/img/odoo/accountant.svg" alt="" width="28" height="28"><div><b>2026 transaction history</b><small>Twelve months of 2026 invoices and bills, for year-on-year reports</small></div>
           <div class="op num">PHP 45,000</div>
           <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
         </div>
         <div class="opt" data-opt="dash" data-unit="24000" data-name="Management dashboard" data-desc="Branch P&amp;L, sales and receivables ageing">
-          <img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="28" height="28"><div><b>Management dashboard</b><small>Branch profit and loss, sales and receivables ageing on one screen</small></div>
+          <img loading="lazy" decoding="async" src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="28" height="28"><div><b>Management dashboard</b><small>Branch profit and loss, sales and receivables ageing on one screen</small></div>
           <div class="op num">PHP 24,000</div>
           <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
         </div>
         <div class="opt" data-opt="audit" data-unit="28000" data-name="BIR audit records pack" data-desc="Ledgers and lists prepared for an examiner">
-          <img src="assets/img/odoo/documents.svg" alt="" width="28" height="28"><div><b>BIR audit records pack</b><small>Ledgers, lists and exports prepared from Odoo when a Letter of Authority arrives</small></div>
+          <img loading="lazy" decoding="async" src="assets/img/odoo/documents.svg" alt="" width="28" height="28"><div><b>BIR audit records pack</b><small>Ledgers, lists and exports prepared from Odoo when a Letter of Authority arrives</small></div>
           <div class="op num">PHP 28,000</div>
           <div class="act"><button class="btn btn-ghost btn-sm opt-btn" type="button" aria-pressed="false"><svg class="ic plus"><use href="#i-plus"/></svg><svg class="ic chk" style="color:var(--ok)"><use href="#i-check"/></svg><span>Add</span></button></div>
         </div>
@@ -1042,7 +1033,7 @@
             </div>
             <div class="signed-view">
               <span class="stamp"><svg class="ic"><use href="#i-check"/></svg> Signed and accepted</span>
-              <div class="signed-sig"><img data-sig-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Client signature"><div class="who" data-sig-who></div></div>
+              <div class="signed-sig"><img loading="lazy" decoding="async" data-sig-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Client signature"><div class="who" data-sig-who></div></div>
               <div style="display:grid;gap:8px;margin-top:14px">
                 <button class="btn btn-primary btn-block" type="button" data-print><svg class="ic"><use href="#i-down"/></svg> Download signed copy (PDF)</button>
                 <a class="btn btn-ghost btn-block" data-mail-signed href="mailto:sales@technext.asia"><svg class="ic"><use href="#i-mail"/></svg> Email it to sales@technext.asia</a>

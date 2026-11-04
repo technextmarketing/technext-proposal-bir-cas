@@ -1,7 +1,6 @@
 /* TechNext proposal template: interactions. Markup is the finished state; this script only animates and recalculates. */
 (() => {
   'use strict';
-  window.__tnp = 1;
   const root = document.documentElement;
   const RM = root.classList.contains('rm') || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (s, c = document) => c.querySelector(s);
@@ -201,7 +200,7 @@
     $$('[data-sig-who]').forEach(w => { w.innerHTML = '<b></b><span></span>'; w.firstChild.textContent = name; w.lastChild.textContent = (title ? title + ', ' : '') + 'Sample Trading Corp. · signed ' + when; });
     root.classList.add('is-signed');
     $$('[data-status-pill]').forEach(p => { p.textContent = 'Signed'; p.className = 'pill pill--ok'; });
-    $$('.o-status span').forEach(s => { const i = +s.dataset.st; s.className = i < 2 ? 'done' : 'on'; });
+    $$('.o-status [data-st]').forEach(s => { const i = +s.dataset.st; s.className = i < 2 ? 'done' : 'on'; });
     updateMailSigned();
     dlgSign.close();
     showPart(3, { target: 'sign' });
@@ -446,6 +445,7 @@
       moveInd();
       if (changed && !RM && !document.startViewTransition) { const el = partEls[n - 1]; el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter'); }
       onScroll();
+      if (o.focus && changed) partEls[n - 1].focus({ preventScroll: true });
     };
     const after = () => {
       if (o.scroll !== false) {
@@ -460,11 +460,11 @@
   function partOf(id) { const el = document.getElementById(id); const p = el && el.closest('.part[data-part]'); return p ? +p.dataset.part : 0; }
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-goto]');
-    if (g) { e.preventDefault(); showPart(g.dataset.goto); return; }
+    if (g) { e.preventDefault(); showPart(g.dataset.goto, { focus: !g.matches('[role=tab]') }); return; }
     const a = e.target.closest('a[href^="#"]');
     if (!a || a.getAttribute('href').length < 2) return;
     const id = a.getAttribute('href').slice(1), p = partOf(id);
-    if (p && p !== curPart) { e.preventDefault(); showPart(p, { target: id }); }
+    if (p && p !== curPart) { e.preventDefault(); showPart(p, { target: id, focus: true }); }
   });
   partTabs.forEach((t, i) => t.addEventListener('keydown', e => {
     let n = -1;
@@ -485,7 +485,7 @@
   /* ---------- tilt (pointer-driven camera on the Odoo screens) ---------- */
   const fine = matchMedia('(pointer: fine)').matches;
   $$('[data-tilt]').forEach(t => {
-    const base = t.matches('.cover-panel') ? { rx: 4, ry: -8 } : { rx: 5, ry: -9 };
+    const base = t.matches('.hero-stage') ? { rx: 0, ry: 0 } : { rx: 5, ry: -9 };
     const set = (rx, ry) => { t.style.setProperty('--rx', rx + 'deg'); t.style.setProperty('--ry', ry + 'deg'); };
     if (RM) return;
     set(base.rx, base.ry);
@@ -493,8 +493,9 @@
     t.addEventListener('pointermove', e => {
       const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
       set((base.rx - y * 5).toFixed(2), (base.ry + x * 9).toFixed(2));
+      t.style.setProperty('--px', x.toFixed(3)); t.style.setProperty('--py', y.toFixed(3));
     });
-    t.addEventListener('pointerleave', () => set(base.rx, base.ry));
+    t.addEventListener('pointerleave', () => { set(base.rx, base.ry); t.style.setProperty('--px', 0); t.style.setProperty('--py', 0); });
   });
 
   /* ---------- services showcase (an auto tour of looping Odoo scenes) ---------- */
@@ -503,6 +504,7 @@
     const svcs = $$('.svc', show), scenes = svcs.map(s => document.getElementById(s.getAttribute('aria-controls')));
     const crumb = $('[data-sc-crumb]'), icon = $('[data-sc-icon]'), get = $('[data-sc-get]'), ref = $('[data-sc-ref]');
     const tog = $('[data-show-toggle]'), replay = $('[data-show-replay]');
+    const count = $('[data-sc-count]'), nEl = $('[data-sc-n]'), crumbHost = crumb && crumb.closest('.crumb'), railI = $('.svc-rail i', show);
     let cur = 0, started = false;
     if (RM) {
       show.classList.remove('auto');
@@ -513,26 +515,34 @@
     }
     const countScene = sc => $$('[data-scount]', sc).forEach(el => {
       const to = +el.dataset.scount, f = el.dataset.sfmt || '{n}';
-      const host = el.closest('.a'), d = host ? parseFloat(host.style.getPropertyValue('--d')) || 0 : 0;
+      const host = el.closest('.a, .ln'), d = host ? parseFloat(host.style.getPropertyValue('--d')) || 0 : 0;
       el.textContent = f.replace('{n}', 0);
       setTimeout(() => tween(0, to, 1200, v => { el.textContent = f.replace('{n}', Math.round(v).toLocaleString('en-PH')); }), d * 1000 + 250);
     });
-    const play = sc => { if (RM) return; sc.classList.remove('play', 'enter'); void sc.offsetWidth; sc.classList.add('play', 'enter'); countScene(sc); };
+    const play = sc => { if (RM) return; sc.classList.remove('play', 'enter'); void sc.offsetWidth; sc.classList.add('play', 'enter'); countScene(sc); runCursor(sc); };
     const restartBar = s => { const b = $('.prog i', s); if (b) { b.style.animation = 'none'; void b.offsetWidth; b.style.animation = ''; } };
     function setAuto(on) {
       show.classList.toggle('auto', on);
-      if (tog) { tog.setAttribute('aria-pressed', String(!on)); $('span', tog).textContent = on ? 'Pause tour' : 'Play tour'; $('use', tog).setAttribute('href', on ? '#i-pause' : '#i-play'); }
-      if (on) restartBar(svcs[cur]);
+      if (tog) { $('span', tog).textContent = on ? 'Pause tour' : 'Play tour'; $('use', tog).setAttribute('href', on ? '#i-pause' : '#i-play'); }
+      if (on) { restartBar(svcs[cur]); get.setAttribute('aria-live', 'off'); }
     }
     function select(i, o) {
       o = o || {};
-      cur = (i + svcs.length) % svcs.length;
-      svcs.forEach((s, k) => { const on = k === cur; s.setAttribute('aria-selected', on); s.tabIndex = on ? 0 : -1; });
+      const N = svcs.length, ni = (i + N) % N, dir = o.dir || ((((ni - cur) + N) % N) <= N / 2 ? 'next' : 'prev');
+      cur = ni;
+      svcs.forEach((s, k) => { const on = k === cur; s.setAttribute('aria-selected', on); s.tabIndex = on ? 0 : -1; s.classList.toggle('past', k < cur); });
+      if (railI) railI.style.setProperty('--rail', (cur / (N - 1)).toFixed(3));
+      if (count) count.innerHTML = String(cur + 1).padStart(2, '0') + ' <i>of ' + String(N).padStart(2, '0') + '</i>';
+      scenes[cur].dataset.dir = dir;
+      if (crumbHost && !RM) { crumbHost.classList.remove('swap'); void crumbHost.offsetWidth; crumbHost.classList.add('swap'); }
       scenes.forEach((sc, k) => { sc.classList.toggle('on', k === cur); if (k !== cur) sc.classList.remove('play', 'enter'); });
       const s = svcs[cur], ic = $('.svc-ic', s);
       crumb.textContent = s.dataset.crumb;
       if (ic) icon.src = ic.src;
-      get.innerHTML = s.dataset.get.split('|').map(t => '<li><svg class="ic"><use href="#i-check"/></svg>' + esc(t) + '</li>').join('');
+      const items = s.dataset.get.split('|');
+      get.setAttribute('aria-live', o.user ? 'polite' : 'off');
+      get.innerHTML = items.map(t => '<li><svg class="ic"><use href="#i-check"/></svg>' + esc(t) + '</li>').join('');
+      if (nEl) nEl.textContent = items.length;
       ref.textContent = s.dataset.ref;
       restartBar(s);
       const rail = s.parentElement;
@@ -558,11 +568,17 @@
     show.addEventListener('pointerleave', () => show.classList.remove('hold'));
     tog && tog.addEventListener('click', () => setAuto(!show.classList.contains('auto')));
     replay && replay.addEventListener('click', () => { play(scenes[cur]); restartBar(svcs[cur]); });
+    const prevB = $('[data-sc-prev]'), nextB = $('[data-sc-next]');
+    prevB && prevB.addEventListener('click', () => select(cur - 1, { user: true, dir: 'prev' }));
+    nextB && nextB.addEventListener('click', () => select(cur + 1, { user: true, dir: 'next' }));
+    document.addEventListener('visibilitychange', () => show.classList.toggle('hold', document.hidden || show.matches(':hover')));
+    window.__tnpSelect = i => { started = true; select(i, { user: true }); };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(es => es.forEach(en => {
-        show.classList.toggle('paused', !en.isIntersecting);
-        if (en.isIntersecting && !started) { started = true; select(0); }
-      }), { threshold: .3 }).observe(show);
+        const vis = en.isIntersecting && en.intersectionRatio >= .6;
+        show.classList.toggle('paused', !vis);
+        if (vis && !started) { started = true; select(0); }
+      }), { threshold: [0, .6, 1] }).observe(show);
     }
   }
 
@@ -608,6 +624,108 @@
     })).observe(arch);
   }
 
+
+  /* ---------- demo cursor inside a scene: parks, presses, the target answers ---------- */
+  function runCursor(sc) {
+    const cur = $('.cur', sc); if (!cur || RM || !cur.animate) return;
+    if (cur._a) cur._a.cancel();
+    const targets = $$('[data-cur]', sc).map(el => ({ el, t: parseFloat(el.dataset.cur) * 1000 })).sort((a, b) => a.t - b.t);
+    if (!targets.length) return;
+    const off = el => { let x = 0, y = 0, n = el; while (n && n !== sc) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return { x: x + el.offsetWidth * .5, y: y + el.offsetHeight * .55 }; };
+    const W = sc.clientWidth, H = sc.clientHeight, total = targets[targets.length - 1].t + 800, e = 'cubic-bezier(.16,1,.3,1)';
+    const start = { x: W * .92, y: H * .95 };
+    const kf = [{ transform: 'translate(' + start.x + 'px,' + start.y + 'px)', opacity: 0, offset: 0, easing: e },
+                { transform: 'translate(' + start.x + 'px,' + start.y + 'px)', opacity: 1, offset: Math.max(0, targets[0].t - 900) / total, easing: e }];
+    targets.forEach(({ el, t }) => {
+      const p = off(el), at = 'translate(' + p.x + 'px,' + p.y + 'px)';
+      kf.push({ transform: at + ' scale(1)', opacity: 1, offset: Math.max(0, t - 130) / total, easing: 'ease-in' });
+      kf.push({ transform: at + ' scale(.8)', opacity: 1, offset: t / total, easing: e });
+      kf.push({ transform: at + ' scale(1)', opacity: 1, offset: Math.min(1, (t + 110) / total), easing: e });
+      setTimeout(() => { if (!sc.classList.contains('on')) return; el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }, t);
+    });
+    const last = off(targets[targets.length - 1].el);
+    kf.push({ transform: 'translate(' + (last.x + 26) + 'px,' + (last.y + 34) + 'px)', opacity: 0, offset: 1 });
+    cur._a = cur.animate(kf, { duration: total, fill: 'forwards' });
+  }
+
+  /* ---------- hero: lines open their service; the window flattens as you scroll ---------- */
+  $$('.oline').forEach(b => b.addEventListener('click', () => {
+    const i = +b.dataset.svc;
+    showPart(1, { target: 'services' });
+    setTimeout(() => window.__tnpSelect && window.__tnpSelect(i), RM ? 0 : 520);
+  }));
+  const sayOut = $('[data-say-out]');
+  $$('.o-step button').forEach(b => b.addEventListener('click', () => {
+    $$('.o-step button').forEach(x => x.removeAttribute('aria-current'));
+    b.setAttribute('aria-current', 'step');
+    if (sayOut) { sayOut.textContent = b.dataset.say; if (!RM) { sayOut.classList.remove('swap'); void sayOut.offsetWidth; sayOut.classList.add('swap'); } }
+    if (b.dataset.st === '2' && !root.classList.contains('is-signed')) { const s = $('.hero-foot [data-open-sign]'); if (s && !RM) { s.classList.remove('sign-pulse'); void s.offsetWidth; s.classList.add('sign-pulse'); } }
+  }));
+  const hWin = $('.hero-win'), hStage = $('.hero-stage');
+  function heroScroll() {
+    if (!hWin || !hStage || RM || innerWidth <= 760) return;
+    const top = hStage.getBoundingClientRect().top + scrollY;
+    if (scrollY > top + innerHeight && hWin.style.getPropertyValue('--srx') === '0.00deg') return;
+    const k = Math.min(1, Math.max(0, scrollY / Math.max(1, top - innerHeight * .12)));
+    hWin.style.setProperty('--srx', (14 * (1 - k)).toFixed(2) + 'deg');
+    hWin.style.setProperty('--ss', (.95 + .05 * k).toFixed(3));
+  }
+  addEventListener('scroll', () => requestAnimationFrame(heroScroll), { passive: true });
+  addEventListener('resize', heroScroll);
+
+  /* ---------- arrival intro: the TechNext plane flies the proposal in (once per session) ---------- */
+  function startHero() { requestAnimationFrame(heroIntro); setTimeout(() => cover.classList.add('is-ready'), 1200); }
+  function runIntro() {
+    const box = $('[data-intro]'); if (!box) return false;
+    let seen = false;
+    try { seen = sessionStorage.getItem('tnp-intro') === '1'; } catch (e) { /* storage blocked: play it */ }
+    const ok = !RM && !seen && !location.hash && window.CSS && CSS.supports('offset-path', 'path("M0 0")') && box.animate;
+    if (!ok) { box.remove(); return false; }
+    try { sessionStorage.setItem('tnp-intro', '1'); } catch (e) { /* ignore */ }
+    const plane = $('[data-intro-plane]', box), trail = $('[data-intro-trail]', box), svg = $('svg', box), line = $('[data-intro-line]', box), words = $$('span', line), skip = $('[data-intro-skip]', box);
+    const W = innerWidth, H = innerHeight, sx = -.14 * W, sy = .95 * H, c1x = .16 * W, c1y = .52 * H, mx = .5 * W, my = .4 * H, ex = 1.16 * W, ey = -.16 * H;
+    const d = 'M' + sx + ',' + sy + ' Q' + c1x + ',' + c1y + ' ' + mx + ',' + my + ' T' + ex + ',' + ey;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    trail.setAttribute('d', d);
+    const half = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    half.setAttribute('d', 'M' + sx + ',' + sy + ' Q' + c1x + ',' + c1y + ' ' + mx + ',' + my);
+    svg.appendChild(half);
+    const mid = half.getTotalLength() / trail.getTotalLength();
+    half.remove();
+    plane.style.offsetPath = 'path("' + d + '")';
+    const mainEl = $('#main');
+    box.hidden = false; root.classList.add('intro-on');
+    if (mainEl) mainEl.inert = true;
+    try {
+    const land = 'cubic-bezier(.16,1,.3,1)', leave = 'cubic-bezier(.55,0,.9,.35)', T2 = 1150, m = (mid * 100).toFixed(2) + '%';
+    const anims = [
+      plane.animate([{ offsetDistance: '0%', transform: 'scale(2.6)', opacity: 0 }, { opacity: 1, offset: .12 }, { offsetDistance: m, transform: 'scale(1)', opacity: 1 }], { duration: 780, easing: land, fill: 'forwards' }),
+      trail.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 1 - mid }], { duration: 780, easing: land, fill: 'forwards' }),
+      plane.animate([{ offsetDistance: m, transform: 'scale(1)' }, { offsetDistance: '100%', transform: 'scale(.62)' }], { duration: 480, delay: T2, easing: leave, fill: 'forwards' }),
+      trail.animate([{ strokeDashoffset: 1 - mid }, { strokeDashoffset: 0 }], { duration: 480, delay: T2, easing: leave, fill: 'forwards' }),
+      line.animate([{ transform: 'none', opacity: 1 }, { transform: 'translateY(-28px)', opacity: 0 }], { duration: 420, delay: T2 + 120, easing: leave, fill: 'forwards' })
+    ];
+    words.forEach((w, i) => anims.push(w.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: 330 + i * 85, easing: land, fill: 'forwards' })));
+    let done = false;
+    const onKey = e => { if (['Escape', 'Enter', ' ', 'Tab', 'ArrowDown', 'PageDown'].includes(e.key)) finish(); };
+    function finish() {
+      if (done) return; done = true;
+      removeEventListener('keydown', onKey); removeEventListener('wheel', finish); removeEventListener('touchstart', finish);
+      box.classList.add('out'); root.classList.remove('intro-on');
+      if (mainEl) mainEl.inert = false;
+      startHero();
+      setTimeout(() => { anims.forEach(a => a.cancel()); box.remove(); }, 380);
+    }
+    skip.addEventListener('click', finish);
+    box.addEventListener('click', finish);
+    addEventListener('keydown', onKey);
+    addEventListener('wheel', finish, { passive: true });
+    addEventListener('touchstart', finish, { passive: true });
+    setTimeout(finish, T2 + 330);
+    } catch (err) { box.remove(); root.classList.remove('intro-on'); if (mainEl) mainEl.inert = false; return false; }
+    return true;
+  }
+
   /* ---------------- cover replay (plays once) ---------------- */
   const cover = $('.cover');
   function heroIntro() {
@@ -615,7 +733,8 @@
     if (RM) return;
     const rows = $$('.o-lines tbody tr', cover);
     rows.forEach(r => r.classList.add('off'));
-    const st = $$('.o-status span', cover);
+    const st = $$('.o-status [data-st]', cover);
+    if (st.length < 2) return;
     st[0].className = 'on'; st[1].className = '';
     rows.forEach((r, i) => setTimeout(() => r.classList.remove('off'), 700 + i * 240));
     const tot = $('[data-count-hero]', cover);
@@ -627,6 +746,7 @@
   recalc();
   fromHash(true);
   moveInd();
-  requestAnimationFrame(heroIntro);
-  setTimeout(() => cover.classList.add('is-ready'), 1200);
+  heroScroll();
+  if (!runIntro()) startHero();
+  window.__tnp = 1;
 })();
