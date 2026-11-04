@@ -439,6 +439,7 @@
     const changed = n !== curPart;
     const apply = () => {
       curPart = n;
+      root.dataset.part = n;
       partEls.forEach(p => { p.hidden = +p.dataset.part !== n; });
       partTabs.forEach((t, i) => { const on = i === n - 1; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
       $$('[data-toc-part]').forEach(g => g.classList.toggle('on', +g.dataset.tocPart === n));
@@ -618,8 +619,7 @@
     st[0].className = 'on'; st[1].className = '';
     rows.forEach((r, i) => setTimeout(() => r.classList.remove('off'), 700 + i * 240));
     const tot = $('[data-count-hero]', cover);
-    const final = prev['grand-plain'] || 434560;
-    setTimeout(() => tween(0, final, 1400, v => { tot.textContent = money(v); }), 800);
+    if (tot) setTimeout(() => tween(0, prev['grand-plain'] || 0, 1400, v => { tot.textContent = money(v); }), 800);
     setTimeout(() => { if (!root.classList.contains('is-signed')) { st[0].className = 'done'; st[1].className = 'on'; } }, 2300);
     $$('[data-hero-pack] .ic', cover).forEach((ic, i) => setTimeout(() => ic.classList.add('in'), 1500 + i * 220));
   }
