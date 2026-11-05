@@ -16,10 +16,16 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to the proposal</a>
-<div class="intro" data-intro hidden>
+<div class="intro" data-intro hidden role="dialog" aria-modal="true" aria-label="Proposal S00147 for Sample Trading Corp.">
+  <div class="intro-bg" aria-hidden="true"></div>
+  <canvas class="intro-canvas" data-intro-canvas aria-hidden="true"></canvas>
   <svg class="intro-trail" aria-hidden="true"><path data-intro-trail pathLength="1"/></svg>
   <img class="intro-plane" src="assets/img/logo-plane.png" alt="" width="160" height="136" data-intro-plane>
   <p class="intro-line" data-intro-line aria-hidden="true"><span>Proposal</span> <span>S00147</span> <span>for</span> <span class="im"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 22l12-12 12 12" fill="none" stroke="#1F1F3D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 26l6-6 6 6" fill="none" stroke="#3167CA" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sample</span> <span>Trading</span> <span>Corp.</span></p>
+  <div class="intro-act" data-intro-act>
+    <button class="btn btn-primary btn-lg" type="button" data-intro-open>Open your proposal <svg class="ic arr"><use href="#i-arrow"/></svg></button>
+    <span class="intro-hint">Press Enter to open, or move your cursor to turn the dial.</span>
+  </div>
   <button class="intro-skip" type="button" data-intro-skip>Skip intro</button>
 </div>
 
@@ -59,6 +65,7 @@
 
 <!-- ======================= COVER: the first page the CEO sees ======================= -->
 <header class="cover" id="top">
+  <canvas class="hero-bg" data-hero-bg aria-hidden="true"></canvas>
   <div class="cover-in">
     <div class="cover-top stage" style="--i:0">
       <div class="lockup">
@@ -89,8 +96,8 @@
       <div class="hero-stage stage tilt" style="--i:4" data-hero data-tilt>
         <div class="hchips">
           <span class="hchip hchip--a" style="--pz:10"><span><svg class="ic"><use href="#i-users"/></svg>Prepared for Juan Dela Cruz, CEO</span></span>
-          <span class="hchip hchip--b" style="--pz:-14"><span><svg class="ic"><use href="#i-cal"/></svg>Go-live Mon 4 Jan 2027</span></span>
-          <span class="hchip hchip--c" style="--pz:8"><span><svg class="ic"><use href="#i-clock"/></svg>Valid until 3 Dec 2026</span></span>
+          <span class="hchip hchip--b" style="--pz:-14"><span><svg class="ic"><use href="#i-cal"/></svg>Go-live Mon 4 Jan 2027<em class="cd" data-cd="2027-01-04" data-f="in {n} days"></em></span></span>
+          <span class="hchip hchip--c" style="--pz:8"><span><svg class="ic"><use href="#i-clock"/></svg>Valid until 3 Dec 2026<em class="cd" data-cd="2026-12-03" data-f="{n} days left"></em></span></span>
         </div>
         <div class="owin hero-win">
           <span class="live-edge" aria-hidden="true"></span>
@@ -112,14 +119,14 @@
             <p class="o-say" data-say-out aria-live="polite">You are reading it now. It stays valid until 3 Dec 2026.</p>
             <div class="olines-h" aria-hidden="true"><span></span><span>Service</span><span>Scope</span><span>Timing</span><span>Status</span><span></span></div>
             <ol class="olines" aria-label="Services in this proposal">
-              <li style="--li:0"><button class="oline" type="button" data-svc="0"><img src="assets/img/odoo/project.svg" alt="" width="24" height="24"><span class="onm">Discovery and registration path</span><span class="osc">S1</span><span class="otm">Week 1</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:1"><button class="oline" type="button" data-svc="1"><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24"><span class="onm">Accounting and Philippine localisation</span><span class="osc">S2</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:2"><button class="oline" type="button" data-svc="2"><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24"><span class="onm">Sales, purchase and inventory</span><span class="osc">S3</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:3"><button class="oline" type="button" data-svc="3"><img src="assets/img/odoo/account.svg" alt="" width="24" height="24"><span class="onm">Branch invoices and layout</span><span class="osc">S3</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:4"><button class="oline" type="button" data-svc="4"><img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="24" height="24"><span class="onm">Data migration</span><span class="osc">S4</span><span class="otm">Weeks 3 to 7</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:5"><button class="oline" type="button" data-svc="5"><img src="assets/img/odoo/documents.svg" alt="" width="24" height="24"><span class="onm">CAS application pack</span><span class="osc">S5</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:6"><button class="oline" type="button" data-svc="6"><img src="assets/img/odoo/website_slides.svg" alt="" width="24" height="24"><span class="onm">Training and user testing</span><span class="osc">S6</span><span class="otm">Week 5</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-              <li style="--li:7"><button class="oline" type="button" data-svc="7"><img src="assets/img/odoo/helpdesk.svg" alt="" width="24" height="24"><span class="onm">Go-live, hypercare and support</span><span class="osc">S7</span><span class="otm">From 4 Jan</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:0"><button class="oline" type="button" data-key="project" data-svc="0"><img src="assets/img/odoo/project.svg" alt="" width="24" height="24"><span class="onm">Discovery and registration path</span><span class="osc">S1</span><span class="otm">Week 1</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:1"><button class="oline" type="button" data-key="accountant" data-svc="1"><img src="assets/img/odoo/accountant.svg" alt="" width="24" height="24"><span class="onm">Accounting and Philippine localisation</span><span class="osc">S2</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:2"><button class="oline" type="button" data-key="sale" data-svc="2"><img src="assets/img/odoo/sale.svg" alt="" width="24" height="24"><span class="onm">Sales, purchase and inventory</span><span class="osc">S3</span><span class="otm">Weeks 2 to 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:3"><button class="oline" type="button" data-key="account" data-svc="3"><img src="assets/img/odoo/account.svg" alt="" width="24" height="24"><span class="onm">Branch invoices and layout</span><span class="osc">S3</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:4"><button class="oline" type="button" data-key="spreadsheet_dashboard" data-svc="4"><img src="assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="24" height="24"><span class="onm">Data migration</span><span class="osc">S4</span><span class="otm">Weeks 3 to 7</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:5"><button class="oline" type="button" data-key="documents" data-svc="5"><img src="assets/img/odoo/documents.svg" alt="" width="24" height="24"><span class="onm">CAS application pack</span><span class="osc">S5</span><span class="otm">Week 4</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:6"><button class="oline" type="button" data-key="website_slides" data-svc="6"><img src="assets/img/odoo/website_slides.svg" alt="" width="24" height="24"><span class="onm">Training and user testing</span><span class="osc">S6</span><span class="otm">Week 5</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
+              <li style="--li:7"><button class="oline" type="button" data-key="helpdesk" data-svc="7"><img src="assets/img/odoo/helpdesk.svg" alt="" width="24" height="24"><span class="onm">Go-live, hypercare and support</span><span class="osc">S7</span><span class="otm">From 4 Jan</span><span class="ost">Planned</span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
             </ol>
             <div class="hero-foot">
               <span class="pr">Pricing in <a href="#part-2" data-goto="2">Part 2</a></span>
@@ -135,6 +142,18 @@
       </div>
     </div>
   </div>
+  <button class="nexi" type="button" data-nexi aria-label="Nexi, the TechNext assistant: show a tip">
+    <span class="nexi-in"><span class="nexi-bob"><span class="nexi-sq">
+        <img class="nexi-pose on" data-pose="hello" src="assets/img/nexi/nexi-hello.webp" width="412" height="494" alt="" style="--w:412;--h:494;--ax:190;--ay:244">
+        <img class="nexi-pose" data-pose="point-left" src="assets/img/nexi/nexi-point-left.webp" width="476" height="495" alt="" style="--w:476;--h:495;--ax:299;--ay:244">
+        <img class="nexi-pose" data-pose="point-right" src="assets/img/nexi/nexi-point-right.webp" width="476" height="495" alt="" style="--w:476;--h:495;--ax:177;--ay:244">
+        <img class="nexi-pose" data-pose="think" src="assets/img/nexi/nexi-think.webp" width="350" height="494" alt="" style="--w:350;--h:494;--ax:187;--ay:244">
+        <img class="nexi-pose" data-pose="wow" src="assets/img/nexi/nexi-wow.webp" width="325" height="495" alt="" style="--w:325;--h:495;--ax:162;--ay:280">
+        <img class="nexi-pose" data-pose="celebrate" src="assets/img/nexi/nexi-celebrate.webp" width="495" height="495" alt="" style="--w:495;--h:495;--ax:248;--ay:280">
+        <img class="nexi-pose" data-pose="love" src="assets/img/nexi/nexi-love.webp" width="314" height="494" alt="" style="--w:314;--h:494;--ax:157;--ay:244">
+    </span></span><span class="nexi-shadow"></span></span>
+  </button>
+  <p class="nexi-say" data-nexi-say aria-hidden="true"></p>
 </header>
 
 <!-- ======================= PORTAL ======================= -->
@@ -1094,6 +1113,7 @@
   </form>
 </dialog>
 
+<div class="fx-src" hidden aria-hidden="true"><img src="assets/img/odoo/accountant.svg" width="50" height="50" alt="" data-key="accountant" data-app="Accounting"><img src="assets/img/odoo/account.svg" width="50" height="50" alt="" data-key="account" data-app="Invoicing"><img src="assets/img/odoo/sale.svg" width="50" height="50" alt="" data-key="sale" data-app="Sales"><img src="assets/img/odoo/project.svg" width="50" height="50" alt="" data-key="project" data-app="Project"><img src="assets/img/odoo/documents.svg" width="50" height="50" alt="" data-key="documents" data-app="Documents"><img src="assets/img/odoo/helpdesk.svg" width="50" height="50" alt="" data-key="helpdesk" data-app="Helpdesk"><img src="assets/img/odoo/spreadsheet_dashboard.svg" width="50" height="50" alt="" data-key="spreadsheet_dashboard" data-app="Dashboards"><img src="assets/img/odoo/website_slides.svg" width="50" height="50" alt="" data-key="website_slides" data-app="eLearning"></div>
 <script src="assets/proposal.js" defer></script>
 </body>
 </html>
