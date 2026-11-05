@@ -19,27 +19,21 @@
     requestAnimationFrame(step);
   }
 
-  /* ---------------- pricing model ---------------- */
-  const VAT = 0.12;
+  /* ---------------- pricing model: every price stated once, no tax lines ---------------- */
   const PLANS = {
-    essential: { name: 'Essential', price: 18000, sla: { p1r: '4 business hours', p1f: 'Within 1 business day', p2r: '1 business day', p2f: 'Within 3 business days', p3r: '2 business days', p3f: 'Within 10 business days', p4r: '3 business days', cover: '' } },
-    priority: { name: 'Priority', price: 32000, sla: { p1r: '2 business hours', p1f: 'Within 8 business hours', p2r: '4 business hours', p2f: 'Within 2 business days', p3r: '1 business day', p3f: 'Within 5 business days', p4r: '2 business days', cover: '' } },
-    dedicated: { name: 'Dedicated', price: 58000, sla: { p1r: '1 business hour', p1f: 'Within 4 business hours', p2r: '2 business hours', p2f: 'Within 1 business day', p3r: '4 business hours', p3f: 'Within 3 business days', p4r: '1 business day', cover: ', plus Saturday 9:00 am to 1:00 pm in the last week of each month' } }
+    essential: { ref: 'C1', name: 'Essential', sla: { p1r: '4 business hours', p1f: 'Within 1 business day', p2r: '1 business day', p2f: 'Within 3 business days', p3r: '2 business days', p3f: 'Within 10 business days', p4r: '3 business days', cover: '' } },
+    priority: { ref: 'C2', name: 'Priority', sla: { p1r: '2 business hours', p1f: 'Within 8 business hours', p2r: '4 business hours', p2f: 'Within 2 business days', p3r: '1 business day', p3f: 'Within 5 business days', p4r: '2 business days', cover: '' } },
+    dedicated: { ref: 'C3', name: 'Dedicated', sla: { p1r: '1 business hour', p1f: 'Within 4 business hours', p2r: '2 business hours', p2f: 'Within 1 business day', p3r: '4 business hours', p3f: 'Within 3 business days', p4r: '1 business day', cover: ', plus Saturday 9:00 am to 1:00 pm in the last week of each month' } }
   };
-  const state = { plan: 'priority', opts: {} };
+  const ODOO = { '3-25': 'D1', '3-30': 'D2', '5-25': 'D3', '5-30': 'D4' };
+  const state = { plan: 'priority', opts: {}, odoo: '3-25' };
   const prev = {};
-
-  function baseUntaxed() {
-    return $$('[data-line]').reduce((s, tr) => {
-      const q = +tr.dataset.qty, u = +tr.dataset.unit, d = +(tr.dataset.disc || 0);
-      return s + q * u * (1 - d / 100);
-    }, 0);
-  }
+  const baseFee = () => $$('[data-line]').reduce((s, tr) => s + (+tr.dataset.amt || 0), 0);
 
   function optLines() {
     return $$('[data-opt]').filter(o => state.opts[o.dataset.opt]).map(o => {
       const qty = state.opts[o.dataset.opt];
-      return { key: o.dataset.opt, name: o.dataset.name, desc: o.dataset.desc, qty, unit: +o.dataset.unit, amt: qty * +o.dataset.unit };
+      return { key: o.dataset.opt, ref: o.dataset.ref, qty, amt: qty * +o.dataset.unit };
     });
   }
 
@@ -53,45 +47,25 @@
     if (bump && from !== value && !RM) els.forEach(el => { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
   }
 
+  const odooRef = () => { const p = state.odoo.split('-'); return ODOO[state.odoo] + ', ' + p[0] + ' years, ' + p[1] + ' users'; };
+  const optRefs = () => optLines().map(o => o.ref + (o.qty > 1 ? ' 00d7' + o.qty : ''));
+
   function recalc() {
-    const opts = optLines();
-    const untaxed = baseUntaxed() + opts.reduce((s, o) => s + o.amt, 0);
-    const vat = Math.round(untaxed * VAT * 100) / 100;
-    const grand = untaxed + vat;
-    const plan = PLANS[state.plan];
-
-    const box = $('[data-opts]'); if (box) box.classList.toggle('has-on', opts.length > 0);
-    const body = $('[data-opt-lines]');
-    if (body) {
-      const keep = new Set(Array.from(body.querySelectorAll('tr[data-k]')).map(r => r.dataset.k));
-      body.innerHTML = opts.length ? '<tr class="qs"><td colspan="5">Optional items added</td></tr>' + opts.map(o =>
-        '<tr data-k="' + o.key + '"' + (keep.has(o.key) ? '' : ' class="opt-on"') + '><td>' + o.name + '<small>' + o.desc + '</small></td><td class="r">' + o.qty + '</td><td class="r">' + money(o.unit) + '</td><td class="r"></td><td class="r amt">' + money(o.amt) + '</td></tr>').join('') : '';
-    }
-
-    setMoney('grand', grand, v => 'PHP ' + money(v, 0), true);
-    setMoney('grand-plain', grand, v => money(v));
-    setMoney('grand-2', grand, v => 'PHP ' + money(v));
-    setMoney('untaxed', untaxed, v => money(v));
-    setMoney('untaxed-php', untaxed, v => 'PHP ' + money(v));
-    setMoney('vat', vat, v => 'PHP ' + money(v));
-    const g = Math.round(grand), p1 = Math.round(g * 0.5), p2 = Math.round(g * 0.3), p3 = g - p1 - p2;
-    setMoney('pay1', p1, v => 'PHP ' + money(v, 0));
-    setMoney('pay2', p2, v => 'PHP ' + money(v, 0));
-    setMoney('pay3', p3, v => 'PHP ' + money(v, 0));
-    setOut('recur-line', 'PHP ' + money(plan.price) + ' + VAT');
-    setOut('recurring', '+ PHP ' + money(plan.price, 0) + ' / month + VAT, support from Feb 2027');
+    const opts = optLines(), refs = optRefs(), plan = PLANS[state.plan];
+    setMoney('fee-total', baseFee() + opts.reduce((s, o) => s + o.amt, 0), v => 'PHP ' + money(v, 0), true);
+    setOut('opt-note', refs.length ? 'Includes optional ' + refs.join(', ') : '');
+    setOut('opt-refs', refs.length ? refs.join(', ') : 'None added');
+    setOut('plan-ref', plan.ref + ' ' + plan.name);
     setOut('plan-name', plan.name);
-    setOut('plan-price', 'PHP ' + money(plan.price, 0));
-    setOut('plan-monthly-vat', 'PHP ' + money(Math.round(plan.price * (1 + VAT)), 0));
-    setMoney('year1', Math.round(grand + plan.price * (1 + VAT) * 11), v => 'PHP ' + money(v, 0));
-    renderMix(opts, untaxed);
+    setOut('odoo-ref', odooRef());
     updateMailSigned();
   }
 
-  /* support plan */
+  /* C: support plan (the service levels in Part 3 follow it) */
   $$('[data-plans] input').forEach(inp => inp.addEventListener('change', () => {
     if (!inp.checked) return;
     state.plan = inp.value;
+    $$('[data-plans] tbody tr').forEach(tr => tr.classList.toggle('is-on', !!$('input:checked', tr)));
     const sla = PLANS[state.plan].sla;
     $$('[data-sla]').forEach(el => {
       const k = el.dataset.sla;
@@ -104,12 +78,14 @@
     recalc();
   }));
 
-  /* optional items */
+  /* B: optional items join the total in A */
   $$('[data-opt]').forEach(o => {
     const btn = $('.opt-btn', o), qty = $('.qty', o), out = qty && $('output', qty), label = $('span', btn);
+    const name = $('b', o).textContent;
     btn.addEventListener('click', () => {
       const on = btn.getAttribute('aria-pressed') !== 'true';
       btn.setAttribute('aria-pressed', on);
+      btn.setAttribute('aria-label', (on ? 'Remove ' : 'Add ') + name);
       label.textContent = on ? 'Added' : 'Add';
       o.classList.toggle('is-on', on);
       if (qty) { qty.hidden = !on; if (on && out) out.value = out.textContent = '1'; }
@@ -123,6 +99,23 @@
       recalc();
     }));
   });
+
+  /* D: Odoo licence, choose one (term x users); a row click picks it too */
+  const opick = $('[data-opick]');
+  if (opick) {
+    const pickOdoo = () => {
+      state.odoo = $('input[name=oterm]:checked', opick).value + '-' + $('input[name=ousers]:checked', opick).value;
+      $$('[data-otbl] tr[data-o]').forEach(tr => tr.classList.toggle('is-on', tr.dataset.o === state.odoo));
+      recalc();
+    };
+    opick.addEventListener('change', pickOdoo);
+    $$('[data-otbl] tr[data-o]').forEach(tr => tr.addEventListener('click', () => {
+      const p = tr.dataset.o.split('-');
+      $('input[name=oterm][value="' + p[0] + '"]', opick).checked = true;
+      $('input[name=ousers][value="' + p[1] + '"]', opick).checked = true;
+      pickOdoo();
+    }));
+  }
 
   /* ---------------- signature ---------------- */
   const dlgSign = $('#dlg-sign');
@@ -197,6 +190,8 @@
     const when = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     signed = { name, title, when };
     $$('[data-sig-img]').forEach(i => { i.src = img; });
+    $$('[data-sig-name]').forEach(e => { e.textContent = name + (title ? ', ' + title : ''); });
+    $$('[data-sig-date]').forEach(e => { e.textContent = when; });
     $$('[data-sig-who]').forEach(w => { w.innerHTML = '<b></b><span></span>'; w.firstChild.textContent = name; w.lastChild.textContent = (title ? title + ', ' : '') + 'Sample Trading Corp. · signed ' + when; });
     root.classList.add('is-signed');
     $$('[data-status-pill]').forEach(p => { p.textContent = 'Signed'; p.className = 'pill pill--ok'; });
@@ -208,8 +203,9 @@
 
   function updateMailSigned() {
     const a = $('[data-mail-signed]'); if (!a) return;
-    const total = $('[data-out="grand"]') ? $('[data-out="grand"]').textContent : '';
-    const body = 'Hello TechNext,\n\nWe accept proposal S00147 (BIR CAS on Odoo) for ' + total + ' including VAT, with the ' + PLANS[state.plan].name + ' support plan.' +
+    const plan = PLANS[state.plan], refs = optRefs();
+    const body = 'Hello TechNext,\n\nWe accept proposal S00147 (BIR CAS on Odoo) and its terms, with support plan ' + plan.ref + ' ' + plan.name +
+      ', Odoo option ' + odooRef() + ' and optional items: ' + (refs.length ? refs.join(', ') : 'none') + '.' +
       (signed ? '\n\nSigned by ' + signed.name + (signed.title ? ', ' + signed.title : '') + ' on ' + signed.when + '.' : '') + '\n\nThe signed PDF is attached.\n';
     a.href = 'mailto:sales@technext.asia?cc=jeric@technext.asia&subject=' + encodeURIComponent('Signed proposal S00147 - Sample Trading Corp.') + '&body=' + encodeURIComponent(body);
   }
@@ -368,60 +364,6 @@
 
   /* ================= v2: parts, showcase, architecture, chart, tilt ================= */
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-  /* ---------- investment mix (ranked bars, one hue) ---------- */
-  function groups(opts) {
-    const out = []; let g = null;
-    $$('[data-lines] tr').forEach(tr => {
-      if (tr.classList.contains('qs')) { g = { lab: tr.textContent.trim(), amt: 0, items: [] }; out.push(g); return; }
-      if (!tr.hasAttribute('data-line') || !g) return;
-      const q = +tr.dataset.qty, u = +tr.dataset.unit, d = +(tr.dataset.disc || 0);
-      g.amt += q * u * (1 - d / 100);
-      g.items.push(tr.cells[0].firstChild.textContent.trim());
-    });
-    if (opts.length) out.push({ lab: 'Optional items', amt: opts.reduce((s, o) => s + o.amt, 0), items: opts.map(o => o.name), opt: true });
-    return out.map(x => Object.assign(x, { k: x.lab.toLowerCase().replace(/[^a-z]+/g, '-') }));
-  }
-  function renderMix(opts, untaxed) {
-    const list = $('[data-mix-list]'); if (!list) return;
-    if (!list.querySelector('li[data-k]')) list.innerHTML = '';
-    const gs = groups(opts).sort((a, b) => b.amt - a.amt);
-    const keep = new Set(gs.map(x => x.k));
-    $$('li[data-k]', list).forEach(li => { if (!keep.has(li.dataset.k)) li.remove(); });
-    gs.forEach((x, i) => {
-      let li = list.querySelector('li[data-k="' + x.k + '"]');
-      if (!li) {
-        li = document.createElement('li'); li.dataset.k = x.k;
-        li.innerHTML = '<span class="lab"></span><span class="val"></span><button class="bar2" type="button"><i></i></button>';
-      }
-      const pct = untaxed ? x.amt / untaxed * 100 : 0;
-      li.className = x.opt ? 'opt' : '';
-      li.style.setProperty('--i', i);
-      $('.lab', li).textContent = x.lab;
-      $('.val', li).innerHTML = money(x.amt, 0) + '<small>' + Math.round(pct) + '%</small>';
-      const bar = $('.bar2', li);
-      bar.style.setProperty('--w', pct.toFixed(1));
-      bar.dataset.tipt = x.lab + ': PHP ' + money(x.amt, 0);
-      bar.dataset.tipd = x.items.join(', ');
-      bar.setAttribute('aria-label', x.lab + ', PHP ' + money(x.amt, 0) + ', ' + Math.round(pct) + ' percent of the untaxed amount');
-      list.appendChild(li);
-    });
-  }
-  const mix = $('[data-mix]'), tip = $('[data-tip]');
-  if (mix && tip) {
-    const showTip = b => {
-      tip.innerHTML = '<b>' + esc(b.dataset.tipt) + '</b>' + esc(b.dataset.tipd);
-      const m = mix.getBoundingClientRect(), r = b.getBoundingClientRect();
-      tip.style.left = Math.max(8, Math.min(m.width - 290, r.left - m.left)) + 'px';
-      tip.style.top = (r.top - m.top - tip.offsetHeight - 8) + 'px';
-      tip.classList.add('on');
-    };
-    const hideTip = () => tip.classList.remove('on');
-    mix.addEventListener('pointerover', e => { const b = e.target.closest('.bar2'); if (b) showTip(b); });
-    mix.addEventListener('pointerout', e => { if (e.target.closest('.bar2')) hideTip(); });
-    mix.addEventListener('focusin', e => { const b = e.target.closest('.bar2'); if (b) showTip(b); });
-    mix.addEventListener('focusout', hideTip);
-  }
 
   /* ---------- parts ---------- */
   const partEls = $$('.part[data-part]');
@@ -733,11 +675,11 @@
     }
 
     /* route from an app to its quotation row, along the grid: down, across, down, into the row */
+    const heroWin = $('.hero-win', coverEl), RC = { f: -1, w: null, r: [] };
     function route(n) {
-      const i = ROWKEYS.indexOf(n.key); if (i < 0) return null;
-      const win = $('.hero-win', coverEl); if (!win) return null;
-      const w = rel(win), r = rel(ROWS[i]), ry = (r.t + r.b) / 2, left = n.side < 0;
-      const chips = $('.hchips', coverEl), ct = chips ? rel(chips).t : w.t;
+      const i = ROWKEYS.indexOf(n.key); if (i < 0 || !heroWin) return null;
+      if (RC.f !== S.fid) { RC.f = S.fid; RC.w = rel(heroWin); RC.r = []; }
+      const w = RC.w, r = RC.r[i] || (RC.r[i] = rel(ROWS[i])), ry = (r.t + r.b) / 2, left = n.side < 0, ct = w.t;
       const edge = left ? w.l + 2 : w.r - 2, lane = left ? w.l - 24 - (n.rank % 4) * 10 : w.r + 24 + (n.rank % 4) * 10, top = Math.min(w.t - 30, ct - 22) - (n.rank % 4) * 10;
       const ln = left ? w.l - 22 - n.rank * 12 : w.r + 22 + n.rank * 12, sy = n.y + 24;
       const P = [[n.x, n.y], [n.x, sy], [ln, sy], [ln, ry], [edge, ry]];
@@ -766,6 +708,7 @@
     function frame(now) {
       if (!S.run) return;
       requestAnimationFrame(frame);
+      S.fid = (S.fid || 0) + 1;
       if ((!S.vis && S.mode === 'hero') || document.hidden) { S.last = now; return; }
       const dt = Math.min(.05, (now - (S.last || now)) / 1000); S.last = now;
       step(now, dt); draw(now);
@@ -830,7 +773,15 @@
         c.strokeStyle = 'rgba(49,103,202,' + (.22 * S.trackA).toFixed(3) + ')'; c.lineWidth = 1.2;
         c.beginPath(); c.arc(D.cx, D.cy, D.r, -Math.PI / 2, -Math.PI / 2 + p * 6.283); c.stroke();
         c.strokeStyle = 'rgba(49,103,202,' + (.28 * S.trackA).toFixed(3) + ')';
-        for (let k = 0; k < 60; k++) { const g = k / 60 * 6.283 + S.rot * .5; if (k / 60 > p) break; const r1 = D.r + 12, r2 = D.r + (k % 5 ? 16 : 22); c.beginPath(); c.moveTo(D.cx + Math.cos(g) * r1, D.cy + Math.sin(g) * r1); c.lineTo(D.cx + Math.cos(g) * r2, D.cy + Math.sin(g) * r2); c.stroke(); }
+        const pa = S.has ? Math.atan2(S.py - D.cy, S.px - D.cx) : null;
+        for (let k = 0; k < 60; k++) {
+          const g = k / 60 * 6.283 + S.rot * .5; if (k / 60 > p) break;
+          let near = 0; if (pa !== null) { let d = Math.abs(((g - pa) % 6.283 + 9.425) % 6.283 - 3.1416); near = Math.max(0, 1 - d / .55); near *= near; }
+          const r1 = D.r + 12, r2 = D.r + (k % 5 ? 16 : 22) + near * 9;
+          c.strokeStyle = 'rgba(49,103,202,' + ((.28 + near * .62) * S.trackA).toFixed(3) + ')'; c.lineWidth = 1.2 + near * .9;
+          c.beginPath(); c.moveTo(D.cx + Math.cos(g) * r1, D.cy + Math.sin(g) * r1); c.lineTo(D.cx + Math.cos(g) * r2, D.cy + Math.sin(g) * r2); c.stroke();
+        }
+        c.lineWidth = 1.2;
         if (p >= 1) { const g = (now - S.t0) / 1000 * .9 - Math.PI / 2, x = D.cx + Math.cos(g) * D.r, y = D.cy + Math.sin(g) * D.r; trail(c, k => { const gg = g - k * .03; return [D.cx + Math.cos(gg) * D.r, D.cy + Math.sin(gg) * D.r]; }, S.trackA); nodes.forEach(n => { if (Math.hypot(n.x - x, n.y - y) < 10) n.glow = Math.max(n.glow, .8); }); }
       }
       /* the active route: the hovered row or app, or the travelling pulse */
@@ -921,6 +872,7 @@
       const TIPS = ['Every price is in Part 2. Parts 1 and 3 have none.', 'Point at a line to see where it comes from.', 'Add an option in Part 2 and every total updates.', 'Sign in Part 3, then email us the signed PDF.', "Booklets and retyping? It's not you, it's the process."];
       function pose(p) {
         if (!poses[p] || p === N.pose) return;
+        if (poses[p].dataset.src && !poses[p].getAttribute('src')) poses[p].src = poses[p].dataset.src;
         poses[N.pose].classList.remove('on'); poses[p].classList.add('on'); N.pose = p;
         if (!RM && sq && sq.animate) sq.animate([{ transform: 'scale(1.05,.95)' }, { transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
       }
@@ -1061,16 +1013,45 @@
     try { sessionStorage.setItem('tnp-intro', '1'); } catch (e) { /* ignore */ }
     const mainEl = $('#main'), plane = $('[data-intro-plane]', box), trail = $('[data-intro-trail]', box), svg = $('.intro-trail', box), line = $('[data-intro-line]', box), words = $$('span', line), act = $('[data-intro-act]', box), openB = $('[data-intro-open]', box), skip = $('[data-intro-skip]', box), cv = $('[data-intro-canvas]', box);
     box.hidden = false; root.classList.add('intro-on'); if (mainEl) mainEl.inert = true;
+    const wis = words.map(w => { const i = document.createElement('span'); i.className = 'wi'; while (w.firstChild) i.appendChild(w.firstChild); w.appendChild(i); return i; });
+    const numW = words.find(w => /\d/.test(w.textContent)), numWi = numW && $('.wi', numW), numTxt = numW ? numW.textContent : '';
     const hint = $('.intro-hint', box); if (hint && matchMedia('(pointer: coarse)').matches) hint.textContent = 'Tap the button to open, or tap an app to see its name.';
     let done = false, anims = [], auto = 0, viaKey = false;
     const cleanup = () => { removeEventListener('keydown', onKey); removeEventListener('wheel', onWheel); removeEventListener('scroll', onScroll2); clearTimeout(auto); };
     const end = () => { box.remove(); root.classList.remove('intro-on'); if (mainEl) mainEl.inert = false; const c = $('.hero2 .btn-primary'); if (c && viaKey) c.focus({ preventScroll: true }); else if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); };
     function open() {
       if (done) return; done = true; cleanup();
+      const exitE = 'cubic-bezier(.55,0,.9,.35)', moveE = 'cubic-bezier(.65,0,.25,1)';
+      const ttl = $('.hero-win .o-ttl', cover), logo = $('.cover-top .lockup .tn', cover);
+      const tR = ttl && ttl.getBoundingClientRect(), lR = logo && logo.getBoundingClientRect();
       box.classList.add('opening');
-      anims.push(plane.animate([{ offsetDistance: mPct, transform: 'scale(1)' }, { offsetDistance: '100%', transform: 'scale(.6)' }], { duration: 520, easing: 'cubic-bezier(.55,0,.9,.35)', fill: 'forwards' }));
-      anims.push(trail.animate([{ strokeDashoffset: 1 - mid }, { strokeDashoffset: 0 }], { duration: 520, easing: 'cubic-bezier(.55,0,.9,.35)', fill: 'forwards' }));
-      cover.classList.add('reveal');
+      /* the words leave upwards through their masks; the proposal number travels into the quotation */
+      wis.forEach((w, i) => { if (w === numWi) return; anims.push(w.animate([{ transform: 'none' }, { transform: 'translateY(-108%)' }], { duration: 260, delay: i * 22, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' })); });
+      if (numW && tR && tR.top > 0 && tR.bottom < innerHeight) {
+        const r = numW.getBoundingClientRect(), k = parseFloat(getComputedStyle(ttl).fontSize) / parseFloat(getComputedStyle(numW).fontSize);
+        numW.style.transformOrigin = '0 0'; numW.style.overflow = 'visible'; ttl.style.visibility = 'hidden';
+        const f = numW.animate([{ transform: 'none', color: '#1F1F3D' }, { transform: 'translate(' + (tR.left - r.left) + 'px,' + (tR.top - r.top + (tR.height - r.height * k) / 2) + 'px) scale(' + k + ')', color: '#1F1F3D' }], { duration: 780, delay: 60, easing: moveE, fill: 'forwards' });
+        anims.push(f); f.onfinish = () => { ttl.style.visibility = ''; numW.style.opacity = 0; };
+        setTimeout(() => { ttl.style.visibility = ''; }, 1300);
+      } else if (numWi) anims.push(numWi.animate([{ transform: 'none' }, { transform: 'translateY(-108%)' }], { duration: 340, easing: exitE, fill: 'forwards' }));
+      /* the plane flies home into the logo's plane mark */
+      if (lR && lR.width) {
+        const pr = plane.getBoundingClientRect(), x0 = pr.left + pr.width / 2, y0 = pr.top + pr.height / 2;
+        const L = trail.getTotalLength(), a = trail.getPointAtLength(Math.max(0, mid * L - 2)), b = trail.getPointAtLength(Math.min(L, mid * L + 2));
+        const ang0 = Math.atan2(b.y - a.y, b.x - a.x) + 35 * Math.PI / 180, w = plane.offsetWidth, h = plane.offsetHeight;
+        const x2 = lR.left + lR.width * .0945, y2 = lR.top + lR.height * .497, s2 = lR.width * .155 / w;
+        const x1 = (x0 + x2) / 2 - 80, y1 = Math.min(y0, y2) - 140;
+        anims.forEach(an => { if (an.effect && an.effect.target === plane) an.cancel(); });
+        plane.style.offsetPath = 'none';
+        const kf = []; for (let i = 0; i <= 14; i++) { const t = i / 14, e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, u = 1 - e;
+          const x = u * u * x0 + 2 * u * e * x1 + e * e * x2, y = u * u * y0 + 2 * u * e * y1 + e * e * y2, ang = ang0 * (1 - e), s = 1 + (s2 - 1) * e;
+          kf.push({ transform: 'translate(' + (x - w / 2) + 'px,' + (y - h / 2) + 'px) rotate(' + ang + 'rad) scale(' + s + ')', opacity: t > .9 ? 1 - (t - .9) * 10 : 1 }); }
+        const pf = plane.animate(kf, { duration: 860, easing: 'linear', fill: 'forwards' }); anims.push(pf);
+        pf.onfinish = () => { logo.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.06)', offset: .35 }, { transform: 'scale(1)' }], { duration: 420, easing: 'cubic-bezier(.34,1.56,.64,1)' }); };
+      }
+      /* the hero answers: the headline rises again from its mask, then the CAS line and the buttons */
+      cover.classList.add('rehero'); void cover.offsetWidth;
+      requestAnimationFrame(() => { cover.classList.remove('rehero'); cover.classList.add('reveal'); });
       FX.handoff(end);
     }
     function skipNow() { if (done) return; done = true; cleanup(); anims.forEach(a => a.cancel()); FX.skipIntro(); cover.classList.add('reveal'); end(); }
@@ -1092,7 +1073,16 @@
       const land = 'cubic-bezier(.16,1,.3,1)';
       anims.push(plane.animate([{ offsetDistance: '0%', transform: 'scale(2.6)', opacity: 0 }, { opacity: 1, offset: .12 }, { offsetDistance: mPct, transform: 'scale(1)', opacity: 1 }], { duration: 820, delay: 120, easing: land, fill: 'both' }));
       anims.push(trail.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 1 - mid }], { duration: 820, delay: 120, easing: land, fill: 'both' }));
-      words.forEach((w, i) => anims.push(w.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 440, delay: 420 + i * 85, easing: land, fill: 'both' })));
+      words.forEach(w => { w.style.opacity = 1; });
+      wis.forEach((w, i) => anims.push(w.animate([{ transform: 'translateY(108%)' }, { transform: 'none' }], { duration: 560, delay: 420 + i * 70 + (i % 2) * 18, easing: land, fill: 'both' })));
+      if (numWi) {
+        const t0 = performance.now() + 470, dur = 720, fin = numTxt.split('');
+        const roll = () => { if (done) { numWi.textContent = numTxt; return; } const k = (performance.now() - t0) / dur;
+          numWi.textContent = fin.map((ch, j) => !/\d/.test(ch) || k > .25 + j * .13 ? ch : String((Math.floor(performance.now() / 45) + j * 3) % 10)).join('');
+          if (k < 1.1) requestAnimationFrame(roll); else numWi.textContent = numTxt; };
+        requestAnimationFrame(roll);
+      }
+      box.style.setProperty('--gx', cx + 'px'); box.style.setProperty('--gy', cy + 'px'); box.classList.add('grid-in');
       FX.introStart(cv, lr, nexiAt);
       startHero();
       setTimeout(() => { if (done) return; act.classList.add('on'); openB.focus({ preventScroll: true }); }, 1450);
@@ -1118,8 +1108,6 @@
     if (st.length < 2) return;
     st[0].className = 'on'; st[1].className = '';
     rows.forEach((r, i) => setTimeout(() => r.classList.remove('off'), 700 + i * 240));
-    const tot = $('[data-count-hero]', cover);
-    if (tot) setTimeout(() => tween(0, prev['grand-plain'] || 0, 1400, v => { tot.textContent = money(v); }), 800);
     setTimeout(() => { if (!root.classList.contains('is-signed')) { st[0].className = 'done'; st[1].className = 'on'; } }, 2300);
     $$('[data-hero-pack] .ic', cover).forEach((ic, i) => setTimeout(() => ic.classList.add('in'), 1500 + i * 220));
   }
@@ -1130,4 +1118,8 @@
   heroScroll();
   if (!runIntro()) startHero();
   window.__tnp = 1;
+  /* the other Nexi poses load once the page is idle */
+  const lazyPoses = () => $$('.nexi-pose[data-src]').forEach(i => { if (!i.getAttribute('src')) i.src = i.dataset.src; });
+  if (document.readyState === 'complete') (window.requestIdleCallback || setTimeout)(lazyPoses, 1500);
+  else addEventListener('load', () => (window.requestIdleCallback || setTimeout)(lazyPoses, { timeout: 2500 }), { once: true });
 })();
