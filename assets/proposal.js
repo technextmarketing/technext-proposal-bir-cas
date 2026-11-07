@@ -48,7 +48,7 @@
   }
 
   const odooRef = () => { const p = state.odoo.split('-'); return ODOO[state.odoo] + ', ' + p[0] + ' years, ' + p[1] + ' users'; };
-  const optRefs = () => optLines().map(o => o.ref + (o.qty > 1 ? ' 00d7' + o.qty : ''));
+  const optRefs = () => optLines().map(o => o.ref + (o.qty > 1 ? ' ×' + o.qty : ''));
 
   function recalc() {
     const opts = optLines(), refs = optRefs(), plan = PLANS[state.plan];
